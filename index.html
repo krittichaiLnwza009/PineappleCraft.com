@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PineappleCraft.com - ศิลปะและวิถีแห่งการปลูกสับปะรด</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Prompt -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        pa: {
+                            bg: '#FFFDF9',        /* Cream light background */
+                            card: '#FFF8F0',      /* Soft orange cream card */
+                            primary: '#E67E22',   /* Warm Pineapple Orange */
+                            secondary: '#D97706', /* Deep Golden Amber */
+                            accent: '#F59E0B',    /* Bright Pineapple Gold */
+                            brown: '#8B5A2B',     /* Soft Natural Brown */
+                            darkbrown: '#4A2E12', /* Deep Text Brown */
+                            softorange: '#FFEDD5',/* Very soft orange tint */
+                            lightbrown: '#F4E8D1' /* Light warm brown element */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #FFFDF9;
+            color: #4A2E12;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .tab-btn.active {
+            background-color: #E67E22;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(230, 126, 34, 0.3);
+        }
+        .page-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out forwards;
+        }
+        .page-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom Scrollbar for Chat */
+        .chat-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: #FFF8F0;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-pa-softorange selection:text-pa-darkbrown">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-[#FFFDF9]/90 backdrop-blur-md border-b border-pa-lightbrown/60">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" onclick="switchPage('home'); return false;" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white shadow-md shadow-pa-primary/20 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid font-bold text-xl">🍍</i>
+                </div>
+                <div>
+                    <span class="text-xl font-bold tracking-tight text-pa-darkbrown block leading-tight">Pineapple<span class="text-pa-primary">Craft</span></span>
+                    <span class="text-xs text-pa-brown font-light tracking-wide">.com</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-1 bg-pa-softorange/50 p-1.5 rounded-full border border-pa-lightbrown/40">
+                <button onclick="switchPage('home')" id="nav-home" class="tab-btn active px-5 py-2 rounded-full text-sm font-medium transition-all duration-200">
+                    <i class="fa-solid fa-house mr-1.5 text-xs"></i>หน้าหลัก
+                </button>
+                <button onclick="switchPage('purpose')" id="nav-purpose" class="tab-btn px-5 py-2 rounded-full text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+                    <i class="fa-solid fa-bullseye mr-1.5 text-xs"></i>วัตถุประสงค์
+                </button>
+                <button onclick="switchPage('guide')" id="nav-guide" class="tab-btn px-5 py-2 rounded-full text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+                    <i class="fa-solid fa-book-open mr-1.5 text-xs"></i>คู่มือการปลูก
+                </button>
+                <button onclick="switchPage('ai')" id="nav-ai" class="tab-btn px-5 py-2 rounded-full text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+                    <i class="fa-solid fa-robot mr-1.5 text-xs"></i>AI สับปะรดกูรู
+                </button>
+                <button onclick="switchPage('founders')" id="nav-founders" class="tab-btn px-5 py-2 rounded-full text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+                    <i class="fa-solid fa-users mr-1.5 text-xs"></i>ผู้ก่อตั้ง
+                </button>
+            </nav>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl text-pa-darkbrown hover:bg-pa-softorange focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#FFFDF9] border-b border-pa-lightbrown px-4 pt-2 pb-6 space-y-2">
+            <button onclick="switchPage('home'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">หน้าหลัก</button>
+            <button onclick="switchPage('purpose'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">วัตถุประสงค์</button>
+            <button onclick="switchPage('guide'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">คู่มือการปลูก</button>
+            <button onclick="switchPage('ai'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">AI สับปะรดกูรู</button>
+            <button onclick="switchPage('founders'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">ผู้ก่อตั้ง</button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ================= PAGE 1: HOME ================= -->
+        <section id="page-home" class="page-section active space-y-12">
+            <!-- Hero Section -->
+            <div class="relative bg-gradient-to-br from-pa-softorange via-[#FFF8F0] to-pa-lightbrown/40 rounded-3xl p-8 sm:p-12 border border-pa-lightbrown/60 overflow-hidden shadow-sm">
+                <div class="max-w-2xl relative z-10 space-y-6">
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-pa-primary/10 text-pa-primary border border-pa-primary/20">
+                        🌱 ร่วมสร้างอนาคตเกษตรกรไทย
+                    </span>
+                    <h1 class="text-3xl sm:text-5xl font-bold text-pa-darkbrown leading-tight">
+                        เริ่มต้นเปลี่ยนพื้นที่ว่าง ให้เป็น <span class="text-pa-primary">ขุมทรัพย์สับปะรด</span>
+                    </h1>
+                    <p class="text-pa-brown text-base sm:text-lg leading-relaxed font-light">
+                        เรียนรู้วิธีการปลูกและดูแลสับปะรดอย่างถูกวิธี ตั้งแต่การเตรียมดินจนถึงการเก็บเกี่ยวสร้างกำไร สมบูรณ์แบบสำหรับทั้งผู้เริ่มต้นและเกษตรกรมืออาชีพ
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <button onclick="switchPage('guide')" class="px-6 py-3.5 bg-pa-primary hover:bg-pa-secondary text-white rounded-2xl font-medium shadow-lg shadow-pa-primary/25 transition-all flex items-center gap-2 text-sm">
+                            เริ่มศึกษาการปลูก <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                        <button onclick="switchPage('ai')" class="px-6 py-3.5 bg-white hover:bg-pa-softorange/50 text-pa-darkbrown border border-pa-lightbrown rounded-2xl font-medium transition-all text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-sparkles text-pa-accent"></i> ปรึกษา AI ผู้ช่วย
+                        </button>
+                    </div>
+                </div>
+                <div class="hidden lg:block absolute -right-10 -bottom-10 opacity-20 text-[260px] select-none pointer-events-none">
+                    🍍
+                </div>
+            </div>
+
+            <!-- Why Pineapple? (ข้อดีของการปลูกสับปะรด) -->
+            <div class="space-y-6">
+                <div class="text-center max-w-xl mx-auto space-y-2">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-pa-darkbrown">ทำไมต้องเป็น "สับปะรด"?</h2>
+                    <p class="text-pa-brown text-sm font-light">พืชเศรษฐกิจทนแล้ง ดูแลรักษาง่าย และให้ผลตอบแทนที่คุ้มค่า</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-3 hover:border-pa-primary/40 transition-all">
+                        <div class="w-12 h-12 rounded-xl bg-pa-softorange text-pa-primary flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-sun"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-pa-darkbrown">ทนทานทุกสภาพอากาศ</h3>
+                        <p class="text-sm text-pa-brown leading-relaxed font-light">
+                            สับปะรดเป็นพืชกลุ่ม CAM ที่สูญเสียน้ำน้อยมาก ทนสภาพแห้งแล้งได้ดีเยี่ยม ปลูกได้เกือบทุกภูมิภาคของไทย
+                        </p>
+                    </div>
+
+                    <div class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-3 hover:border-pa-primary/40 transition-all">
+                        <div class="w-12 h-12 rounded-xl bg-pa-softorange text-pa-primary flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-coins"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-pa-darkbrown">ตลาดรองรับหลากหลาย</h3>
+                        <p class="text-sm text-pa-brown leading-relaxed font-light">
+                            ขายได้ทั้งผลสด ตลาดโรงงานแปรรูปทำสับปะรดกระป๋อง น้ำผลไม้ หรือทำสับปะรดกวน สร้างรายได้หลากหลายทาง
+                        </p>
+                    </div>
+
+                    <div class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-3 hover:border-pa-primary/40 transition-all">
+                        <div class="w-12 h-12 rounded-xl bg-pa-softorange text-pa-primary flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-pa-darkbrown">ขยายพันธุ์ง่าย ต้นทุนต่ำ</h3>
+                        <p class="text-sm text-pa-brown leading-relaxed font-light">
+                            สามารถใช้หน่อหรือจุกมาขยายพันธุ์ต่อได้เรื่อยๆ โดยไม่ต้องซื้อเมล็ดพันธุ์ใหม่ตลอดเวลา ช่วยลดต้นทุนในระยะยาว
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Cards Hub -->
+            <div class="bg-gradient-to-r from-pa-softorange/40 to-pa-lightbrown/30 p-8 rounded-3xl border border-pa-lightbrown/60 space-y-6">
+                <h2 class="text-xl font-bold text-pa-darkbrown text-center">สำรวจเนื้อหาในเว็บไซต์</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <button onclick="switchPage('purpose')" class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 text-left hover:border-pa-primary hover:shadow-sm transition-all group">
+                        <i class="fa-solid fa-bullseye text-2xl text-pa-primary mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">วัตถุประสงค์</h4>
+                        <p class="text-xs text-pa-brown mt-1">เจตนารมณ์ในการตั้งเว็บไซต์</p>
+                    </button>
+                    <button onclick="switchPage('guide')" class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 text-left hover:border-pa-primary hover:shadow-sm transition-all group">
+                        <i class="fa-solid fa-book-open text-2xl text-pa-primary mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">ขั้นตอนการปลูก</h4>
+                        <p class="text-xs text-pa-brown mt-1">วิธีเตรียมดิน ให้น้ำ และปุ๋ย</p>
+                    </button>
+                    <button onclick="switchPage('ai')" class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 text-left hover:border-pa-primary hover:shadow-sm transition-all group">
+                        <i class="fa-solid fa-robot text-2xl text-pa-primary mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">ถาม-ตอบ AI</h4>
+                        <p class="text-xs text-pa-brown mt-1">สอบถาม AI สับปะรดกูรู</p>
+                    </button>
+                    <button onclick="switchPage('founders')" class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 text-left hover:border-pa-primary hover:shadow-sm transition-all group">
+                        <i class="fa-solid fa-users text-2xl text-pa-primary mb-3 block group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">ทีมงานผู้ก่อตั้ง</h4>
+                        <p class="text-xs text-pa-brown mt-1">ผู้เบื้องหลัง PineappleCraft</p>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 2: PURPOSE ================= -->
+        <section id="page-purpose" class="page-section space-y-8">
+            <div class="max-w-3xl mx-auto space-y-6">
+                <div class="text-center space-y-3">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Our Purpose</span>
+                    <h1 class="text-3xl font-bold text-pa-darkbrown">วัตถุประสงค์ในการก่อตั้งเว็บไซต์</h1>
+                    <p class="text-pa-brown text-sm font-light">มุ่งมั่นสร้างสังคมเกษตรกรรมสับปะรดที่ยั่งยืนและเข้าถึงง่ายสำหรับทุกคน</p>
+                </div>
+
+                <div class="bg-pa-card p-8 rounded-3xl border border-pa-lightbrown/60 space-y-6 shadow-sm">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-pa-primary text-white flex-shrink-0 flex items-center justify-center font-bold">1</div>
+                        <div>
+                            <h3 class="text-base font-bold text-pa-darkbrown">ส่งเสริมการใช้พื้นที่อย่างมีประสิทธิภาพ</h3>
+                            <p class="text-sm text-pa-brown mt-1 font-light leading-relaxed">
+                                เพื่อให้ผู้ที่มีที่ดินว่างเปล่า ได้เห็นถึงศักยภาพของสับปะรด ซึ่งเป็นพืชที่ปลูกง่าย ดูแลไม่ยุ่งยาก และสามารถสร้างมูลค่าเพิ่มให้กับที่ดินได้อย่างยั่งยืน
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr class="border-pa-lightbrown/40">
+
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-pa-primary text-white flex-shrink-0 flex items-center justify-center font-bold">2</div>
+                        <div>
+                            <h3 class="text-base font-bold text-pa-darkbrown">รวบรวมและรวบรวมความรู้ที่ถูกต้อง</h3>
+                            <p class="text-sm text-pa-brown mt-1 font-light leading-relaxed">
+                                นำเสนอคู่มือการปลูกสับปะรดแบบเข้าใจง่าย ตั้งแต่ขั้นตอนการเตรียมดิน เลือกสายพันธุ์ การดูแลรักษารวมไปถึงการจัดการศัตรูพืชอย่างเป็นระบบ
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr class="border-pa-lightbrown/40">
+
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-pa-primary text-white flex-shrink-0 flex items-center justify-center font-bold">3</div>
+                        <div>
+                            <h3 class="text-base font-bold text-pa-darkbrown">ประยุกต์ใช้เทคโนโลยี AI เพื่อสนับสนุนเกษตรกร</h3>
+                            <p class="text-sm text-pa-brown mt-1 font-light leading-relaxed">
+                                นำนวัตกรรม ปัญญาประดิษฐ์ (AI) มาช่วยตอบคำถาม ให้คำปรึกษาแก่ผู้ปลูกสับปะรดได้แบบเรียลไทม์ ตลอด 24 ชั่วโมง เพื่อแก้ไขปัญหาได้ตรงจุด
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3: PLANTING GUIDE ================= -->
+        <section id="page-guide" class="page-section space-y-8">
+            <div class="text-center max-w-xl mx-auto space-y-2">
+                <h1 class="text-3xl font-bold text-pa-darkbrown">คู่มือการปลูกสับปะรดฉบับสมบูรณ์</h1>
+                <p class="text-pa-brown text-sm font-light">ขั้นตอนการดูแลอย่างเป็นระบบ เพื่อผลผลิตที่สมบูรณ์และได้คุณภาพ</p>
+            </div>
+
+            <!-- Steps Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Step 1 -->
+                <div class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-3 relative overflow-hidden">
+                    <span class="absolute top-4 right-4 text-4xl font-bold text-pa-primary/10">01</span>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-pa-softorange text-pa-primary flex items-center justify-center">
+                            <i class="fa-solid fa-mountain text-lg"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-pa-darkbrown">1. การเตรียมดินและแปลงปลูก</h3>
+                    </div>
+                    <ul class="text-sm text-pa-brown space-y-2 font-light list-disc list-inside">
+                        <li>ปรับสภาพดินร่วนรุย หรือดินร่วนปนทราย (pH ที่เหมาะสม 4.5 - 5.5)</li>
+                        <li>ไถพรวนดินอย่างน้อย 2 รอบ ความลึก 30-40 ซม.</li>
+                        <li>ยกร่องแปลงปลูกเพื่อป้องกันน้ำขัง เนื่องจากสับปะรดไม่ชอบน้ำขังขมัง</li>
+                    </ul>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-3 relative overflow-hidden">
+                    <span class="absolute top-4 right-4 text-4xl font-bold text-pa-primary/10">02</span>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-pa-softorange text-pa-primary flex items-center justify-center">
+                            <i class="fa-solid fa-seedling text-lg"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-pa-darkbrown">2. คัดเลือกหน่อและเทคนิคการปลูก</h3>
+                    </div>
+                    <ul class="text-sm text-pa-brown space-y-2 font-light list-disc list-inside">
+                        <li>ใช้หน่อข้าง (Shoots) หรือจุก (Crowns) ยาวประมาณ 30-45 ซม.</li>
+                        <li>ผึ่งลมหน่อให้แผลแห้ง 3-5 วันก่อนนำไปปลูกเพื่อลดโรคเน่า</li>
+                        <li>ปลูกระยะห่างระหว่างต้น 30-40 ซม. ระหว่างแถว 50-60 ซม.</li>
+                    </ul>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-3 relative overflow-hidden">
+                    <span class="absolute top-4 right-4 text-4xl font-bold text-pa-primary/10">03</span>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-pa-softorange text-pa-primary flex items-center justify-center">
+                            <i class="fa-solid fa-droplet text-lg"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-pa-darkbrown">3. การให้น้ำและแสงแดด</h3>
+                    </div>
+                    <ul class="text-sm text-pa-brown space-y-2 font-light list-disc list-inside">
+                        <li>สับปะรดต้องการแสงแดดเต็มวัน (อย่างน้อย 6-8 ชั่วโมงต่อวัน)</li>
+                        <li>ให้น้ำสม่ำเสมอช่วง 1-3 เดือนแรก เพื่อช่วยในการสร้างราก</li>
+                        <li>เมื่อต้นโตเต็มที่ สามารถให้น้ำ 1-2 สัปดาห์ต่อครั้ง หรือตามสภาพอากาศ</li>
+                    </ul>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-3 relative overflow-hidden">
+                    <span class="absolute top-4 right-4 text-4xl font-bold text-pa-primary/10">04</span>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-pa-softorange text-pa-primary flex items-center justify-center">
+                            <i class="fa-solid fa-flask text-lg"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-pa-darkbrown">4. การใส่ปุ๋ยและบำรุง</h3>
+                    </div>
+                    <ul class="text-sm text-pa-brown space-y-2 font-light list-disc list-inside">
+                        <li>ใส่ปุ๋ยครั้งแรก (เดือนที่ 1-2): สูตรไนโตรเจนสูง เช่น 21-0-0 หรือ 16-16-16</li>
+                        <li>ใส่ปุ๋ยครั้งที่สอง (เดือนที่ 5-6): เร่งการเจริญเติบโตของลำต้นและใบ</li>
+                        <li>พ่นสารโพแทสเซียมเร่งความหวานช่วงผลกำลังพัฒนา</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Calculator Widget -->
+            <div class="bg-gradient-to-br from-pa-softorange/60 via-white to-pa-lightbrown/40 p-6 sm:p-8 rounded-3xl border border-pa-lightbrown space-y-4 max-w-xl mx-auto shadow-sm">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-calculator text-2xl text-pa-primary"></i>
+                    <h3 class="text-lg font-bold text-pa-darkbrown">เครื่องมือคำนวณจำนวนต้นสับปะรด</h3>
+                </div>
+                <p class="text-xs text-pa-brown">คำนวณจำนวนต้นสับปะรดโดยประมาณที่สามารถปลูกได้ตามขนาดพื้นที่ของคุณ (เฉลี่ย 8,000 ต้น/ไร่)</p>
+                <div class="flex items-center gap-3 pt-2">
+                    <input type="number" id="calc-area" placeholder="ระบุจำนวนไร่..." class="w-full px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-white text-sm">
+                    <button onclick="calculatePlants()" class="px-5 py-2.5 bg-pa-primary hover:bg-pa-secondary text-white rounded-xl text-sm font-medium transition-all flex-shrink-0">
+                        คำนวณ
+                    </button>
+                </div>
+                <div id="calc-result" class="hidden p-4 bg-white rounded-xl border border-pa-lightbrown/60 text-center text-sm font-semibold text-pa-darkbrown">
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 4: AI ASSISTANT ================= -->
+        <section id="page-ai" class="page-section space-y-6">
+            <div class="text-center max-w-xl mx-auto space-y-2">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pa-softorange text-pa-primary text-xs font-semibold">
+                    <i class="fa-solid fa-sparkles"></i> Powered by Gemini API
+                </div>
+                <h1 class="text-3xl font-bold text-pa-darkbrown">AI สับปะรดกูรู</h1>
+                <p class="text-pa-brown text-sm font-light">สอบถามข้อสงสัยเกี่ยวกับการปลูกสับปะรด โรคพืช หรือการดูแลรักษาได้ทันที</p>
+            </div>
+
+            <!-- Chat Container -->
+            <div class="max-w-3xl mx-auto bg-pa-card rounded-3xl border border-pa-lightbrown/80 shadow-sm flex flex-col h-[520px] overflow-hidden">
+                <!-- Chat Header -->
+                <div class="bg-white/80 backdrop-blur px-6 py-4 border-b border-pa-lightbrown/50 flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-pa-primary text-white flex items-center justify-center text-sm font-bold">
+                        🍍
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-pa-darkbrown">ผู้ช่วยอัจฉริยะ PineappleCraft</h3>
+                        <p class="text-[11px] text-green-600 font-medium flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> พร้อมตอบคำถามตลอด 24 ชม.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Chat History -->
+                <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 chat-scroll">
+                    <!-- Default Welcome Bot Message -->
+                    <div class="flex gap-3 items-start">
+                        <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">
+                            🍍
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
+                            สวัสดีครับ! ผมคือ **AI สับปะรดกูรู** ผู้ช่วยด้านการปลูกและดูแลสับปะรด มีข้อสงสัยเรื่องการเตรียมดิน ปุ๋ย โรคพืช หรือเทคนิคการปลูก ถามผมมาได้เลยครับ!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggested Quick Chips -->
+                <div class="px-6 py-2 bg-white/50 border-t border-pa-lightbrown/30 flex gap-2 overflow-x-auto text-xs no-scrollbar">
+                    <button onclick="askPreset('สับปะรดชอบดินแบบไหนและควรเตรียมดินอย่างไร?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
+                        🌱 การเตรียมดิน
+                    </button>
+                    <button onclick="askPreset('ต้องใส่ปุ๋ยสูตรไหนและใส่ช่วงเวลาใดบ้าง?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
+                        🧪 สูตรปุ๋ยสับปะรด
+                    </button>
+                    <button onclick="askPreset('วิธีป้องกันโรคยอดเน่าในสับปะรดทำอย่างไร?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
+                        🛡️ โรคและแมลง
+                    </button>
+                </div>
+
+                <!-- Chat Input Form -->
+                <form id="chat-form" onsubmit="handleChatSubmit(event)" class="p-3 bg-white border-t border-pa-lightbrown/60 flex items-center gap-2">
+                    <input type="text" id="chat-input" placeholder="พิมพ์คำถามเกี่ยวกับการปลูกสับปะรด..." class="flex-grow px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary text-sm bg-pa-bg">
+                    <button type="submit" id="send-btn" class="px-5 py-2.5 bg-pa-primary hover:bg-pa-secondary text-white rounded-xl text-sm font-medium transition-all flex items-center gap-2 flex-shrink-0">
+                        <span>ส่ง</span> <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 5: FOUNDERS ================= -->
+        <section id="page-founders" class="page-section space-y-8">
+            <div class="text-center max-w-xl mx-auto space-y-2">
+                <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Our Team</span>
+                <h1 class="text-3xl font-bold text-pa-darkbrown">ผู้ก่อตั้งเว็บไซต์</h1>
+                <p class="text-pa-brown text-sm font-light">คณะผู้จัดทำและพัฒนา PineappleCraft.com</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- Founder 1 -->
+                <div class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 text-center space-y-3 hover:shadow-md transition-all">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">
+                        บ
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-pa-darkbrown text-base">นาย บรรณรต ศรีปลัด</h3>
+                        <p class="text-xs text-pa-brown mt-0.5">ผู้ก่อตั้ง & ทีมพัฒนาโครงการ</p>
+                    </div>
+                </div>
+
+                <!-- Founder 2 -->
+                <div class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 text-center space-y-3 hover:shadow-md transition-all">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">
+                        ค
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-pa-darkbrown text-base">นาย คณาพงษ์ กระดุมพรรค</h3>
+                        <p class="text-xs text-pa-brown mt-0.5">ผู้ก่อตั้ง & ทีมพัฒนาโครงการ</p>
+                    </div>
+                </div>
+
+                <!-- Founder 3 -->
+                <div class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 text-center space-y-3 hover:shadow-md transition-all">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">
+                        ศ
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-pa-darkbrown text-base">นาย ศุภกร ศิริวงค์</h3>
+                        <p class="text-xs text-pa-brown mt-0.5">ผู้ก่อตั้ง & ทีมพัฒนาโครงการ</p>
+                    </div>
+                </div>
+
+                <!-- Founder 4 -->
+                <div class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 text-center space-y-3 hover:shadow-md transition-all">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">
+                        ก
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-pa-darkbrown text-base">นาย กฤติชัย สุโพธิ์</h3>
+                        <p class="text-xs text-pa-brown mt-0.5">ผู้ก่อตั้ง & ทีมพัฒนาโครงการ</p>
+                    </div>
+                </div>
+
+                <!-- Founder 5 -->
+                <div class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 text-center space-y-3 hover:shadow-md transition-all sm:col-span-2 lg:col-span-1">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">
+                        ป
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-pa-darkbrown text-base">นาย ปกรณ์ ธัญญารักษ์</h3>
+                        <p class="text-xs text-pa-brown mt-0.5">ผู้ก่อตั้ง & ทีมพัฒนาโครงการ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-pa-card border-t border-pa-lightbrown/60 py-8 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 text-center space-y-3">
+            <div class="flex items-center justify-center gap-2 font-bold text-pa-darkbrown">
+                <span>🍍</span> PineappleCraft.com
+            </div>
+            <p class="text-xs text-pa-brown font-light">
+                เว็บไซต์ส่งเสริมการเกษตรและสนับสนุนผู้ปลูกสับปะรดในประเทศไทย
+            </p>
+            <p class="text-[11px] text-pa-brown/70">
+                &copy; 2026 PineappleCraft. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript logic -->
+    <script>
+        // Tab switching logic
+        function switchPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Deactivate all nav buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show current page
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // Activate current nav button
+            const targetNav = document.getElementById('nav-' + pageId);
+            if (targetNav) {
+                targetNav.classList.add('active');
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Plants Calculator Function
+        function calculatePlants() {
+            const input = document.getElementById('calc-area').value;
+            const resultDiv = document.getElementById('calc-result');
+            
+            if (!input || input <= 0) {
+                resultDiv.classList.remove('hidden');
+                resultDiv.innerHTML = '<span class="text-red-500">กรุณาระบุจำนวนไร่ให้ถูกต้อง</span>';
+                return;
+            }
+
+            const areaRai = parseFloat(input);
+            const totalPlants = Math.round(areaRai * 8000);
+            
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = `พื้นที่ <span class="text-pa-primary font-bold">${areaRai}</span> ไร่ สามารถปลูกสับปะรดได้ประมาณ <span class="text-pa-primary font-bold">${totalPlants.toLocaleString()}</span> ต้น`;
+        }
+
+        // Gemini AI Chat Handler
+        async function handleChatSubmit(e) {
+            e.preventDefault();
+            const inputEl = document.getElementById('chat-input');
+            const message = inputEl.value.trim();
+
+            if (!message) return;
+
+            // Clear input
+            inputEl.value = '';
+
+            // Display User Message
+            appendUserMessage(message);
+
+            // Show Typing Indicator
+            const typingId = appendTypingIndicator();
+
+            try {
+                // System prompt context
+                const systemPrompt = "คุณคือ AI ผู้เชี่ยวชาญด้านการปลูกและการดูแลสับปะรดของเว็บไซต์ PineappleCraft.com ตอบคำถามอย่างเป็นมิตร สุภาพ อ่านง่าย ให้ข้อมูลทางการเกษตรเกี่ยวกับการปลูกสับปะรดที่ถูกต้อง";
+                
+                // Call Gemini API via fetch proxy endpoint
+                const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: `${systemPrompt}\n\nผู้ใช้ถามว่า: ${message}`
+                            }]
+                        }]
+                    })
+                });
+
+                const data = await response.json();
+                removeMessage(typingId);
+
+                if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                    const reply = data.candidates[0].content.parts[0].text;
+                    appendBotMessage(reply);
+                } else {
+                    appendBotMessage("ขออภัยครับ ขณะนี้ระบบประมวลผลขัดข้องเล็กน้อย ลองสอบถามใหม่อีกครั้งนะครับ");
+                }
+
+            } catch (err) {
+                removeMessage(typingId);
+                // Fallback reply if API Key is not configured
+                appendBotMessage("ขออภัยครับ เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย กรุณาลองใหม่อีกครั้ง");
+            }
+        }
+
+        function askPreset(question) {
+            document.getElementById('chat-input').value = question;
+            document.getElementById('chat-form').dispatchEvent(new Event('submit'));
+        }
+
+        function appendUserMessage(text) {
+            const chatBox = document.getElementById('chat-messages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex justify-end';
+            msgDiv.innerHTML = `
+                <div class="bg-pa-primary text-white p-3.5 rounded-2xl rounded-tr-none text-xs sm:text-sm max-w-[80%] shadow-sm">
+                    ${escapeHtml(text)}
+                </div>
+            `;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function appendBotMessage(text) {
+            const chatBox = document.getElementById('chat-messages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex gap-3 items-start';
+            
+            // Format basic bold markdown to HTML
+            let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            formattedText = formattedText.replace(/\n/g, '<br>');
+
+            msgDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">
+                    🍍
+                </div>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
+                    ${formattedText}
+                </div>
+            `;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function appendTypingIndicator() {
+            const chatBox = document.getElementById('chat-messages');
+            const id = 'typing-' + Date.now();
+            const msgDiv = document.createElement('div');
+            msgDiv.id = id;
+            msgDiv.className = 'flex gap-3 items-start';
+            msgDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">
+                    🍍
+                </div>
+                <div class="bg-white px-4 py-3 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs text-pa-brown flex items-center gap-1.5 shadow-sm">
+                    <span>กำลังคิดคำตอบ</span>
+                    <span class="animate-bounce">.</span>
+                    <span class="animate-bounce font-bold" style="animation-delay: 0.2s">.</span>
+                    <span class="animate-bounce font-bold" style="animation-delay: 0.4s">.</span>
+                </div>
+            `;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return id;
+        }
+
+        function removeMessage(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+</html>
