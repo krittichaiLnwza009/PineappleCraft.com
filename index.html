@@ -1,4 +1,4 @@
-I/<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -247,7 +247,7 @@ I/<!DOCTYPE html>
                     <div class="flex items-start gap-4">
                         <div class="w-10 h-10 rounded-xl bg-pa-primary text-white flex-shrink-0 flex items-center justify-center font-bold">2</div>
                         <div>
-                            <h3 class="text-base font-bold text-pa-darkbrown">รวบรวมและนำเสนอความรู้ที่ถูกต้อง</h3>
+                            <h3 class="text-base font-bold text-pa-darkbrown">รวบรวมและรวบรวมความรู้ที่ถูกต้อง</h3>
                             <p class="text-sm text-pa-brown mt-1 font-light leading-relaxed">
                                 นำเสนอคู่มือการปลูกสับปะรดแบบเข้าใจง่าย ตั้งแต่ขั้นตอนการเตรียมดิน เลือกสายพันธุ์ การดูแลรักษารวมไปถึงการจัดการศัตรูพืชอย่างเป็นระบบ
                             </p>
@@ -504,7 +504,10 @@ I/<!DOCTYPE html>
             </p>
         </div>
     </footer>
-        // Tab switching logic
+
+    <!-- JavaScript logic -->
+    <script>
+                // Tab switching logic
         function switchPage(pageId) {
             document.querySelectorAll('.page-section').forEach(section => {
                 section.classList.remove('active');
@@ -532,7 +535,7 @@ I/<!DOCTYPE html>
             menu.classList.toggle('hidden');
         }
 
-        // Calculator Function
+        // Plants Calculator Function
         function calculatePlants() {
             const input = document.getElementById('calc-area').value;
             const resultDiv = document.getElementById('calc-result');
@@ -550,35 +553,7 @@ I/<!DOCTYPE html>
             resultDiv.innerHTML = `พื้นที่ <span class="text-pa-primary font-bold">${areaRai}</span> ไร่ สามารถปลูกสับปะรดได้ประมาณ <span class="text-pa-primary font-bold">${totalPlants.toLocaleString()}</span> ต้น`;
         }
 
-        // ระบบตอบคำถามสำรองกรณีฉุกเฉิน (Expanded Knowledge Base)
-        function getSmartKnowledgeBaseReply(msg) {
-            const lowerMsg = msg.toLowerCase();
-
-            // คำถามเรื่องสับปะรดสีม่วง / สีแปลกๆ
-            if (lowerMsg.includes('ม่วง') || lowerMsg.includes('สีม่วง')) {
-                return "**เกี่ยวกับสับปะรดสีม่วง:**\n\n1. **สายพันธุ์ประดับ:** สับปะรดบางสายพันธุ์ เช่น *สับปะรดสี (Bromeliad)* หรือพันธุ์ประดับ เช่น *Ananas comosus var. bracteatus* จะมีใบ ผล หรือจุกเป็นสีชมพู/ม่วงเข้ม ซึ่งเป็นเรื่องปกติและมีไว้เพื่อความสวยงามครับ\n2. **ผลผิดปกติจากการขาดสารอาหาร:** หากเป็นสับปะรดทานผลทั่วไปแต่ใบเริ่มเปลี่ยนเป็นสีม่วงอมแดง มักเกิดจาก **การขาดธาตุฟอสฟอรัส (P)** หรือสภาพอากาศหนวดเย็นเกินไป แนะนำให้เสริมปุ๋ยที่มีฟอสฟอรัสเพื่อบำรุงครับ\n3. **ดัดแปลงพันธุกรรม (Pinkglow):** ปัจจุบันมีการตัดแต่งพันธุกรรมสับปะรดเนื้อสีชมพู/ม่วงอ่อนเพื่อการค้า แต่ในไทยยังพบได้น้อยครับ";
-            }
-            if (lowerMsg.includes('ดิน') || lowerMsg.includes('เตรียมดิน')) {
-                return "**การเตรียมดิน:** ชอบดินร่วนปนทราย pH 4.5 - 5.5 ระบายน้ำดี ยกร่องแปลงปลูกเพื่อป้องกันรากเน่าครับ";
-            }
-            if (lowerMsg.includes('ปุ๋ย') || lowerMsg.includes('บำรุง')) {
-                return "**การใส่ปุ๋ย:** ช่วงแรกเน้นไนโตรเจน (21-0-0 หรือ 16-16-16) เพื่อสร้างใบ พอยอดโตเน้นโพแทสเซียมเพื่อเพิ่มน้ำหนักและความหวานครับ";
-            }
-            if (lowerMsg.includes('โรค') || lowerMsg.includes('เน่า')) {
-                return "**โรคยอดเน่า:** เกิดจากเชื้อราและความชื้นสะสม ควรจุ่มหน่อด้วยสารป้องกันเชื้อราก่อนปลูก และรักษาระดับการระบายน้ำให้ดีครับ";
-            }
-            if (lowerMsg.includes('น้ำ') || lowerMsg.includes('รดน้ำ')) {
-                return "**การให้น้ำ:** สับปะรดทนแล้งได้ดี รดน้ำสัปดาห์ละ 1 ครั้ง หรือช่วง 1-3 เดือนแรกให้อย่างสม่ำเสมอเพื่อเร่งรากครับ";
-            }
-            if (lowerMsg.includes('ผู้ก่อตั้ง') || lowerMsg.includes('ใครทำ')) {
-                return "คณะผู้จัดทำ PineappleCraft.com ได้แก่:\n1. นาย บรรณรต ศรีปลัด\n2. นาย คณาพงษ์ กระดุมพรรค\n3. นาย ศุภกร ศิริวงค์\n4. นาย กฤติชัย สุโพธิ์\n5. นาย ปกรณ์ ธัญญารักษ์ ครับ";
-            }
-
-            // คำตอบทั่วไปสำหรับคำถามอื่นๆ ทั้งหมด
-            return "สำหรับคำถามว่า **\"" + escapeHtml(msg) + "\"**:\n\nหากท่านต้องการคำตอบเชิงลึก กรุณาใส่ **Gemini API Key** ในโค้ดตัวเว็บเพื่อเปิดใช้งาน AI แบบตอบได้ทุกเรื่องเต็มรูปแบบครับ! แต่หากเป็นเรื่องการปลูกสับปะรด ท่านสามารถถามเรื่อง *การเตรียมดิน, ปุ๋ย, น้ำ, หรือสับปะรดสีแปลกๆ* ได้เลยครับ!";
-        }
-
-        // Gemini AI Chat Handler (Full Capability)
+        // 🤖 Gemini AI Chat Handler (เปิดใช้งานเต็มประสิทธิภาพด้วย API Key ของคุณ)
         async function handleChatSubmit(e) {
             e.preventDefault();
             const inputEl = document.getElementById('chat-input');
@@ -586,44 +561,46 @@ I/<!DOCTYPE html>
 
             if (!message) return;
 
+            // เคลียร์ช่องพิมพ์ และแสดงข้อความของผู้ใช้
             inputEl.value = '';
             appendUserMessage(message);
             const typingId = appendTypingIndicator();
 
-            // 🔑 นำ API Key จาก Google AI Studio มาวางในเครื่องหมายอัญประกาศนี้
-            // ตัวอย่าง: const API_KEY = "AIzaSyD...";
-            const API_KEY = ""; 
+            // 🔑 API Key ของคุณ
+            const API_KEY = "AQ.Ab8RN6LGXk3a9MEeZn89ORQXTSdQNa6lvP7K92Uwh0TsYN2oyw"; 
 
-            if (API_KEY && API_KEY.trim() !== "") {
-                try {
-                    const systemPrompt = "คุณคือ AI ผู้เชี่ยวชาญประจำเว็บ PineappleCraft.com ที่สามารถตอบได้ทุกคำถามในโลก ไม่ว่าจะเป็นเรื่องสับปะรด วิทยาศาสตร์ การเกษตร หรือเรื่องทั่วไป ตอบอย่างสุภาพ สบายตา และเป็นมิตรภาษาไทย";
-                    
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{
-                                parts: [{ text: `${systemPrompt}\n\nคำถามจากผู้ใช้: ${message}` }]
-                            }]
-                        })
-                    });
+            try {
+                // Prompt กำหนดให้ AI ตอบได้ทุกคำถามแบบสุภาพ เป็นมิตร
+                const systemPrompt = "คุณคือ AI ผู้เชี่ยวชาญและผู้ช่วยอัจฉริยะประจำเว็บไซต์ PineappleCraft.com คุณมีความรู้กว้างขวาง ตอบคำถามผู้ใช้ได้ทุกเรื่องในโลก ไม่ว่าจะเป็นการเกษตร สับปะรด ความรู้ทั่วไป หรือคำถามแปลกๆ โดยตอบด้วยภาษาไทยที่สุภาพ เป็นกันเอง อ่านง่าย สบายตา";
+                
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json' 
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: `${systemPrompt}\n\nผู้ใช้ถามว่า: ${message}` }]
+                        }]
+                    })
+                });
 
-                    const data = await response.json();
-                    removeMessage(typingId);
+                const data = await response.json();
+                removeMessage(typingId);
 
-                    if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-                        appendBotMessage(data.candidates[0].content.parts[0].text);
-                        return;
-                    }
-                } catch (err) {
-                    console.error("Gemini API Error:", err);
+                if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                    const reply = data.candidates[0].content.parts[0].text;
+                    appendBotMessage(reply);
+                } else {
+                    // หาก API แจ้งเตือนข้อผิดพลาด
+                    appendBotMessage("ขออภัยครับ ขณะนี้ระบบประมวลผลขัดข้องเล็กน้อย กรุณาลองส่งคำถามใหม่อีกครั้งนะครับ");
                 }
-            }
 
-            // หากไม่มี API Key หรือ API เกิดปัญหา จะสลับมาใช้ระบบคำตอบอัจฉริยะสำรอง
-            await new Promise(resolve => setTimeout(resolve, 600));
-            removeMessage(typingId);
-            appendBotMessage(getSmartKnowledgeBaseReply(message));
+            } catch (err) {
+                removeMessage(typingId);
+                console.error("Gemini Error:", err);
+                appendBotMessage("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์ AI กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่อีกครั้งนะครับ");
+            }
         }
 
         function askPreset(question) {
@@ -649,6 +626,7 @@ I/<!DOCTYPE html>
             const msgDiv = document.createElement('div');
             msgDiv.className = 'flex gap-3 items-start';
             
+            // Format Bold และขึ้นบรรทัดใหม่จาก Markdown เป็น HTML
             let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             formattedText = formattedText.replace(/\n/g, '<br>');
 
