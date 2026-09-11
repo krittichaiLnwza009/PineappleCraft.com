@@ -1327,6 +1327,18 @@
                 const rect = canvas.getBoundingClientRect();
                 basket.x = e.clientX - rect.left - basket.width / 2;
             };
+            
+            // For Mobile Touch Control
+            canvas.ontouchmove = (e) => {
+                e.preventDefault();
+                const rect = canvas.getBoundingClientRect();
+                basket.x = e.touches[0].clientX - rect.left - basket.width / 2;
+            };
+
+            // Restart game on click if game over
+            canvas.onclick = () => {
+                if(gameOver) initCatcherGame();
+            };
 
             function loop() {
                 frame++;
@@ -1395,18 +1407,17 @@
                 ctx.fillStyle = '#4A2E12';
                 ctx.font = 'bold 16px Prompt';
                 ctx.fillText(`คะแนน: ${score}`, 10, 25);
-                ctx.fillText(`ชีวิต: ${'❤️'.repeat(Math.max(0, lives))}`, canvas.width - 100, 25);
+                ctx.fillText(`หัวใจ: ${'❤️'.repeat(Math.max(0, lives))}`, canvas.width - 90, 25);
 
                 if (gameOver) {
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     ctx.fillStyle = '#FFFFFF';
                     ctx.font = 'bold 22px Prompt';
                     ctx.textAlign = 'center';
-                    ctx.fillText('จบเกม!', canvas.width / 2, canvas.height / 2 - 10);
+                    ctx.fillText('จบเกม! (Game Over)', canvas.width / 2, canvas.height / 2 - 10);
                     ctx.font = '14px Prompt';
-                    ctx.fillText(`คะแนนรวม: ${score}`, canvas.width / 2, canvas.height / 2 + 15);
-                    ctx.fillText('แตะปุ่มเริ่มใหม่เพื่อเล่นอีกครั้ง', canvas.width / 2, canvas.height / 2 + 40);
+                    ctx.fillText('แตะหน้าจอเพื่อเริ่มใหม่', canvas.width / 2, canvas.height / 2 + 20);
                     ctx.textAlign = 'left';
                 } else {
                     catcherAnimationId = requestAnimationFrame(loop);
@@ -1416,19 +1427,20 @@
             loop();
         }
 
-        // Initialize Everything
-        window.addEventListener('DOMContentLoaded', () => {
+        // ================= 9. INITIALIZATION =================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize AOS Animation
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 50
+            });
+
+            // Set initial daily tip & update UI
             generateRandomTip();
             updateBookmarkUI();
-            
-            if (typeof AOS !== 'undefined') {
-                AOS.init({
-                    duration: 800,
-                    once: true,
-                    easing: 'ease-out-back'
-                });
-            }
         });
+
     </script>
 </body>
 </html>
