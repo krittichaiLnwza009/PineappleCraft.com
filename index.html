@@ -23,15 +23,15 @@
                     },
                     colors: {
                         pa: {
-                            bg: '#FFFDF9',        
-                            card: '#FFF8F0',      
-                            primary: '#E67E22',   
-                            secondary: '#D97706', 
-                            accent: '#F59E0B',    
-                            brown: '#8B5A2B',     
-                            darkbrown: '#4A2E12', 
-                            softorange: '#FFEDD5',
-                            lightbrown: '#F4E8D1' 
+                            bg: 'var(--color-bg)',        
+                            card: 'var(--color-card)',      
+                            primary: 'var(--color-primary)',   
+                            secondary: 'var(--color-secondary)', 
+                            accent: 'var(--color-accent)',    
+                            brown: 'var(--color-brown)',     
+                            darkbrown: 'var(--color-darkbrown)', 
+                            softorange: 'var(--color-softorange)',
+                            lightbrown: 'var(--color-lightbrown)' 
                         }
                     }
                 }
@@ -39,20 +39,84 @@
         }
     </script>
     <style>
+        /* ================= Dynamic Theme Variables ================= */
+        :root {
+            --color-bg: #FFFDF9;
+            --color-card: #FFF8F0;
+            --color-primary: #E67E22;
+            --color-secondary: #D97706;
+            --color-accent: #F59E0B;
+            --color-brown: #8B5A2B;
+            --color-darkbrown: #4A2E12;
+            --color-softorange: #FFEDD5;
+            --color-lightbrown: #F4E8D1;
+            --header-bg: rgba(255, 253, 249, 0.9);
+            --border-color: rgba(244, 232, 209, 0.6);
+        }
+
+        /* 🌙 Dark Mode Theme */
+        body.theme-dark {
+            --color-bg: #0F172A;
+            --color-card: #1E293B;
+            --color-primary: #F59E0B;
+            --color-secondary: #D97706;
+            --color-accent: #10B981;
+            --color-brown: #94A3B8;
+            --color-darkbrown: #F8FAFC;
+            --color-softorange: #334155;
+            --color-lightbrown: #475569;
+            --header-bg: rgba(15, 23, 42, 0.9);
+            --border-color: rgba(71, 85, 105, 0.6);
+        }
+
+        /* 👑 Gold Pineapple Theme (Unlocked via Flappy Score >= 5) */
+        body.theme-gold {
+            --color-bg: #1A1200;
+            --color-card: #2B1D02;
+            --color-primary: #FFD700;
+            --color-secondary: #F59E0B;
+            --color-accent: #FFF066;
+            --color-brown: #D4AF37;
+            --color-darkbrown: #FFF8DC;
+            --color-softorange: #4A3305;
+            --color-lightbrown: #66490A;
+            --header-bg: rgba(26, 18, 0, 0.9);
+            --border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        /* ⚡ Neon Cyberpunk Theme (Unlocked via Catcher Score >= 50) */
+        body.theme-neon {
+            --color-bg: #05050D;
+            --color-card: #121226;
+            --color-primary: #39FF14;
+            --color-secondary: #00E5FF;
+            --color-accent: #FF007F;
+            --color-brown: #A0A0CF;
+            --color-darkbrown: #FFFFFF;
+            --color-softorange: #1F1F40;
+            --color-lightbrown: #2D2D59;
+            --header-bg: rgba(5, 5, 13, 0.9);
+            --border-color: rgba(57, 255, 20, 0.4);
+        }
+
         * {
-            transition: background-color 0.2s ease, border-color 0.2s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
         body {
             font-family: 'Prompt', sans-serif;
-            background-color: #FFFDF9;
-            color: #4A2E12;
+            background-color: var(--color-bg);
+            color: var(--color-darkbrown);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
+        header {
+            background-color: var(--header-bg) !important;
+            border-color: var(--border-color) !important;
+        }
         .tab-btn.active {
-            background-color: #E67E22;
-            color: white;
+            background-color: var(--color-primary);
+            color: #FFFFFF;
             box-shadow: 0 4px 6px -1px rgba(230, 126, 34, 0.3);
         }
         .page-section {
@@ -71,10 +135,10 @@
             height: 6px;
         }
         .chat-scroll::-webkit-scrollbar-track, .custom-scroll::-webkit-scrollbar-track {
-            background: #FFF8F0;
+            background: var(--color-card);
         }
         .chat-scroll::-webkit-scrollbar-thumb, .custom-scroll::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
+            background: var(--color-lightbrown);
             border-radius: 4px;
         }
         .hover-lift {
@@ -92,7 +156,7 @@
 <body class="antialiased selection:bg-pa-softorange selection:text-pa-darkbrown">
 
     <!-- Header & Navigation -->
-    <header class="sticky top-0 z-40 bg-[#FFFDF9]/90 backdrop-blur-md border-b border-pa-lightbrown/60">
+    <header class="sticky top-0 z-40 backdrop-blur-md border-b">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="#" onclick="switchPage('home'); return false;" class="flex items-center gap-3 group">
                 <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white shadow-md shadow-pa-primary/20 group-hover:scale-105 transition-transform">
@@ -126,27 +190,34 @@
                 </button>
             </nav>
 
-            <button onclick="showSavedGuidesModal()" class="hidden sm:flex items-center gap-2 bg-pa-card hover:bg-pa-softorange px-3.5 py-2 rounded-xl border border-pa-lightbrown transition-all text-xs text-pa-darkbrown">
-                <i class="fa-solid fa-bookmark text-pa-primary"></i>
-                <span>คู่มือที่บันทึก (<span id="saved-count">0</span>)</span>
-            </button>
+            <div class="flex items-center gap-2">
+                <!-- Theme Selector Dropdown Button -->
+                <button onclick="toggleThemeModal()" class="flex items-center gap-2 bg-pa-card hover:bg-pa-softorange px-3 py-2 rounded-xl border border-pa-lightbrown transition-all text-xs text-pa-darkbrown" title="เลือกโทนสี">
+                    <i class="fa-solid fa-palette text-pa-primary text-sm"></i>
+                    <span class="hidden sm:inline font-medium">เปลี่ยนโทนสี</span>
+                </button>
 
-            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl text-pa-darkbrown hover:bg-pa-softorange focus:outline-none">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
+                <button onclick="showSavedGuidesModal()" class="hidden sm:flex items-center gap-2 bg-pa-card hover:bg-pa-softorange px-3 py-2 rounded-xl border border-pa-lightbrown transition-all text-xs text-pa-darkbrown">
+                    <i class="fa-solid fa-bookmark text-pa-primary"></i>
+                    <span>บันทึก (<span id="saved-count">0</span>)</span>
+                </button>
+
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl text-pa-darkbrown hover:bg-pa-softorange focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-[#FFFDF9] border-b border-pa-lightbrown px-4 pt-2 pb-6 space-y-2">
+        <div id="mobile-menu" class="hidden md:hidden bg-pa-bg border-b border-pa-lightbrown px-4 pt-2 pb-6 space-y-2">
             <button onclick="switchPage('home'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">หน้าหลัก</button>
             <button onclick="switchPage('purpose'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">วัตถุประสงค์</button>
             <button onclick="switchPage('guide'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">คู่มือการปลูก</button>
             <button onclick="switchPage('ai'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">AI สับปะรดกูรู</button>
             <button onclick="switchPage('games'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">🎮 มินิเกมสับปะรด</button>
             <button onclick="switchPage('founders'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">ผู้ก่อตั้ง</button>
-            <button onclick="showSavedGuidesModal(); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-primary bg-pa-softorange/50 flex items-center justify-between">
-                <span><i class="fa-solid fa-bookmark mr-2"></i>รายการที่บันทึกไว้</span>
-                <span id="saved-count-mobile" class="bg-pa-primary text-white text-xs px-2 py-0.5 rounded-full">0</span>
+            <button onclick="toggleThemeModal(); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-primary bg-pa-softorange/50 flex items-center justify-between">
+                <span><i class="fa-solid fa-palette mr-2"></i>เปลี่ยนโทนสีเว็บไซต์</span>
             </button>
         </div>
     </header>
@@ -170,7 +241,7 @@
         <!-- ================= PAGE 1: HOME ================= -->
         <section id="page-home" class="page-section active space-y-12">
             <!-- Hero Section -->
-            <div data-aos="fade-up" class="relative bg-gradient-to-br from-pa-softorange via-[#FFF8F0] to-pa-lightbrown/40 rounded-3xl p-8 sm:p-12 border border-pa-lightbrown/60 overflow-hidden shadow-sm">
+            <div data-aos="fade-up" class="relative bg-gradient-to-br from-pa-softorange via-pa-card to-pa-lightbrown/40 rounded-3xl p-8 sm:p-12 border border-pa-lightbrown/60 overflow-hidden shadow-sm">
                 <div class="max-w-2xl relative z-10 space-y-6">
                     <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-pa-primary/10 text-pa-primary border border-pa-primary/20">
                         🌱 ศูนย์รวมความรู้เกษตรสับปะรดแม่นยำและนวัตกรรมยั่งยืน
@@ -185,8 +256,8 @@
                         <button onclick="switchPage('guide')" class="px-6 py-3.5 bg-pa-primary hover:bg-pa-secondary text-white rounded-2xl font-medium shadow-lg shadow-pa-primary/25 transition-all flex items-center gap-2 text-sm hover-lift">
                             ศึกษาคู่มือฉบับเต็ม <i class="fa-solid fa-arrow-right text-xs"></i>
                         </button>
-                        <button onclick="switchPage('games')" class="px-6 py-3.5 bg-white hover:bg-pa-softorange/50 text-pa-darkbrown border border-pa-lightbrown rounded-2xl font-medium transition-all text-sm flex items-center gap-2 hover-lift">
-                            <i class="fa-solid fa-gamepad text-pa-accent"></i> เล่นมินิเกม
+                        <button onclick="switchPage('games')" class="px-6 py-3.5 bg-pa-card hover:bg-pa-softorange/50 text-pa-darkbrown border border-pa-lightbrown rounded-2xl font-medium transition-all text-sm flex items-center gap-2 hover-lift">
+                            <i class="fa-solid fa-gamepad text-pa-accent"></i> เล่นมินิเกม (ปลดล็อกสีใหม่!)
                         </button>
                     </div>
                 </div>
@@ -246,7 +317,7 @@
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
+                    <div class="bg-pa-bg p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
                         <div class="flex items-center justify-between">
                             <span class="text-2xl">🍍</span>
                             <span class="text-[10px] font-semibold bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">อุตสาหกรรม & ผลสด</span>
@@ -255,7 +326,7 @@
                         <p class="text-xs text-pa-brown font-light leading-relaxed">ผลใหญ่ ตาตื้น เนื้อสีเหลืองอ่อน ฉ่ำน้ำ มีปริมาณกรดสม่ำเสมอ นิยมส่งโรงงานแปรรูปกระป๋องและขายผลสดทั่วไป</p>
                     </div>
 
-                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
+                    <div class="bg-pa-bg p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
                         <div class="flex items-center justify-between">
                             <span class="text-2xl">🍍</span>
                             <span class="text-[10px] font-semibold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">ตลาดพรีเมียม</span>
@@ -264,7 +335,7 @@
                         <p class="text-xs text-pa-brown font-light leading-relaxed">กลายพันธุ์จากปัตตาเวียปลูกในเชียงราย ผลขนาดเล็ก ตาตื้น กรอบหวาน หอม แกนรับประทานได้ ไม่คายลิ้น ราคาต่อกิโลกรัมสูง</p>
                     </div>
 
-                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
+                    <div class="bg-pa-bg p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
                         <div class="flex items-center justify-between">
                             <span class="text-2xl">🍍</span>
                             <span class="text-[10px] font-semibold bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">บริโภคผลสด</span>
@@ -273,7 +344,7 @@
                         <p class="text-xs text-pa-brown font-light leading-relaxed">ปลูกมากในอุตรดิตถ์ เปลือกบาง ตาตื้น เนื้อเหลืองนิ่มคล้ายน้ำผึ้ง รสชาติหวานนุ่ม ไม่กัดลิ้น ได้รับการรับรอง GI</p>
                     </div>
 
-                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
+                    <div class="bg-pa-bg p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
                         <div class="flex items-center justify-between">
                             <span class="text-2xl">🍍</span>
                             <span class="text-[10px] font-semibold bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">บริโภคผลสด</span>
@@ -282,7 +353,7 @@
                         <p class="text-xs text-pa-brown font-light leading-relaxed">กลุ่มสายพันธุ์ควีน (Queen) ใบมีหนามหนา ผลทรงรูปไข่ เปลือกเหลืองทอง กลิ่นหอมแรง เนื้อสีเหลืองเข้ม กรอบหวานชื่นใจ</p>
                     </div>
 
-                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
+                    <div class="bg-pa-bg p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
                         <div class="flex items-center justify-between">
                             <span class="text-2xl">🍍</span>
                             <span class="text-[10px] font-semibold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">บริโภคผลสดพรีเมียม</span>
@@ -291,7 +362,7 @@
                         <p class="text-xs text-pa-brown font-light leading-relaxed">สายพันธุ์ควีนรสเลิศ ผลมีตาแกะง่าย แกะทานด้วยมือได้เป็นกลีบๆ เนื้อกรอบแห้ง หวานจัด กลิ่นหอมเป็นเอกลักษณ์เฉพาะตัว</p>
                     </div>
 
-                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
+                    <div class="bg-pa-bg p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
                         <div class="flex items-center justify-between">
                             <span class="text-2xl">🍍</span>
                             <span class="text-[10px] font-semibold bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full">ตลาดบริโภคสดใหม่</span>
@@ -306,27 +377,27 @@
             <div data-aos="fade-up" class="bg-gradient-to-r from-pa-softorange/40 to-pa-lightbrown/30 p-8 rounded-3xl border border-pa-lightbrown/60 space-y-6">
                 <h2 class="text-xl font-bold text-pa-darkbrown text-center">เมนูศูนย์รวมความรู้และกิจกรรม</h2>
                 <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
-                    <button onclick="switchPage('purpose')" class="bg-white p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
+                    <button onclick="switchPage('purpose')" class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
                         <i class="fa-solid fa-bullseye text-2xl text-pa-primary mb-2 block group-hover:scale-110 transition-transform"></i>
                         <h4 class="font-bold text-pa-darkbrown text-sm">วัตถุประสงค์</h4>
                         <p class="text-[11px] text-pa-brown mt-0.5">วิvisionและพันธกิจ</p>
                     </button>
-                    <button onclick="switchPage('guide')" class="bg-white p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
+                    <button onclick="switchPage('guide')" class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
                         <i class="fa-solid fa-book-open text-2xl text-pa-primary mb-2 block group-hover:scale-110 transition-transform"></i>
                         <h4 class="font-bold text-pa-darkbrown text-sm">คู่มือการปลูก</h4>
                         <p class="text-[11px] text-pa-brown mt-0.5">6 ขั้นตอนละเอียด</p>
                     </button>
-                    <button onclick="switchPage('ai')" class="bg-white p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
+                    <button onclick="switchPage('ai')" class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
                         <i class="fa-solid fa-robot text-2xl text-pa-primary mb-2 block group-hover:scale-110 transition-transform"></i>
                         <h4 class="font-bold text-pa-darkbrown text-sm">AI สับปะรดกูรู</h4>
                         <p class="text-[11px] text-pa-brown mt-0.5">ถาม-ตอบแบบเรียลไทม์</p>
                     </button>
-                    <button onclick="switchPage('games')" class="bg-white p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
+                    <button onclick="switchPage('games')" class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
                         <i class="fa-solid fa-gamepad text-2xl text-pa-primary mb-2 block group-hover:scale-110 transition-transform"></i>
                         <h4 class="font-bold text-pa-darkbrown text-sm">มินิเกม retro</h4>
                         <p class="text-[11px] text-pa-brown mt-0.5">2 เกมย้อนวัยสนุกๆ</p>
                     </button>
-                    <button onclick="switchPage('founders')" class="bg-white p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
+                    <button onclick="switchPage('founders')" class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
                         <i class="fa-solid fa-users text-2xl text-pa-primary mb-2 block group-hover:scale-110 transition-transform"></i>
                         <h4 class="font-bold text-pa-darkbrown text-sm">ทีมผู้ก่อตั้ง</h4>
                         <p class="text-[11px] text-pa-brown mt-0.5">ผู้จัดทำโครงการ</p>
@@ -386,7 +457,7 @@
                         <div class="space-y-1">
                             <h3 class="text-base font-bold text-pa-darkbrown">สร้างความผ่อนคลายด้วย Gamification Edutainment</h3>
                             <p class="text-sm text-pa-brown font-light leading-relaxed">
-                                ผสมผสานความรู้ทางเกษตรผ่านมินิเกมจำลองย้อนยุค เพื่อให้เยาวชน เกษตรกรรุ่นใหม่ (Young Smart Farmer) และผู้สนใจ ทบทวนความรู้ด้วยความสนุกสนานและเข้าถึงง่าย
+                                ผสมผสานความรู้ทางเกษตรผ่านมินิเกมจำลองย้อนยุค เพื่อให้เยาวชน เกษตรกรรุ่นใหม่ (Young Smart Farmer) และผู้สนใจ ทบทวนความรู้ด้วยความสนุกสนานพร้อมสะสมคะแนนปลลดล็อกธีมสีใหม่
                             </p>
                         </div>
                     </div>
@@ -404,7 +475,7 @@
 
             <!-- Search & Filter Bar -->
             <div data-aos="fade-up" class="max-w-md mx-auto relative">
-                <input type="text" id="guide-search" oninput="filterGuideCards()" placeholder="🔍 ค้นหาหัวข้อคู่มือ (เช่น ดิน, ปุ๋ย, เอทธิฟอน, เพลี้ยแป้ง)..." class="w-full px-4 py-2.5 rounded-2xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-white text-sm shadow-sm">
+                <input type="text" id="guide-search" oninput="filterGuideCards()" placeholder="🔍 ค้นหาหัวข้อคู่มือ (เช่น ดิน, ปุ๋ย, เอทธิฟอน, เพลี้ยแป้ง)..." class="w-full px-4 py-2.5 rounded-2xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-pa-card text-sm shadow-sm">
             </div>
 
             <!-- Steps Grid -->
@@ -561,29 +632,29 @@
             </div>
 
             <!-- Planting Timeline Section -->
-            <div data-aos="fade-up" class="bg-white p-6 sm:p-8 rounded-3xl border border-pa-lightbrown space-y-6 shadow-sm">
+            <div data-aos="fade-up" class="bg-pa-card p-6 sm:p-8 rounded-3xl border border-pa-lightbrown space-y-6 shadow-sm">
                 <div class="text-center max-w-lg mx-auto">
                     <h3 class="text-xl font-bold text-pa-darkbrown">📅 ปฏิทินการบริหารจัดการแปลงสับปะรด (14-16 เดือน)</h3>
                     <p class="text-xs text-pa-brown font-light mt-1">ภาพรวมแผนการทำงานแบบทีละระยะ ตั้งแต่เตรียมดินจนถึงเก็บขาย</p>
                 </div>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
-                    <div class="bg-pa-card p-4 rounded-xl border-l-4 border-pa-primary space-y-1">
+                    <div class="bg-pa-bg p-4 rounded-xl border-l-4 border-pa-primary space-y-1">
                         <span class="text-xs font-bold text-pa-primary block">เดือนที่ 0 - 1</span>
                         <h4 class="font-bold text-sm text-pa-darkbrown">เตรียมแปลง & ปลูก</h4>
                         <p class="text-xs text-pa-brown font-light leading-relaxed">ตรวจ pH ดิน ใส่โดโลไมต์ ยกร่อง ตากหน่อ ชุบยา ปลูก และให้น้ำช่วงเร่งราก</p>
                     </div>
-                    <div class="bg-pa-card p-4 rounded-xl border-l-4 border-pa-accent space-y-1">
+                    <div class="bg-pa-bg p-4 rounded-xl border-l-4 border-pa-accent space-y-1">
                         <span class="text-xs font-bold text-pa-accent block">เดือนที่ 2 - 7</span>
                         <h4 class="font-bold text-sm text-pa-darkbrown">สร้างลำต้น & ใบ</h4>
                         <p class="text-xs text-pa-brown font-light leading-relaxed">ใส่ปุ๋ยไนโตรเจน ฉีดพ่นยูเรียทางใบ กำจัดวัชพืช ตรวจเพลี้ยแป้งประจำเดือน</p>
                     </div>
-                    <div class="bg-pa-card p-4 rounded-xl border-l-4 border-pa-secondary space-y-1">
+                    <div class="bg-pa-bg p-4 rounded-xl border-l-4 border-pa-secondary space-y-1">
                         <span class="text-xs font-bold text-pa-secondary block">เดือนที่ 8 - 9</span>
                         <h4 class="font-bold text-sm text-pa-darkbrown">หยอดสารบังคับดอก</h4>
                         <p class="text-xs text-pa-brown font-light leading-relaxed">คัดต้นสมบูรณ์ หยอดเอทธิฟอนในเวลาเย็น หยอดซ้ำในวันที่ 7 สังเกตดอกสีแดง</p>
                     </div>
-                    <div class="bg-pa-card p-4 rounded-xl border-l-4 border-green-600 space-y-1">
+                    <div class="bg-pa-bg p-4 rounded-xl border-l-4 border-green-600 space-y-1">
                         <span class="text-xs font-bold text-green-600 block">เดือนที่ 10 - 15</span>
                         <h4 class="font-bold text-sm text-pa-darkbrown">ขยายผล & เก็บเกี่ยว</h4>
                         <p class="text-xs text-pa-brown font-light leading-relaxed">อัดปุ๋ยโพแทสเซียม ห่อผลกันแดดเผา ตรวจดัชนีสีตา และเก็บเกี่ยวส่งตลาด</p>
@@ -592,7 +663,7 @@
             </div>
 
             <!-- Yield & Income Calculator -->
-            <div data-aos="fade-up" class="bg-gradient-to-br from-pa-softorange/60 via-white to-pa-lightbrown/40 p-6 sm:p-8 rounded-3xl border border-pa-lightbrown space-y-6 max-w-2xl mx-auto shadow-sm">
+            <div data-aos="fade-up" class="bg-gradient-to-br from-pa-softorange/60 via-pa-card to-pa-lightbrown/40 p-6 sm:p-8 rounded-3xl border border-pa-lightbrown space-y-6 max-w-2xl mx-auto shadow-sm">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-pa-primary text-white flex items-center justify-center text-xl">
                         <i class="fa-solid fa-calculator"></i>
@@ -606,11 +677,11 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-medium text-pa-darkbrown mb-1">ขนาดพื้นที่ปลูก (ไร่):</label>
-                        <input type="number" id="calc-area" min="0.1" step="0.5" placeholder="เช่น 2.5..." class="w-full px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-white text-sm">
+                        <input type="number" id="calc-area" min="0.1" step="0.5" placeholder="เช่น 2.5..." class="w-full px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-pa-bg text-sm">
                     </div>
                     <div>
                         <label class="block text-xs font-medium text-pa-darkbrown mb-1">ราคาคาดการณ์ (บาท / กก.):</label>
-                        <input type="number" id="calc-price" value="12" placeholder="เช่น 10, 12, 15..." class="w-full px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-white text-sm">
+                        <input type="number" id="calc-price" value="12" placeholder="เช่น 10, 12, 15..." class="w-full px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-pa-bg text-sm">
                     </div>
                 </div>
 
@@ -618,7 +689,7 @@
                     <i class="fa-solid fa-chart-line"></i> คำนวณผลประเมิน
                 </button>
 
-                <div id="calc-result" class="hidden p-5 bg-white rounded-2xl border border-pa-lightbrown/80 space-y-3 text-sm text-pa-darkbrown">
+                <div id="calc-result" class="hidden p-5 bg-pa-bg rounded-2xl border border-pa-lightbrown/80 space-y-3 text-sm text-pa-darkbrown">
                 </div>
             </div>
         </section>
@@ -636,7 +707,7 @@
             <!-- Chat Container -->
             <div data-aos="fade-up" data-aos-delay="100" class="max-w-3xl mx-auto bg-pa-card rounded-3xl border border-pa-lightbrown/80 shadow-sm flex flex-col h-[540px] overflow-hidden">
                 <!-- Chat Header -->
-                <div class="bg-white/80 backdrop-blur px-6 py-4 border-b border-pa-lightbrown/50 flex items-center justify-between">
+                <div class="bg-pa-card/80 backdrop-blur px-6 py-4 border-b border-pa-lightbrown/50 flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <div class="w-9 h-9 rounded-full bg-pa-primary text-white flex items-center justify-center text-sm font-bold">
                             🍍
@@ -659,14 +730,14 @@
                         <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">
                             🍍
                         </div>
-                        <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
+                        <div class="bg-pa-bg p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
                             สวัสดีครับ! ผมคือ **AI สับปะรดกูรู** ยินดีตอบคำถามเกี่ยวกับการเตรียมดิน ปุ๋ย สารเอทธิฟอนบังคับดอก โรคพืช ตลอดจนสายพันธุ์สับปะรดครับ ถามผมเข้ามาได้เลย!
                         </div>
                     </div>
                 </div>
 
                 <!-- Suggested Quick Chips -->
-                <div class="px-6 py-2 bg-white/50 border-t border-pa-lightbrown/30 flex gap-2 overflow-x-auto text-xs custom-scroll">
+                <div class="px-6 py-2 bg-pa-bg/50 border-t border-pa-lightbrown/30 flex gap-2 overflow-x-auto text-xs custom-scroll">
                     <button onclick="askPreset('สับปะรดชอบดินแบบไหนและปรับ pH อย่างไร?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
                         🌱 ดิน & ค่า pH
                     </button>
@@ -679,7 +750,7 @@
                 </div>
 
                 <!-- Chat Form -->
-                <form id="chat-form" onsubmit="handleChatSubmit(event)" class="p-3 bg-white border-t border-pa-lightbrown/60 flex items-center gap-2">
+                <form id="chat-form" onsubmit="handleChatSubmit(event)" class="p-3 bg-pa-card border-t border-pa-lightbrown/60 flex items-center gap-2">
                     <input type="text" id="chat-input" placeholder="พิมพ์คำถามเกี่ยวกับการปลูกสับปะรด..." class="flex-grow px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary text-sm bg-pa-bg">
                     <button type="submit" id="send-btn" class="px-5 py-2.5 bg-pa-primary hover:bg-pa-secondary text-white rounded-xl text-sm font-medium transition-all flex items-center gap-2 flex-shrink-0">
                         <span>ส่ง</span> <i class="fa-solid fa-paper-plane text-xs"></i>
@@ -691,9 +762,16 @@
         <!-- ================= PAGE 5: MINI GAMES ================= -->
         <section id="page-games" class="page-section space-y-8">
             <div data-aos="fade-up" class="text-center max-w-xl mx-auto space-y-2">
-                <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Retro Arcade Games</span>
-                <h1 class="text-3xl font-bold text-pa-darkbrown">มินิเกมสับปะรดย้อนวัย</h1>
-                <p class="text-pa-brown text-sm font-light">ผ่อนคลายกับ 2 มินิเกมสุดคลาสสิก Flappy Pineapple & Pineapple Catcher</p>
+                <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Retro Arcade & Unlockable Themes</span>
+                <h1 class="text-3xl font-bold text-pa-darkbrown">มินิเกมสับปะรด ย้อนวัย & ปลดล็อกธีม</h1>
+                <p class="text-pa-brown text-sm font-light">ทำคะแนนสูงสุดในมินิเกมเพื่อปลดล็อก **ธีมสับปะรดทองคำ** และ **ธีมนีออนไซเบอร์พังก์**!</p>
+            </div>
+
+            <!-- Unlock Info Banner -->
+            <div data-aos="fade-up" class="bg-pa-card p-4 rounded-2xl border border-pa-lightbrown/80 max-w-lg mx-auto text-xs text-center space-y-1">
+                <p class="font-bold text-pa-primary">🏆 ภารกิจปลดล็อกธีมพิเศษ:</p>
+                <p class="text-pa-brown">• Flappy Pineapple ถึง **5 คะแนน** 👉 ปลดล็อก <span class="font-bold text-amber-500">👑 ธีมทองคำ (Gold)</span></p>
+                <p class="text-pa-brown">• Pineapple Catcher ถึง **50 คะแนน** 👉 ปลดล็อก <span class="font-bold text-emerald-400">⚡ ธีมนีออน (Neon)</span></p>
             </div>
 
             <!-- Game Switcher Tabs -->
@@ -707,7 +785,7 @@
             </div>
 
             <!-- GAME 1: FLAPPY PINEAPPLE -->
-            <div id="game-container-flappy" class="max-w-md mx-auto bg-white p-4 rounded-3xl border border-pa-lightbrown shadow-lg space-y-4">
+            <div id="game-container-flappy" class="max-w-md mx-auto bg-pa-card p-4 rounded-3xl border border-pa-lightbrown shadow-lg space-y-4">
                 <div class="flex justify-between items-center px-2">
                     <h3 class="font-bold text-pa-darkbrown text-sm">🍍 Flappy Pineapple</h3>
                     <span class="text-xs text-pa-brown">กด Spacebar / คลิกเพื่อบิน</span>
@@ -724,7 +802,7 @@
             </div>
 
             <!-- GAME 2: PINEAPPLE CATCHER -->
-            <div id="game-container-catcher" class="hidden max-w-md mx-auto bg-white p-4 rounded-3xl border border-pa-lightbrown shadow-lg space-y-4">
+            <div id="game-container-catcher" class="hidden max-w-md mx-auto bg-pa-card p-4 rounded-3xl border border-pa-lightbrown shadow-lg space-y-4">
                 <div class="flex justify-between items-center px-2">
                     <h3 class="font-bold text-pa-darkbrown text-sm">🧺 Pineapple Catcher</h3>
                     <span class="text-xs text-pa-brown">ใช้ปุ่มซ้าย-ขวา / เลื่อนเมาส์</span>
@@ -804,9 +882,75 @@
 
     </main>
 
+    <!-- Theme Selector Modal -->
+    <div id="theme-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-pa-card rounded-3xl max-w-md w-full p-6 space-y-5 border border-pa-lightbrown shadow-2xl relative">
+            <div class="flex justify-between items-center border-b border-pa-lightbrown/50 pb-3">
+                <h3 class="font-bold text-pa-darkbrown text-base flex items-center gap-2">
+                    <i class="fa-solid fa-palette text-pa-primary"></i> เลือกธีมโทนสีเว็บไซต์
+                </h3>
+                <button onclick="toggleThemeModal()" class="text-pa-brown hover:text-pa-darkbrown text-lg">&times;</button>
+            </div>
+
+            <div class="grid grid-cols-1 gap-3">
+                <!-- Theme 1: Light Mode (Default) -->
+                <button onclick="applyTheme('light')" class="flex items-center justify-between p-3.5 rounded-2xl border border-pa-lightbrown bg-pa-bg text-pa-darkbrown hover:border-pa-primary transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">☀️</span>
+                        <div class="text-left">
+                            <span class="font-bold text-xs block">สว่างคลาสสิก (Light)</span>
+                            <span class="text-[10px] text-pa-brown">โทนอุ่น เรียบง่าย สบายตา</span>
+                        </div>
+                    </div>
+                    <span id="badge-light" class="text-xs font-bold text-pa-primary hidden">✓ ใช้งานอยู่</span>
+                </button>
+
+                <!-- Theme 2: Dark Mode -->
+                <button onclick="applyTheme('dark')" class="flex items-center justify-between p-3.5 rounded-2xl border border-pa-lightbrown bg-slate-900 text-slate-100 hover:border-pa-primary transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">🌙</span>
+                        <div class="text-left">
+                            <span class="font-bold text-xs block">มืดถนอมสายตา (Dark Mode)</span>
+                            <span class="text-[10px] text-slate-400">เหมาะสำหรับการอ่านเวลากลางคืน</span>
+                        </div>
+                    </div>
+                    <span id="badge-dark" class="text-xs font-bold text-pa-primary hidden">✓ ใช้งานอยู่</span>
+                </button>
+
+                <!-- Theme 3: Gold Pineapple (Special Unlocked) -->
+                <button id="btn-theme-gold" onclick="applyTheme('gold')" class="flex items-center justify-between p-3.5 rounded-2xl border border-amber-500/50 bg-amber-950 text-amber-100 hover:border-amber-400 transition-all opacity-60">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">👑</span>
+                        <div class="text-left">
+                            <span class="font-bold text-xs block">สับปะรดทองคำ (Gold)</span>
+                            <span id="sub-theme-gold" class="text-[10px] text-amber-400 font-medium">🔒 ปลดล็อกโดยเล่น Flappy ได้ 5 คะแนน</span>
+                        </div>
+                    </div>
+                    <span id="badge-gold" class="text-xs font-bold text-amber-400 hidden">✓ ใช้งานอยู่</span>
+                </button>
+
+                <!-- Theme 4: Neon Cyberpunk (Special Unlocked) -->
+                <button id="btn-theme-neon" onclick="applyTheme('neon')" class="flex items-center justify-between p-3.5 rounded-2xl border border-emerald-500/50 bg-slate-950 text-emerald-300 hover:border-emerald-400 transition-all opacity-60">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">⚡</span>
+                        <div class="text-left">
+                            <span class="font-bold text-xs block">นีออนไซเบอร์พังก์ (Neon)</span>
+                            <span id="sub-theme-neon" class="text-[10px] text-emerald-400 font-medium">🔒 ปลดล็อกโดยเล่น Catcher ได้ 50 คะแนน</span>
+                        </div>
+                    </div>
+                    <span id="badge-neon" class="text-xs font-bold text-emerald-400 hidden">✓ ใช้งานอยู่</span>
+                </button>
+            </div>
+
+            <div class="pt-2 text-right">
+                <button onclick="toggleThemeModal()" class="px-4 py-2 bg-pa-softorange text-pa-darkbrown rounded-xl text-xs font-medium hover:bg-pa-lightbrown">ปิดหน้าต่าง</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Deep Guide Detail Modal -->
     <div id="guide-detail-modal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-8 border border-pa-lightbrown shadow-2xl relative custom-scroll space-y-4">
+        <div class="bg-pa-card rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-8 border border-pa-lightbrown shadow-2xl relative custom-scroll space-y-4">
             <button onclick="closeGuideDetail()" class="absolute top-5 right-5 w-9 h-9 bg-pa-softorange text-pa-darkbrown rounded-full flex items-center justify-center hover:bg-pa-primary hover:text-white transition-all">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -817,12 +961,12 @@
 
     <!-- Saved Guides Modal -->
     <div id="saved-modal" class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-4 border border-pa-lightbrown shadow-xl">
+        <div class="bg-pa-card rounded-3xl max-w-lg w-full p-6 space-y-4 border border-pa-lightbrown shadow-xl">
             <div class="flex justify-between items-center border-b border-pa-lightbrown/50 pb-3">
                 <h3 class="font-bold text-pa-darkbrown text-base flex items-center gap-2">
                     <i class="fa-solid fa-bookmark text-pa-primary"></i> หัวข้อคู่มือที่คุณบันทึกไว้
                 </h3>
-                <button onclick="closeSavedGuidesModal()" class="text-pa-brown/60 hover:text-pa-darkbrown text-lg">&times;</button>
+                <button onclick="closeSavedGuidesModal()" class="text-pa-brown hover:text-pa-darkbrown text-lg">&times;</button>
             </div>
             <div id="saved-modal-list" class="space-y-3 max-h-60 overflow-y-auto text-xs text-pa-darkbrown custom-scroll">
             </div>
@@ -849,7 +993,67 @@
 
     <!-- Master Script -->
     <script>
-        // 1. Random Tips System
+        // ================= 1. THEME ENGINE SYSTEM =================
+        let activeTheme = localStorage.getItem('pineapple_theme') || 'light';
+        let unlockedThemes = JSON.parse(localStorage.getItem('pineapple_unlocked_themes') || '["light", "dark"]');
+
+        function toggleThemeModal() {
+            const modal = document.getElementById('theme-modal');
+            modal.classList.toggle('hidden');
+            updateThemeModalUI();
+        }
+
+        function updateThemeModalUI() {
+            // Update Badges
+            document.querySelectorAll('[id^="badge-"]').forEach(el => el.classList.add('hidden'));
+            const currentBadge = document.getElementById(`badge-${activeTheme}`);
+            if (currentBadge) currentBadge.classList.remove('hidden');
+
+            // Update Lock Status for Gold Theme
+            const btnGold = document.getElementById('btn-theme-gold');
+            const subGold = document.getElementById('sub-theme-gold');
+            if (unlockedThemes.includes('gold')) {
+                btnGold.classList.remove('opacity-60');
+                subGold.textContent = '🔓 ปลดล็อกแล้ว!';
+                subGold.className = 'text-[10px] text-amber-400 font-bold';
+            }
+
+            // Update Lock Status for Neon Theme
+            const btnNeon = document.getElementById('btn-theme-neon');
+            const subNeon = document.getElementById('sub-theme-neon');
+            if (unlockedThemes.includes('neon')) {
+                btnNeon.classList.remove('opacity-60');
+                subNeon.textContent = '🔓 ปลดล็อกแล้ว!';
+                subNeon.className = 'text-[10px] text-emerald-400 font-bold';
+            }
+        }
+
+        function applyTheme(themeName) {
+            if (!unlockedThemes.includes(themeName)) {
+                alert('🔒 ธีมนี้ยังไม่ถูกปลดล็อก! กรุณาทำภารกิจมินิเกมให้ผ่านก่อนครับ');
+                return;
+            }
+
+            document.body.className = 'antialiased selection:bg-pa-softorange selection:text-pa-darkbrown';
+            if (themeName !== 'light') {
+                document.body.classList.add(`theme-${themeName}`);
+            }
+
+            activeTheme = themeName;
+            localStorage.setItem('pineapple_theme', themeName);
+            updateThemeModalUI();
+        }
+
+        function unlockTheme(themeName, themeTitle) {
+            if (!unlockedThemes.includes(themeName)) {
+                unlockedThemes.push(themeName);
+                localStorage.setItem('pineapple_unlocked_themes', JSON.stringify(unlockedThemes));
+                alert(`🎉 ยินดีด้วย! คุณทำภารกิจสำเร็จ ปลดล็อก "${themeTitle}" แล้ว! ไปที่เมนู 'เปลี่ยนโทนสี' เพื่อใช้งานได้เลย!`);
+                updateThemeModalUI();
+            }
+        }
+
+        // ================= 2. RANDOM TIPS SYSTEM =================
         const pineappleTips = [
             "สับปะรดชอบดินร่วนปนทราย ค่า pH 4.5 - 5.5 หากดินเป็นกรดมากเกินไปให้โรยโดโลไมต์",
             "การยกร่องสูง 30-40 ซม. ช่วยป้องกันโรครากเน่าจากภาวะน้ำขังได้ดีที่สุด",
@@ -873,7 +1077,7 @@
             document.getElementById('daily-tip').textContent = pineappleTips[randomIndex];
         }
 
-        // 2. Page Navigation
+        // ================= 3. PAGE NAVIGATION =================
         function switchPage(pageId) {
             document.querySelectorAll('.page-section').forEach(section => {
                 section.classList.remove('active');
@@ -904,7 +1108,7 @@
             menu.classList.toggle('hidden');
         }
 
-        // 3. Calculator Function
+        // ================= 4. CALCULATOR FUNCTION =================
         function calculatePlantsAndIncome() {
             const areaInput = document.getElementById('calc-area').value;
             const priceInput = document.getElementById('calc-price').value || 12;
@@ -943,7 +1147,7 @@
             `;
         }
 
-        // 4. Guide Search Filter
+        // ================= 5. GUIDE SEARCH & BOOKMARKS =================
         function filterGuideCards() {
             const query = document.getElementById('guide-search').value.toLowerCase();
             const cards = document.querySelectorAll('.guide-card');
@@ -954,7 +1158,6 @@
             });
         }
 
-        // 5. Bookmark System
         let savedGuideIds = JSON.parse(localStorage.getItem('saved_pineapple_guides') || '[]');
 
         const guideTitles = {
@@ -968,7 +1171,6 @@
 
         function updateBookmarkUI() {
             document.getElementById('saved-count').textContent = savedGuideIds.length;
-            document.getElementById('saved-count-mobile').textContent = savedGuideIds.length;
 
             for (let i = 1; i <= 6; i++) {
                 const btn = document.getElementById(`bm-btn-${i}`);
@@ -996,7 +1198,7 @@
                 listDiv.innerHTML = '<p class="text-pa-brown text-center py-4">ยังไม่มีรายการคู่มือที่บันทึกไว้</p>';
             } else {
                 listDiv.innerHTML = savedGuideIds.map(id => `
-                    <div class="flex justify-between items-center p-3 bg-pa-card rounded-xl border border-pa-lightbrown/60">
+                    <div class="flex justify-between items-center p-3 bg-pa-bg rounded-xl border border-pa-lightbrown/60">
                         <span class="font-medium text-pa-darkbrown">${guideTitles[id]}</span>
                         <button onclick="toggleBookmark(${id}); showSavedGuidesModal();" class="text-xs text-red-500 hover:underline">ลบ</button>
                     </div>
@@ -1009,7 +1211,7 @@
             document.getElementById('saved-modal').classList.add('hidden');
         }
 
-        // 6. Deep Guide Data
+        // ================= 6. DEEP GUIDE DATA =================
         const deepGuideData = {
             1: {
                 title: "1. การวิเคราะห์เคมีในดิน การปรับปรุงดิน และวิศวกรรมการยกร่องแปลง",
@@ -1019,7 +1221,7 @@
                     <p class="text-xs text-pa-brown leading-relaxed mb-3">
                         สับปะรดดูดซึมธาตุอาหารได้ดีที่สุดในสภาวะกรดอ่อน (pH 4.5 - 5.5) หากค่า pH สูงเกิน 6.0 ธาตุเหล็ก (Fe) และสังกะสี (Zn) จะถูกตรึง ไม่สามารถดูดซึมได้ ทำให้เกิดอาการใบเหลืองยอดซีด (Chlorosis)
                     </p>
-                    <div class="bg-pa-card p-4 rounded-xl text-xs space-y-2 border border-pa-lightbrown mb-4">
+                    <div class="bg-pa-bg p-4 rounded-xl text-xs space-y-2 border border-pa-lightbrown mb-4">
                         <p><strong>การแก้ปัญหากรดจัด (pH < 4.0):</strong> ใส่หินปูนโดโลไมต์ 100-200 กก./ไร่ เพื่อเติมแมกนีเซียมและแคลเซียม</p>
                         <p><strong>การแก้ปัญหาดินด่าง (pH > 6.0):</strong> เติมผงกำมะถัน หรือใช้ปุ๋ยแอมโมเนียมซัลเฟตเร่งความเป็นกรด</p>
                     </div>
@@ -1069,7 +1271,7 @@
             document.getElementById('guide-detail-modal').classList.add('hidden');
         }
 
-        // 7. Smart AI Logic
+        // ================= 7. SMART AI ASSISTANT =================
         function getSmartKnowledgeBaseReply(msg) {
             const lowerMsg = msg.toLowerCase();
 
@@ -1117,7 +1319,7 @@
             document.getElementById('chat-messages').innerHTML = `
                 <div class="flex gap-3 items-start">
                     <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
-                    <div class="bg-white p-4 rounded-2xl border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
+                    <div class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
                         ล้างแชทเรียบร้อยครับ! มีข้อสงสัยเกี่ยวกับการปลูกสับปะรด ถามเพิ่มเติมได้เลยครับ!
                     </div>
                 </div>
@@ -1140,7 +1342,7 @@
             let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
             msgDiv.innerHTML = `
                 <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
-                <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">${formattedText}</div>
+                <div class="bg-pa-bg p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">${formattedText}</div>
             `;
             chatBox.appendChild(msgDiv);
             chatBox.scrollTop = chatBox.scrollHeight;
@@ -1154,7 +1356,7 @@
             msgDiv.className = 'flex gap-3 items-start';
             msgDiv.innerHTML = `
                 <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
-                <div class="bg-white px-4 py-3 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs text-pa-brown flex items-center gap-1.5 shadow-sm">
+                <div class="bg-pa-bg px-4 py-3 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs text-pa-brown flex items-center gap-1.5 shadow-sm">
                     <span>กำลังประมวลผล</span><span class="animate-bounce">.</span><span class="animate-bounce" style="animation-delay: 0.2s">.</span><span class="animate-bounce" style="animation-delay: 0.4s">.</span>
                 </div>
             `;
@@ -1172,7 +1374,7 @@
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
 
-        // ================= 8. RETRO MINI GAMES SYSTEM =================
+        // ================= 8. RETRO MINI GAMES ENGINE =================
         function selectGame(gameType) {
             document.getElementById('game-container-flappy').classList.add('hidden');
             document.getElementById('game-container-catcher').classList.add('hidden');
@@ -1227,7 +1429,6 @@
                 ctx.fillStyle = '#E0F2FE';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                // Bird Physics
                 bird.velocity += bird.gravity;
                 bird.y += bird.velocity;
 
@@ -1237,22 +1438,19 @@
                 }
                 if (bird.y < 0) bird.y = 0;
 
-                // Spawn Pipes
                 if (frame % 90 === 0) {
                     let gap = 110;
                     let topHeight = Math.floor(Math.random() * (canvas.height - gap - 100)) + 30;
                     pipes.push({ x: canvas.width, top: topHeight, bottom: canvas.height - topHeight - gap, passed: false });
                 }
 
-                // Draw Pipes
                 ctx.fillStyle = '#15803D';
-                pipes.forEach((pipe, i) => {
+                pipes.forEach((pipe) => {
                     pipe.x -= 2;
 
                     ctx.fillRect(pipe.x, 0, 45, pipe.top);
                     ctx.fillRect(pipe.x, canvas.height - pipe.bottom, 45, pipe.bottom);
 
-                    // Check Collision
                     if (
                         bird.x + bird.size > pipe.x &&
                         bird.x < pipe.x + 45 &&
@@ -1261,7 +1459,6 @@
                         gameOver = true;
                     }
 
-                    // Score
                     if (pipe.x + 45 < bird.x && !pipe.passed) {
                         score++;
                         pipe.passed = true;
@@ -1270,17 +1467,19 @@
                             localStorage.setItem('flappy_pineapple_hs', highScore);
                             document.getElementById('flappy-highscore').textContent = highScore;
                         }
+
+                        // Check Theme Unlock Condition (Score >= 5)
+                        if (score >= 5) {
+                            unlockTheme('gold', 'สับปะรดทองคำ (Gold Theme)');
+                        }
                     }
                 });
 
-                // Remove Offscreen Pipes
                 pipes = pipes.filter(pipe => pipe.x > -50);
 
-                // Draw Bird (Pineapple)
                 ctx.font = '24px sans-serif';
                 ctx.fillText('🍍', bird.x, bird.y + bird.size);
 
-                // Draw Score
                 ctx.fillStyle = '#4A2E12';
                 ctx.font = 'bold 18px Prompt';
                 ctx.fillText(`คะแนน: ${score}`, 15, 30);
@@ -1328,14 +1527,12 @@
                 basket.x = e.clientX - rect.left - basket.width / 2;
             };
             
-            // For Mobile Touch Control
             canvas.ontouchmove = (e) => {
                 e.preventDefault();
                 const rect = canvas.getBoundingClientRect();
                 basket.x = e.touches[0].clientX - rect.left - basket.width / 2;
             };
 
-            // Restart game on click if game over
             canvas.onclick = () => {
                 if(gameOver) initCatcherGame();
             };
@@ -1345,19 +1542,15 @@
                 ctx.fillStyle = '#FEF3C7';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                // Move Basket
                 if (keys['ArrowLeft'] && basket.x > 0) basket.x -= basket.speed;
                 if (keys['ArrowRight'] && basket.x < canvas.width - basket.width) basket.x += basket.speed;
 
-                // Clamp Basket
                 if (basket.x < 0) basket.x = 0;
                 if (basket.x > canvas.width - basket.width) basket.x = canvas.width - basket.width;
 
-                // Draw Basket
                 ctx.font = '28px sans-serif';
                 ctx.fillText('🧺', basket.x, basket.y + 20);
 
-                // Spawn Items
                 if (frame % 45 === 0) {
                     items.push({
                         x: Math.random() * (canvas.width - 30),
@@ -1367,15 +1560,12 @@
                     });
                 }
 
-                // Update Items
                 items.forEach((item, i) => {
                     item.y += item.speed;
 
-                    // Draw Item
                     ctx.font = '22px sans-serif';
                     ctx.fillText(item.isBomb ? '💣' : '🍍', item.x, item.y);
 
-                    // Collision Check
                     if (
                         item.y >= basket.y - 10 &&
                         item.y <= basket.y + basket.height &&
@@ -1392,6 +1582,11 @@
                                 localStorage.setItem('catcher_pineapple_hs', highScore);
                                 document.getElementById('catcher-highscore').textContent = highScore;
                             }
+
+                            // Check Theme Unlock Condition (Score >= 50)
+                            if (score >= 50) {
+                                unlockTheme('neon', 'นีออนไซเบอร์พังก์ (Neon Theme)');
+                            }
                         }
                         items.splice(i, 1);
                     } else if (item.y > canvas.height) {
@@ -1403,7 +1598,6 @@
                     }
                 });
 
-                // Draw Stats
                 ctx.fillStyle = '#4A2E12';
                 ctx.font = 'bold 16px Prompt';
                 ctx.fillText(`คะแนน: ${score}`, 10, 25);
@@ -1429,18 +1623,17 @@
 
         // ================= 9. INITIALIZATION =================
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize AOS Animation
             AOS.init({
                 duration: 800,
                 once: true,
                 offset: 50
             });
 
-            // Set initial daily tip & update UI
+            // Initialize saved theme & tip
+            applyTheme(activeTheme);
             generateRandomTip();
             updateBookmarkUI();
         });
-
     </script>
 </body>
 </html>
