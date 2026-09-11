@@ -816,31 +816,14 @@
             <div data-aos="fade-up" class="text-center max-w-xl mx-auto space-y-2">
                 <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Retro Arcade & Neon Unlock System</span>
                 <h1 class="text-3xl font-bold text-pa-darkbrown">มินิเกมสับปะรด ย้อนวัย & ปลดล็อกธีม</h1>
-                <p class="text-pa-brown text-sm font-light">สะสมคะแนนในมินิเกมเพื่อปลดล็อก **ธีมสับปะรดทองคำ** และ **ธีมนีออนไซเบอร์พังก์ระดับตำนาน**!</p>
-            </div>
-
-            <!-- Integrated Neon Unlock System Status Board -->
-            <div data-aos="fade-up" class="max-w-md mx-auto bg-pa-card p-6 rounded-3xl border border-pa-lightbrown shadow-md flex flex-col items-center justify-center space-y-4">
-                <div class="text-lg font-bold text-pa-darkbrown">
-                    คะแนนสะสมรวม: <span id="score-text" class="text-pa-primary text-2xl font-black">0</span> / 1000
-                </div>
-
-                <div id="neon-skin" class="neon-item neon-locked font-bold tracking-wider">
-                    ⚡ NEON LEGENDARY
-                </div>
-
-                <div class="flex items-center gap-2">
-                    <button onclick="addScore(100)" class="px-5 py-2.5 bg-pa-softorange hover:bg-pa-primary hover:text-white border border-pa-lightbrown rounded-xl font-bold text-sm text-pa-darkbrown transition-all shadow-sm">
-                        +100 แต้มรับโบนัส
-                    </button>
-                </div>
+                <p class="text-pa-brown text-sm font-light">สะสมคะแนนในมินิเกมเพื่อปลดล็อก **ธีมสับปะรดทองคำ** และ **ธีมนีออนไซเบอร์พังก์ร**!</p>
             </div>
 
             <!-- Unlock Info Banner -->
             <div data-aos="fade-up" class="bg-pa-card p-4 rounded-2xl border border-pa-lightbrown/80 max-w-lg mx-auto text-xs text-center space-y-1">
                 <p class="font-bold text-pa-primary">🏆 ภารกิจปลดล็อกธีมพิเศษ:</p>
                 <p class="text-pa-brown">• Flappy Pineapple ถึง **5 คะแนน** 👉 ปลดล็อก <span class="font-bold text-amber-500">👑 ธีมทองคำ (Gold)</span></p>
-                <p class="text-pa-brown">• Pineapple Catcher ถึง **50 คะแนน** หรือ **สะสมแต้มรวมถึง 1,000 แต้ม** 👉 ปลดล็อก <span class="font-bold text-emerald-400">⚡ ธีมนีออน (Neon)</span></p>
+                <p class="text-pa-brown">• Pineapple Catcher ถึง **200 คะแนน** 👉 ปลดล็อก <span class="font-bold text-emerald-400">⚡ ธีมนีออน (Neon)</span></p>
             </div>
 
             <!-- Game Switcher Tabs -->
@@ -1004,7 +987,7 @@
                         <span class="text-xl">⚡</span>
                         <div class="text-left">
                             <span class="font-bold text-xs block">นีออนไซเบอร์พังก์ (Neon)</span>
-                            <span id="sub-theme-neon" class="text-[10px] text-emerald-400 font-medium">🔒 ปลดล็อกโดย Catcher ได้ 50 คะแนน หรือสะสม 1,000 แต้ม</span>
+                            <span id="sub-theme-neon" class="text-[10px] text-emerald-400 font-medium">🔒 ปลดล็อกโดย Catcher ได้ 200 คะแนน</span>
                         </div>
                     </div>
                     <span id="badge-neon" class="text-xs font-bold text-emerald-400 hidden">✓ ใช้งานอยู่</span>
@@ -1066,7 +1049,7 @@
         let activeTheme = localStorage.getItem('pineapple_theme') || 'light';
         let unlockedThemes = JSON.parse(localStorage.getItem('pineapple_unlocked_themes') || '["light", "dark"]');
         let currentScore = parseInt(localStorage.getItem('pineapple_total_score') || '0');
-        const NEON_UNLOCK_SCORE = 1000;
+        const NEON_UNLOCK_SCORE = 200;
 
         function toggleThemeModal() {
             const modal = document.getElementById('theme-modal');
@@ -1139,7 +1122,7 @@
                 if (neonItem) {
                     neonItem.classList.add('neon-unlocked');
                     neonItem.classList.remove('neon-locked');
-                    neonItem.innerHTML = '⚡ NEON LEGENDARY UNLOCKED!';
+                    neonItem.innerHTML = '⚡ NEON UNLOCKED!';
                 }
                 unlockTheme('neon', 'นีออนไซเบอร์พังก์ (Neon Theme)');
             }
@@ -1677,8 +1660,8 @@
                                 document.getElementById('catcher-highscore').textContent = highScore;
                             }
 
-                            // Check Theme Unlock Condition (Score >= 50)
-                            if (score >= 50) {
+                            // Check Theme Unlock Condition (Score >= 200)
+                            if (score >= 200) {
                                 unlockTheme('neon', 'นีออนไซเบอร์พังก์ (Neon Theme)');
                             }
                         }
