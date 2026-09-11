@@ -84,7 +84,7 @@
             --border-color: rgba(212, 175, 55, 0.4);
         }
 
-        /* ⚡ Neon Cyberpunk Theme (Unlocked via Catcher Score >= 50) */
+        /* ⚡ Neon Cyberpunk Theme (Unlocked via Catcher Score >= 50 or 1000 Points) */
         body.theme-neon {
             --color-bg: #05050D;
             --color-card: #121226;
@@ -150,6 +150,58 @@
         }
         canvas {
             touch-action: none;
+        }
+
+        /* ================= NEON UNLOCK SYSTEM STYLES ================= */
+        .neon-item {
+            font-size: 20px;
+            padding: 15px 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .neon-locked {
+            color: var(--color-brown);
+            border: 2px dashed var(--color-lightbrown);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* เอฟเฟกต์ Neon ระดับพรีเมียมเมื่อปลดล็อกครบ 1,000 แต้ม */
+        .neon-unlocked {
+            color: #ffffff !important;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid #00f3ff;
+            border-radius: 12px;
+            background: rgba(0, 243, 255, 0.1);
+            text-shadow:
+                0 0 4px #fff,
+                0 0 11px #fff,
+                0 0 19px #fff,
+                0 0 40px #00f3ff,
+                0 0 80px #00f3ff,
+                0 0 90px #00f3ff,
+                0 0 100px #00f3ff,
+                0 0 150px #00f3ff;
+            box-shadow: 
+                0 0 20px rgba(0, 243, 255, 0.4),
+                inset 0 0 15px rgba(0, 243, 255, 0.2);
+            animation: neonPulse 1.5s infinite alternate ease-in-out;
+        }
+
+        /* อนิเมชันไล่เฉดสีสะท้อนแสง */
+        @keyframes neonPulse {
+            0% {
+                filter: drop-shadow(0 0 5px #00f3ff) brightness(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 25px #ff00a0) brightness(1.3);
+            }
+            100% {
+                filter: drop-shadow(0 0 15px #00f3ff) brightness(1.1);
+            }
         }
     </style>
 </head>
@@ -457,7 +509,7 @@
                         <div class="space-y-1">
                             <h3 class="text-base font-bold text-pa-darkbrown">สร้างความผ่อนคลายด้วย Gamification Edutainment</h3>
                             <p class="text-sm text-pa-brown font-light leading-relaxed">
-                                ผสมผสานความรู้ทางเกษตรผ่านมินิเกมจำลองย้อนยุค เพื่อให้เยาวชน เกษตรกรรุ่นใหม่ (Young Smart Farmer) และผู้สนใจ ทบทวนความรู้ด้วยความสนุกสนานพร้อมสะสมคะแนนปลลดล็อกธีมสีใหม่
+                                ผสมผสานความรู้ทางเกษตรผ่านมินิเกมจำลองย้อนยุค เพื่อให้เยาวชน เกษตรกรรุ่นใหม่ (Young Smart Farmer) และผู้สนใจ ทบทวนความรู้ด้วยความสนุกสนานพร้อมสะสมคะแนนปลดล็อกธีมสีใหม่
                             </p>
                         </div>
                     </div>
@@ -762,16 +814,33 @@
         <!-- ================= PAGE 5: MINI GAMES ================= -->
         <section id="page-games" class="page-section space-y-8">
             <div data-aos="fade-up" class="text-center max-w-xl mx-auto space-y-2">
-                <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Retro Arcade & Unlockable Themes</span>
+                <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Retro Arcade & Neon Unlock System</span>
                 <h1 class="text-3xl font-bold text-pa-darkbrown">มินิเกมสับปะรด ย้อนวัย & ปลดล็อกธีม</h1>
-                <p class="text-pa-brown text-sm font-light">ทำคะแนนสูงสุดในมินิเกมเพื่อปลดล็อก **ธีมสับปะรดทองคำ** และ **ธีมนีออนไซเบอร์พังก์**!</p>
+                <p class="text-pa-brown text-sm font-light">สะสมคะแนนในมินิเกมเพื่อปลดล็อก **ธีมสับปะรดทองคำ** และ **ธีมนีออนไซเบอร์พังก์ระดับตำนาน**!</p>
+            </div>
+
+            <!-- Integrated Neon Unlock System Status Board -->
+            <div data-aos="fade-up" class="max-w-md mx-auto bg-pa-card p-6 rounded-3xl border border-pa-lightbrown shadow-md flex flex-col items-center justify-center space-y-4">
+                <div class="text-lg font-bold text-pa-darkbrown">
+                    คะแนนสะสมรวม: <span id="score-text" class="text-pa-primary text-2xl font-black">0</span> / 1000
+                </div>
+
+                <div id="neon-skin" class="neon-item neon-locked font-bold tracking-wider">
+                    ⚡ NEON LEGENDARY
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="addScore(100)" class="px-5 py-2.5 bg-pa-softorange hover:bg-pa-primary hover:text-white border border-pa-lightbrown rounded-xl font-bold text-sm text-pa-darkbrown transition-all shadow-sm">
+                        +100 แต้มรับโบนัส
+                    </button>
+                </div>
             </div>
 
             <!-- Unlock Info Banner -->
             <div data-aos="fade-up" class="bg-pa-card p-4 rounded-2xl border border-pa-lightbrown/80 max-w-lg mx-auto text-xs text-center space-y-1">
                 <p class="font-bold text-pa-primary">🏆 ภารกิจปลดล็อกธีมพิเศษ:</p>
                 <p class="text-pa-brown">• Flappy Pineapple ถึง **5 คะแนน** 👉 ปลดล็อก <span class="font-bold text-amber-500">👑 ธีมทองคำ (Gold)</span></p>
-                <p class="text-pa-brown">• Pineapple Catcher ถึง **50 คะแนน** 👉 ปลดล็อก <span class="font-bold text-emerald-400">⚡ ธีมนีออน (Neon)</span></p>
+                <p class="text-pa-brown">• Pineapple Catcher ถึง **50 คะแนน** หรือ **สะสมแต้มรวมถึง 1,000 แต้ม** 👉 ปลดล็อก <span class="font-bold text-emerald-400">⚡ ธีมนีออน (Neon)</span></p>
             </div>
 
             <!-- Game Switcher Tabs -->
@@ -935,7 +1004,7 @@
                         <span class="text-xl">⚡</span>
                         <div class="text-left">
                             <span class="font-bold text-xs block">นีออนไซเบอร์พังก์ (Neon)</span>
-                            <span id="sub-theme-neon" class="text-[10px] text-emerald-400 font-medium">🔒 ปลดล็อกโดยเล่น Catcher ได้ 50 คะแนน</span>
+                            <span id="sub-theme-neon" class="text-[10px] text-emerald-400 font-medium">🔒 ปลดล็อกโดย Catcher ได้ 50 คะแนน หรือสะสม 1,000 แต้ม</span>
                         </div>
                     </div>
                     <span id="badge-neon" class="text-xs font-bold text-emerald-400 hidden">✓ ใช้งานอยู่</span>
@@ -993,9 +1062,11 @@
 
     <!-- Master Script -->
     <script>
-        // ================= 1. THEME ENGINE SYSTEM =================
+        // ================= 1. THEME ENGINE & NEON UNLOCK SYSTEM =================
         let activeTheme = localStorage.getItem('pineapple_theme') || 'light';
         let unlockedThemes = JSON.parse(localStorage.getItem('pineapple_unlocked_themes') || '["light", "dark"]');
+        let currentScore = parseInt(localStorage.getItem('pineapple_total_score') || '0');
+        const NEON_UNLOCK_SCORE = 1000;
 
         function toggleThemeModal() {
             const modal = document.getElementById('theme-modal');
@@ -1050,6 +1121,27 @@
                 localStorage.setItem('pineapple_unlocked_themes', JSON.stringify(unlockedThemes));
                 alert(`🎉 ยินดีด้วย! คุณทำภารกิจสำเร็จ ปลดล็อก "${themeTitle}" แล้ว! ไปที่เมนู 'เปลี่ยนโทนสี' เพื่อใช้งานได้เลย!`);
                 updateThemeModalUI();
+            }
+        }
+
+        // ================= NEON SYSTEM SCORE TRACKER =================
+        function addScore(amount) {
+            currentScore += amount;
+            localStorage.setItem('pineapple_total_score', currentScore);
+            document.getElementById('score-text').innerText = currentScore;
+            updateNeonStatus(currentScore);
+        }
+
+        function updateNeonStatus(score) {
+            const neonItem = document.getElementById('neon-skin');
+            
+            if (score >= NEON_UNLOCK_SCORE) {
+                if (neonItem) {
+                    neonItem.classList.add('neon-unlocked');
+                    neonItem.classList.remove('neon-locked');
+                    neonItem.innerHTML = '⚡ NEON LEGENDARY UNLOCKED!';
+                }
+                unlockTheme('neon', 'นีออนไซเบอร์พังก์ (Neon Theme)');
             }
         }
 
@@ -1461,6 +1553,7 @@
 
                     if (pipe.x + 45 < bird.x && !pipe.passed) {
                         score++;
+                        addScore(10); // Add points to total Neon Score System
                         pipe.passed = true;
                         if (score > highScore) {
                             highScore = score;
@@ -1577,6 +1670,7 @@
                             if (lives <= 0) gameOver = true;
                         } else {
                             score += 10;
+                            addScore(10); // Add points to total Neon Score System
                             if (score > highScore) {
                                 highScore = score;
                                 localStorage.setItem('catcher_pineapple_hs', highScore);
@@ -1629,10 +1723,13 @@
                 offset: 50
             });
 
-            // Initialize saved theme & tip
+            // Initialize saved theme, tips, total score & neon status
             applyTheme(activeTheme);
             generateRandomTip();
             updateBookmarkUI();
+            
+            document.getElementById('score-text').innerText = currentScore;
+            updateNeonStatus(currentScore);
         });
     </script>
 </body>
