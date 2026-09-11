@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PineappleCraft.com - ศิลปะและวิถีแห่งการปลูกสับปะรด</title>
+    <title>PineappleCraft.com - ศิลปะและวิถีแห่งการปลูกสับปะรดขั้นสูง</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -23,15 +23,15 @@
                     },
                     colors: {
                         pa: {
-                            bg: '#FFFDF9',        /* Cream light background */
-                            card: '#FFF8F0',      /* Soft orange cream card */
-                            primary: '#E67E22',   /* Warm Pineapple Orange */
-                            secondary: '#D97706', /* Deep Golden Amber */
-                            accent: '#F59E0B',    /* Bright Pineapple Gold */
-                            brown: '#8B5A2B',     /* Soft Natural Brown */
-                            darkbrown: '#4A2E12', /* Deep Text Brown */
-                            softorange: '#FFEDD5',/* Very soft orange tint */
-                            lightbrown: '#F4E8D1' /* Light warm brown element */
+                            bg: '#FFFDF9',        
+                            card: '#FFF8F0',      
+                            primary: '#E67E22',   
+                            secondary: '#D97706', 
+                            accent: '#F59E0B',    
+                            brown: '#8B5A2B',     
+                            darkbrown: '#4A2E12', 
+                            softorange: '#FFEDD5',
+                            lightbrown: '#F4E8D1' 
                         }
                     }
                 }
@@ -66,7 +66,6 @@
             from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* Custom Scrollbar */
         .chat-scroll::-webkit-scrollbar, .custom-scroll::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -78,7 +77,6 @@
             background: #CBD5E1;
             border-radius: 4px;
         }
-        /* Card Hover Lift Effect */
         .hover-lift {
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
         }
@@ -86,9 +84,8 @@
             transform: translateY(-6px);
             box-shadow: 0 12px 20px -5px rgba(230, 126, 34, 0.15);
         }
-        /* Pulse Glow for Featured Items */
-        .glow-effect {
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+        canvas {
+            touch-action: none;
         }
     </style>
 </head>
@@ -97,7 +94,6 @@
     <!-- Header & Navigation -->
     <header class="sticky top-0 z-40 bg-[#FFFDF9]/90 backdrop-blur-md border-b border-pa-lightbrown/60">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Logo -->
             <a href="#" onclick="switchPage('home'); return false;" class="flex items-center gap-3 group">
                 <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white shadow-md shadow-pa-primary/20 group-hover:scale-105 transition-transform">
                     <i class="fa-solid font-bold text-xl">🍍</i>
@@ -110,43 +106,45 @@
 
             <!-- Desktop Nav -->
             <nav class="hidden md:flex items-center gap-1 bg-pa-softorange/50 p-1.5 rounded-full border border-pa-lightbrown/40">
-                <button onclick="switchPage('home')" id="nav-home" class="tab-btn active px-4 py-2 rounded-full text-xs lg:text-sm font-medium transition-all duration-200">
-                    <i class="fa-solid fa-house mr-1.5"></i>หน้าหลัก
+                <button onclick="switchPage('home')" id="nav-home" class="tab-btn active px-3.5 py-2 rounded-full text-xs lg:text-sm font-medium transition-all duration-200">
+                    <i class="fa-solid fa-house mr-1"></i>หน้าหลัก
                 </button>
-                <button onclick="switchPage('purpose')" id="nav-purpose" class="tab-btn px-4 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
-                    <i class="fa-solid fa-bullseye mr-1.5"></i>วัตถุประสงค์
+                <button onclick="switchPage('purpose')" id="nav-purpose" class="tab-btn px-3.5 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+                    <i class="fa-solid fa-bullseye mr-1"></i>วัตถุประสงค์
                 </button>
-                <button onclick="switchPage('guide')" id="nav-guide" class="tab-btn px-4 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
-                    <i class="fa-solid fa-book-open mr-1.5"></i>คู่มือการปลูก
+                <button onclick="switchPage('guide')" id="nav-guide" class="tab-btn px-3.5 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+                    <i class="fa-solid fa-book-open mr-1"></i>คู่มือการปลูก
                 </button>
-                <button onclick="switchPage('ai')" id="nav-ai" class="tab-btn px-4 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
-                    <i class="fa-solid fa-robot mr-1.5"></i>AI กูรู
+                <button onclick="switchPage('ai')" id="nav-ai" class="tab-btn px-3.5 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+                    <i class="fa-solid fa-robot mr-1"></i>AI กูรู
                 </button>
-                <button onclick="switchPage('founders')" id="nav-founders" class="tab-btn px-4 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
-                    <i class="fa-solid fa-users mr-1.5"></i>ผู้ก่อตั้ง
+                <button onclick="switchPage('games')" id="nav-games" class="tab-btn px-3.5 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+                    <i class="fa-solid fa-gamepad mr-1"></i>มินิเกม
+                </button>
+                <button onclick="switchPage('founders')" id="nav-founders" class="tab-btn px-3.5 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+                    <i class="fa-solid fa-users mr-1"></i>ผู้ก่อตั้ง
                 </button>
             </nav>
 
-            <!-- Saved Items Counter Badge -->
             <button onclick="showSavedGuidesModal()" class="hidden sm:flex items-center gap-2 bg-pa-card hover:bg-pa-softorange px-3.5 py-2 rounded-xl border border-pa-lightbrown transition-all text-xs text-pa-darkbrown">
                 <i class="fa-solid fa-bookmark text-pa-primary"></i>
                 <span>คู่มือที่บันทึก (<span id="saved-count">0</span>)</span>
             </button>
 
-            <!-- Mobile Menu Toggle Button -->
             <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl text-pa-darkbrown hover:bg-pa-softorange focus:outline-none">
                 <i class="fa-solid fa-bars text-xl"></i>
             </button>
         </div>
 
-        <!-- Mobile Drawer Menu -->
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-[#FFFDF9] border-b border-pa-lightbrown px-4 pt-2 pb-6 space-y-2">
-            <button onclick="switchPage('home'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">หน้าหลัก</button>
-            <button onclick="switchPage('purpose'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">วัตถุประสงค์</button>
-            <button onclick="switchPage('guide'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">คู่มือการปลูก</button>
-            <button onclick="switchPage('ai'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">AI สับปะรดกูรู</button>
-            <button onclick="switchPage('founders'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">ผู้ก่อตั้ง</button>
-            <button onclick="showSavedGuidesModal(); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-pa-primary bg-pa-softorange/50 flex items-center justify-between">
+            <button onclick="switchPage('home'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">หน้าหลัก</button>
+            <button onclick="switchPage('purpose'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">วัตถุประสงค์</button>
+            <button onclick="switchPage('guide'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">คู่มือการปลูก</button>
+            <button onclick="switchPage('ai'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">AI สับปะรดกูรู</button>
+            <button onclick="switchPage('games'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">🎮 มินิเกมสับปะรด</button>
+            <button onclick="switchPage('founders'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">ผู้ก่อตั้ง</button>
+            <button onclick="showSavedGuidesModal(); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-primary bg-pa-softorange/50 flex items-center justify-between">
                 <span><i class="fa-solid fa-bookmark mr-2"></i>รายการที่บันทึกไว้</span>
                 <span id="saved-count-mobile" class="bg-pa-primary text-white text-xs px-2 py-0.5 rounded-full">0</span>
             </button>
@@ -175,20 +173,20 @@
             <div data-aos="fade-up" class="relative bg-gradient-to-br from-pa-softorange via-[#FFF8F0] to-pa-lightbrown/40 rounded-3xl p-8 sm:p-12 border border-pa-lightbrown/60 overflow-hidden shadow-sm">
                 <div class="max-w-2xl relative z-10 space-y-6">
                     <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-pa-primary/10 text-pa-primary border border-pa-primary/20">
-                        🌱 ร่วมสร้างอนาคตเกษตรกรไทยอย่างยั่งยืน
+                        🌱 ศูนย์รวมความรู้เกษตรสับปะรดแม่นยำและนวัตกรรมยั่งยืน
                     </span>
                     <h1 class="text-3xl sm:text-5xl font-bold text-pa-darkbrown leading-tight">
-                        เริ่มต้นเปลี่ยนพื้นที่ว่าง ให้เป็น <span class="text-pa-primary">ขุมทรัพย์สับปะรด</span>
+                        ยกระดับสวนสับปะรดไทย สู่ <span class="text-pa-primary">ขุมทรัพย์เศรษฐกิจยั่งยืน</span>
                     </h1>
                     <p class="text-pa-brown text-base sm:text-lg leading-relaxed font-light">
-                        เรียนรู้วิธีการปลูกและดูแลสับปะรดอย่างเจาะจงแม่นยำ ตั้งแต่การตรวจวัดค่า pH ดิน เทคนิคการใช้สารบังคับดอก การป้องกันโรค ตลอดจนการประเมินรายได้ก่อนเริ่มลงทุน
+                        เจาะลึกเทคนิคเกษตรแม่นยำ (Precision Farming) วิเคราะห์เชิงลึกตั้งแต่เคมีในดิน ปุ๋ยสั่งตัด การควบคุมสารฮอร์โมนบังคับดอก ตลอดจนการป้องกันโรคทางชีวภาพ และผ่อนคลายกับมินิเกมย้อนวัยสไตล์สับปะรด
                     </p>
                     <div class="flex flex-wrap gap-4 pt-2">
                         <button onclick="switchPage('guide')" class="px-6 py-3.5 bg-pa-primary hover:bg-pa-secondary text-white rounded-2xl font-medium shadow-lg shadow-pa-primary/25 transition-all flex items-center gap-2 text-sm hover-lift">
-                            เริ่มศึกษาการปลูกอย่างละเอียด <i class="fa-solid fa-arrow-right text-xs"></i>
+                            ศึกษาคู่มือฉบับเต็ม <i class="fa-solid fa-arrow-right text-xs"></i>
                         </button>
-                        <button onclick="switchPage('ai')" class="px-6 py-3.5 bg-white hover:bg-pa-softorange/50 text-pa-darkbrown border border-pa-lightbrown rounded-2xl font-medium transition-all text-sm flex items-center gap-2 hover-lift">
-                            <i class="fa-solid fa-sparkles text-pa-accent"></i> ปรึกษา AI ผู้ช่วย
+                        <button onclick="switchPage('games')" class="px-6 py-3.5 bg-white hover:bg-pa-softorange/50 text-pa-darkbrown border border-pa-lightbrown rounded-2xl font-medium transition-all text-sm flex items-center gap-2 hover-lift">
+                            <i class="fa-solid fa-gamepad text-pa-accent"></i> เล่นมินิเกม
                         </button>
                     </div>
                 </div>
@@ -197,102 +195,141 @@
                 </div>
             </div>
 
-            <!-- Why Pineapple? -->
+            <!-- Detailed Benefits & Physiology -->
             <div class="space-y-6">
                 <div data-aos="fade-up" class="text-center max-w-xl mx-auto space-y-2">
-                    <h2 class="text-2xl sm:text-3xl font-bold text-pa-darkbrown">ทำไมต้องเป็น "สับปะรด"?</h2>
-                    <p class="text-pa-brown text-sm font-light">พืชเศรษฐกิจทนแล้ง ดูแลรักษาง่าย และให้ผลตอบแทนที่คุ้มค่า</p>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-pa-darkbrown">ทำไมสับปะรดจึงเป็นพืชเศรษฐกิจทรงคุณค่า?</h2>
+                    <p class="text-pa-brown text-sm font-light">ทำความเข้าใจสรีรวิทยาอันมหัศจรรย์และข้อได้เปรียบเชิงการตลาด</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div data-aos="fade-up" data-aos-delay="100" class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-3 hover-lift">
                         <div class="w-12 h-12 rounded-xl bg-pa-softorange text-pa-primary flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-sun"></i>
+                            <i class="fa-solid fa-leaf"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-pa-darkbrown">ทนทานทุกสภาพอากาศ</h3>
+                        <h3 class="text-lg font-bold text-pa-darkbrown">สรีรวิทยา CAM Adaptability</h3>
                         <p class="text-sm text-pa-brown leading-relaxed font-light">
-                            สับปะรดเป็นพืชกลุ่ม CAM ที่สังเคราะห์แสงและเปิดปากใบเวลากลางคืน จึงสูญเสียน้ำน้อยมาก ทนสภาพแห้งแล้งได้ดีเยี่ยม
+                            สับปะรดดูดซับ CO2 ในเวลากลางคืนเพื่อลดการสูญเสียน้ำผ่านการคายน้ำ (Transpiration) มีเนื้อเยื่อสะสมน้ำพิเศษในใบ ทำให้ทนทานต่อสภาวะภัยแล้งยาวนานได้อย่างมีประสิทธิภาพสูง
                         </p>
                     </div>
 
                     <div data-aos="fade-up" data-aos-delay="200" class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-3 hover-lift">
                         <div class="w-12 h-12 rounded-xl bg-pa-softorange text-pa-primary flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-coins"></i>
+                            <i class="fa-solid fa-chart-pie"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-pa-darkbrown">ตลาดรองรับหลากหลาย</h3>
+                        <h3 class="text-lg font-bold text-pa-darkbrown">การแปรรูปอุตสาหกรรมมูลค่าสูง</h3>
                         <p class="text-sm text-pa-brown leading-relaxed font-light">
-                            ขายได้ทั้งผลสด ตลาดโรงงานแปรรูปทำสับปะรดกระป๋อง น้ำผลไม้ หรือทำสับปะรดกวน สร้างรายได้หลากหลายทาง
+                            ทุกส่วนขายได้! ผลสดเพื่อบริโภค แปรรูปบรรจุกระป๋อง สกัดเอนไซม์ **โบรมีเลน (Bromelain)** ใช้ในอุตสาหกรรมยา และเส้นใยใบสับปะรดสำหรับสิ่งทอเป็นมิตรต่อสิ่งแวดล้อม
                         </p>
                     </div>
 
                     <div data-aos="fade-up" data-aos-delay="300" class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-3 hover-lift">
                         <div class="w-12 h-12 rounded-xl bg-pa-softorange text-pa-primary flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-seedling"></i>
+                            <i class="fa-solid fa-arrows-spin"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-pa-darkbrown">ขยายพันธุ์ง่าย ต้นทุนต่ำ</h3>
+                        <h3 class="text-lg font-bold text-pa-darkbrown">วงจรการขยายพันธุ์ยั่งยืน</h3>
                         <p class="text-sm text-pa-brown leading-relaxed font-light">
-                            สามารถใช้หน่อ ดิน หรือจุกมาขยายพันธุ์ต่อได้เรื่อยๆ โดยไม่ต้องซื้อเมล็ดพันธุ์ใหม่ตลอดเวลา ช่วยลดต้นทุนในระยะยาว
+                            ขยายพันธุ์ง่ายโดยไม่เสียลักษณะสายพันธุ์ผ่าน หน่อข้าง หน่อดิน ดินตะโพก และจุก สามารถวางแผนผลิตนอกฤดูเพื่อเก็งราคาตลาดได้อย่างแม่นยำตลอดปี
                         </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Variety Selector Showcase -->
+            <!-- Deep Variety Comparison -->
             <div data-aos="fade-up" class="bg-pa-card p-8 rounded-3xl border border-pa-lightbrown/60 space-y-6">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
-                        <h2 class="text-xl font-bold text-pa-darkbrown">สายพันธุ์สับปะรดแนะนำสำหรับเกษตรกรมือใหม่</h2>
-                        <p class="text-xs text-pa-brown font-light mt-1">เลือกรสชาติและเป้าหมายการขายที่เหมาะกับคุณ</p>
+                        <h2 class="text-xl font-bold text-pa-darkbrown">เจาะลึก 6 สายพันธุ์สับปะรดพาณิชย์ในประเทศไทย</h2>
+                        <p class="text-xs text-pa-brown font-light mt-1">เปรียบเทียบลักษณะทางกายภาพ ตลาดเป้าหมาย และความต้องการธาตุอาหาร</p>
                     </div>
-                    <button onclick="switchPage('guide')" class="text-xs text-pa-primary hover:underline font-medium">ดูเทคนิคการปลูกทั้งหมด &rarr;</button>
+                    <button onclick="switchPage('guide')" class="text-xs text-pa-primary hover:underline font-medium">เข้าสู่คู่มือการปลูก &rarr;</button>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift">
-                        <span class="text-2xl mb-2 block">🍍</span>
-                        <h4 class="font-bold text-pa-darkbrown text-sm">ปัตตาเวีย (ศรีราชา)</h4>
-                        <p class="text-xs text-pa-brown mt-1 font-light">ผลใหญ่ เนื้อหนา ฉ่ำน้ำ เหมาะส่งโรงงานแปรรูปและขายผลสดทั่วไป</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl">🍍</span>
+                            <span class="text-[10px] font-semibold bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">อุตสาหกรรม & ผลสด</span>
+                        </div>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">ปัตตาเวีย (Smooth Cayenne)</h4>
+                        <p class="text-xs text-pa-brown font-light leading-relaxed">ผลใหญ่ ตาตื้น เนื้อสีเหลืองอ่อน ฉ่ำน้ำ มีปริมาณกรดสม่ำเสมอ นิยมส่งโรงงานแปรรูปกระป๋องและขายผลสดทั่วไป</p>
                     </div>
-                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift">
-                        <span class="text-2xl mb-2 block">🍍</span>
-                        <h4 class="font-bold text-pa-darkbrown text-sm">ภูแล</h4>
-                        <p class="text-xs text-pa-brown mt-1 font-light">ผลเล็ก กรอบหวาน แกนรับประทานได้ ตลาดต้องการสูง ราคาสูง</p>
+
+                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl">🍍</span>
+                            <span class="text-[10px] font-semibold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">ตลาดพรีเมียม</span>
+                        </div>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">ภูแล (Phulae)</h4>
+                        <p class="text-xs text-pa-brown font-light leading-relaxed">กลายพันธุ์จากปัตตาเวียปลูกในเชียงราย ผลขนาดเล็ก ตาตื้น กรอบหวาน หอม แกนรับประทานได้ ไม่คายลิ้น ราคาต่อกิโลกรัมสูง</p>
                     </div>
-                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift">
-                        <span class="text-2xl mb-2 block">🍍</span>
-                        <h4 class="font-bold text-pa-darkbrown text-sm">ห้วยมุ่น</h4>
-                        <p class="text-xs text-pa-brown mt-1 font-light">ผิวบาง ตาตื้น เนื้อเหลืองนิ่ม ไม่คายลิ้น ทานสดอร่อยมาก</p>
+
+                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl">🍍</span>
+                            <span class="text-[10px] font-semibold bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">บริโภคผลสด</span>
+                        </div>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">ห้วยมุ่น (Huai Mun)</h4>
+                        <p class="text-xs text-pa-brown font-light leading-relaxed">ปลูกมากในอุตรดิตถ์ เปลือกบาง ตาตื้น เนื้อเหลืองนิ่มคล้ายน้ำผึ้ง รสชาติหวานนุ่ม ไม่กัดลิ้น ได้รับการรับรอง GI</p>
                     </div>
-                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift">
-                        <span class="text-2xl mb-2 block">🍍</span>
-                        <h4 class="font-bold text-pa-darkbrown text-sm">ตราดสีทอง</h4>
-                        <p class="text-xs text-pa-brown mt-1 font-light">ทรงรูปไข่ เปลือกเหลืองทอง กลิ่นหอมแรง เนื้อกรอบหวานชื่นใจ</p>
+
+                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl">🍍</span>
+                            <span class="text-[10px] font-semibold bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">บริโภคผลสด</span>
+                        </div>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">ตราดสีทอง (Trat Si Thong)</h4>
+                        <p class="text-xs text-pa-brown font-light leading-relaxed">กลุ่มสายพันธุ์ควีน (Queen) ใบมีหนามหนา ผลทรงรูปไข่ เปลือกเหลืองทอง กลิ่นหอมแรง เนื้อสีเหลืองเข้ม กรอบหวานชื่นใจ</p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl">🍍</span>
+                            <span class="text-[10px] font-semibold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">บริโภคผลสดพรีเมียม</span>
+                        </div>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">เพชรบุรี (Phetchaburi)</h4>
+                        <p class="text-xs text-pa-brown font-light leading-relaxed">สายพันธุ์ควีนรสเลิศ ผลมีตาแกะง่าย แกะทานด้วยมือได้เป็นกลีบๆ เนื้อกรอบแห้ง หวานจัด กลิ่นหอมเป็นเอกลักษณ์เฉพาะตัว</p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 hover-lift space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl">🍍</span>
+                            <span class="text-[10px] font-semibold bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full">ตลาดบริโภคสดใหม่</span>
+                        </div>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">MD2 (Gold / Honey Gold)</h4>
+                        <p class="text-xs text-pa-brown font-light leading-relaxed">สายพันธุ์การค้าตระกูลไฮบริด วิตามินซีสูงกว่าปัตตาเวีย 3 เท่า ปริมาณกรดต่ำ รสหวานฉ่ำกลมกล่อม อายุการเก็บรักษานาน เหมาะแก่งานส่งออก</p>
                     </div>
                 </div>
             </div>
 
             <!-- Navigation Cards Hub -->
             <div data-aos="fade-up" class="bg-gradient-to-r from-pa-softorange/40 to-pa-lightbrown/30 p-8 rounded-3xl border border-pa-lightbrown/60 space-y-6">
-                <h2 class="text-xl font-bold text-pa-darkbrown text-center">สำรวจเนื้อหาในเว็บไซต์</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <button onclick="switchPage('purpose')" class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
-                        <i class="fa-solid fa-bullseye text-2xl text-pa-primary mb-3 block group-hover:scale-110 transition-transform"></i>
+                <h2 class="text-xl font-bold text-pa-darkbrown text-center">เมนูศูนย์รวมความรู้และกิจกรรม</h2>
+                <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+                    <button onclick="switchPage('purpose')" class="bg-white p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
+                        <i class="fa-solid fa-bullseye text-2xl text-pa-primary mb-2 block group-hover:scale-110 transition-transform"></i>
                         <h4 class="font-bold text-pa-darkbrown text-sm">วัตถุประสงค์</h4>
-                        <p class="text-xs text-pa-brown mt-1">เจตนารมณ์ในการตั้งเว็บไซต์</p>
+                        <p class="text-[11px] text-pa-brown mt-0.5">วิvisionและพันธกิจ</p>
                     </button>
-                    <button onclick="switchPage('guide')" class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
-                        <i class="fa-solid fa-book-open text-2xl text-pa-primary mb-3 block group-hover:scale-110 transition-transform"></i>
-                        <h4 class="font-bold text-pa-darkbrown text-sm">ขั้นตอนการปลูก</h4>
-                        <p class="text-xs text-pa-brown mt-1">วิธีเตรียมดิน ให้น้ำ ปุ๋ย และบังคับดอก</p>
+                    <button onclick="switchPage('guide')" class="bg-white p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
+                        <i class="fa-solid fa-book-open text-2xl text-pa-primary mb-2 block group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">คู่มือการปลูก</h4>
+                        <p class="text-[11px] text-pa-brown mt-0.5">6 ขั้นตอนละเอียด</p>
                     </button>
-                    <button onclick="switchPage('ai')" class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
-                        <i class="fa-solid fa-robot text-2xl text-pa-primary mb-3 block group-hover:scale-110 transition-transform"></i>
-                        <h4 class="font-bold text-pa-darkbrown text-sm">ถาม-ตอบ AI</h4>
-                        <p class="text-xs text-pa-brown mt-1">สอบถาม AI สับปะรดกูรู</p>
+                    <button onclick="switchPage('ai')" class="bg-white p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
+                        <i class="fa-solid fa-robot text-2xl text-pa-primary mb-2 block group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">AI สับปะรดกูรู</h4>
+                        <p class="text-[11px] text-pa-brown mt-0.5">ถาม-ตอบแบบเรียลไทม์</p>
                     </button>
-                    <button onclick="switchPage('founders')" class="bg-white p-5 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
-                        <i class="fa-solid fa-users text-2xl text-pa-primary mb-3 block group-hover:scale-110 transition-transform"></i>
-                        <h4 class="font-bold text-pa-darkbrown text-sm">ทีมงานผู้ก่อตั้ง</h4>
-                        <p class="text-xs text-pa-brown mt-1">ผู้เบื้องหลัง PineappleCraft</p>
+                    <button onclick="switchPage('games')" class="bg-white p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
+                        <i class="fa-solid fa-gamepad text-2xl text-pa-primary mb-2 block group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">มินิเกม retro</h4>
+                        <p class="text-[11px] text-pa-brown mt-0.5">2 เกมย้อนวัยสนุกๆ</p>
+                    </button>
+                    <button onclick="switchPage('founders')" class="bg-white p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
+                        <i class="fa-solid fa-users text-2xl text-pa-primary mb-2 block group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-bold text-pa-darkbrown text-sm">ทีมผู้ก่อตั้ง</h4>
+                        <p class="text-[11px] text-pa-brown mt-0.5">ผู้จัดทำโครงการ</p>
                     </button>
                 </div>
             </div>
@@ -300,20 +337,20 @@
 
         <!-- ================= PAGE 2: PURPOSE ================= -->
         <section id="page-purpose" class="page-section space-y-8">
-            <div class="max-w-3xl mx-auto space-y-6">
+            <div class="max-w-4xl mx-auto space-y-6">
                 <div data-aos="fade-up" class="text-center space-y-3">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Our Purpose</span>
-                    <h1 class="text-3xl font-bold text-pa-darkbrown">วัตถุประสงค์ในการก่อตั้งเว็บไซต์</h1>
-                    <p class="text-pa-brown text-sm font-light">มุ่งมั่นสร้างสังคมเกษตรกรรมสับปะรดที่ยั่งยืนและเข้าถึงง่ายสำหรับทุกคน</p>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Our Core Purpose</span>
+                    <h1 class="text-3xl font-bold text-pa-darkbrown">วัตถุประสงค์และเจตนารมณ์การก่อตั้ง</h1>
+                    <p class="text-pa-brown text-sm font-light">มุ่งมั่นขับเคลื่อนภาคเกษตรกรรมไทยด้วยความรู้เชิงวิทยาศาสตร์และเทคโนโลยีดิจิทัล</p>
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="100" class="bg-pa-card p-8 rounded-3xl border border-pa-lightbrown/60 space-y-6 shadow-sm">
                     <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-pa-primary text-white flex-shrink-0 flex items-center justify-center font-bold">1</div>
-                        <div>
-                            <h3 class="text-base font-bold text-pa-darkbrown">ส่งเสริมการใช้พื้นที่อย่างมีประสิทธิภาพ</h3>
-                            <p class="text-sm text-pa-brown mt-1 font-light leading-relaxed">
-                                เพื่อให้ผู้ที่มีที่ดินว่างเปล่า ได้เห็นถึงศักยภาพของสับปะรด ซึ่งเป็นพืชที่ปลูกง่าย ดูแลไม่ยุ่งยาก ทนแล้งสูง และสามารถสร้างมูลค่าเพิ่มให้กับที่ดินได้อย่างยั่งยืน
+                        <div class="w-12 h-12 rounded-2xl bg-pa-primary text-white flex-shrink-0 flex items-center justify-center font-bold text-lg shadow-md shadow-pa-primary/20">1</div>
+                        <div class="space-y-1">
+                            <h3 class="text-base font-bold text-pa-darkbrown">ยกระดับศักยภาพการใช้ประโยชน์จากที่ดิน (Land Optimization)</h3>
+                            <p class="text-sm text-pa-brown font-light leading-relaxed">
+                                เปลี่ยนแปลงพื้นที่เสื่อมโทรม หรือพื้นที่ว่างเปล่าไร้ประโยชน์ให้กลายเป็นแปลงเกษตรสับปะรดมูลค่าสูง ด้วยระบบการจัดการดินและน้ำอย่างตรงจุด ลดความเสี่ยงจากสภาพภูมิอากาศผันผวน
                             </p>
                         </div>
                     </div>
@@ -321,11 +358,11 @@
                     <hr class="border-pa-lightbrown/40">
 
                     <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-pa-primary text-white flex-shrink-0 flex items-center justify-center font-bold">2</div>
-                        <div>
-                            <h3 class="text-base font-bold text-pa-darkbrown">รวบรวมความรู้ที่ถูกต้องและเจาะจง</h3>
-                            <p class="text-sm text-pa-brown mt-1 font-light leading-relaxed">
-                                นำเสนอคู่มือการปลูกสับปะรดแบบเข้าใจง่ายและปฏิบัติได้จริง ตั้งแต่ขั้นตอนการตรวจ pH ดิน การเลือกสายพันธุ์ คัดหน่อ การดูแลรายเดือน การบังคับออกดอกนอกฤดู ตลอดจนการป้องกันโรคพืช
+                        <div class="w-12 h-12 rounded-2xl bg-pa-primary text-white flex-shrink-0 flex items-center justify-center font-bold text-lg shadow-md shadow-pa-primary/20">2</div>
+                        <div class="space-y-1">
+                            <h3 class="text-base font-bold text-pa-darkbrown">รวบรวมองค์ความรู้เกษตรแม่นยำ (Precision Agriculture Knowledge Hub)</h3>
+                            <p class="text-sm text-pa-brown font-light leading-relaxed">
+                                ถ่ายทอดความรู้เชิงลึกที่ผ่านการรับรองจากงานวิจัยและประสบการณ์จริงในแปลงเกษตร ทั้งเคมีดิน โภชนาการพืช เทคโนโลยีการใช้ฮอร์โมนพืชบังคับดอก และการจัดการศัตรูพืชแบบผสมผสาน (IPM)
                             </p>
                         </div>
                     </div>
@@ -333,11 +370,23 @@
                     <hr class="border-pa-lightbrown/40">
 
                     <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-pa-primary text-white flex-shrink-0 flex items-center justify-center font-bold">3</div>
-                        <div>
-                            <h3 class="text-base font-bold text-pa-darkbrown">ประยุกต์ใช้เทคโนโลยี AI เพื่อสนับสนุนเกษตรกร</h3>
-                            <p class="text-sm text-pa-brown mt-1 font-light leading-relaxed">
-                                นำนวัตกรรม ปัญญาประดิษฐ์ (AI) มาช่วยตอบคำถาม ให้คำปรึกษาแก่ผู้ปลูกสับปะรดได้แบบเรียลไทม์ ตลอด 24 ชั่วโมง เพื่อแก้ไขปัญหาเฉพาะหน้าได้อย่างทันท่วงที
+                        <div class="w-12 h-12 rounded-2xl bg-pa-primary text-white flex-shrink-0 flex items-center justify-center font-bold text-lg shadow-md shadow-pa-primary/20">3</div>
+                        <div class="space-y-1">
+                            <h3 class="text-base font-bold text-pa-darkbrown">ประยุกต์ใช้นวัตกรรมดิจิทัลและปัญญาประดิษฐ์ (AI Integration)</h3>
+                            <p class="text-sm text-pa-brown font-light leading-relaxed">
+                                ผสานรวมปัญญาประดิษฐ์ (AI) และเครื่องมือคำนวณทางคณิตศาสตร์ เพื่อช่วยวางแผนการปลูก ประเมินผลผลิต พาดคาดคะเนรายได้ และแก้ไขปัญหาโรคพืชได้ทันทีโดยไม่ต้องรอผู้เชี่ยวชาญ
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr class="border-pa-lightbrown/40">
+
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-pa-primary text-white flex-shrink-0 flex items-center justify-center font-bold text-lg shadow-md shadow-pa-primary/20">4</div>
+                        <div class="space-y-1">
+                            <h3 class="text-base font-bold text-pa-darkbrown">สร้างความผ่อนคลายด้วย Gamification Edutainment</h3>
+                            <p class="text-sm text-pa-brown font-light leading-relaxed">
+                                ผสมผสานความรู้ทางเกษตรผ่านมินิเกมจำลองย้อนยุค เพื่อให้เยาวชน เกษตรกรรุ่นใหม่ (Young Smart Farmer) และผู้สนใจ ทบทวนความรู้ด้วยความสนุกสนานและเข้าถึงง่าย
                             </p>
                         </div>
                     </div>
@@ -349,13 +398,13 @@
         <section id="page-guide" class="page-section space-y-10">
             <div data-aos="fade-up" class="text-center max-w-2xl mx-auto space-y-3">
                 <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Comprehensive Guide</span>
-                <h1 class="text-3xl font-bold text-pa-darkbrown">คู่มือการปลูกสับปะรดฉบับเจาะจงและสมบูรณ์แบบ</h1>
-                <p class="text-pa-brown text-sm font-light">คู่มือเชิงลึกที่รวบรวมขั้นตอนปฏิบัติจริง ปฏิทินการดูแล และเทคนิคจากเกษตรกรมืออาชีพ</p>
+                <h1 class="text-3xl font-bold text-pa-darkbrown">คู่มือการปลูกสับปะรดขั้นสูงและเทคนิควิศวกรรมเกษตร</h1>
+                <p class="text-pa-brown text-sm font-light">คู่มือปฏิบัติจริงครอบคลุมวิเคราะห์เคมีดิน การจัดการโภชนาการ ฮอร์โมน และโรคพืช</p>
             </div>
 
-            <!-- Search & Filter Bar for Guide Topics -->
+            <!-- Search & Filter Bar -->
             <div data-aos="fade-up" class="max-w-md mx-auto relative">
-                <input type="text" id="guide-search" oninput="filterGuideCards()" placeholder="🔍 ค้นหาหัวข้อคู่มือ (เช่น ดิน, ปุ๋ย, บังคับดอก, โรค)..." class="w-full px-4 py-2.5 rounded-2xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-white text-sm">
+                <input type="text" id="guide-search" oninput="filterGuideCards()" placeholder="🔍 ค้นหาหัวข้อคู่มือ (เช่น ดิน, ปุ๋ย, เอทธิฟอน, เพลี้ยแป้ง)..." class="w-full px-4 py-2.5 rounded-2xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-white text-sm shadow-sm">
             </div>
 
             <!-- Steps Grid -->
@@ -368,7 +417,7 @@
                             <span class="w-8 h-8 rounded-lg bg-pa-softorange text-pa-primary font-bold flex items-center justify-center text-sm">01</span>
                             <div class="flex items-center gap-2">
                                 <button onclick="openGuideDetail(1)" class="text-xs text-pa-primary bg-pa-softorange px-2.5 py-1 rounded-lg hover:bg-pa-primary hover:text-white transition-all font-medium">
-                                    <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>เชิงลึก
+                                    <i class="fa-solid fa-microscope mr-1"></i>วิเคราะห์เชิงลึก
                                 </button>
                                 <button onclick="toggleBookmark(1)" id="bm-btn-1" class="text-pa-brown/40 hover:text-pa-primary text-base transition-colors" title="บันทึกหัวข้อนี้">
                                     <i class="fa-regular fa-bookmark"></i>
@@ -376,16 +425,16 @@
                             </div>
                         </div>
                         <h3 class="text-lg font-bold text-pa-darkbrown flex items-center gap-2">
-                            <i class="fa-solid fa-mountain text-pa-primary"></i> 1. การเตรียมดินและปรับสภาพแปลง
+                            <i class="fa-solid fa-mountain text-pa-primary"></i> 1. การเตรียมดิน เคมีในดิน และการยกแปลง
                         </h3>
                         <div class="text-xs text-pa-brown space-y-2.5 font-light leading-relaxed mt-3">
-                            <p>• <strong>ค่าความเป็นกรด-ด่าง (pH):</strong> สับปะรดเจริญเติบโตได้ดีที่สุดในดินที่มีค่า pH <strong>4.5 - 5.5</strong> หากเป็นดินกรดจัด (pH &lt; 4.0) ให้ปรับด้วยปูนมาร์ลหรือโดโลไมต์</p>
-                            <p>• <strong>การไถพรวน:</strong> ไถตากดินอย่างน้อย 7-14 วัน เพื่อกำจัดวัชพืชและไข่แมลง ไถลึก 30-40 ซม. ให้ดินร่วนซุยเนื่องจากระบบรากสับปะรดตื้นและบอบบาง</p>
-                            <p>• <strong>ยกร่องระบายน้ำ:</strong> ยกร่องแปลงสูงอย่างน้อย 30 ซม. สับปะรดไวต่อภาวะน้ำขังอย่างมาก ถ้าน้ำขังเกิน 24-48 ชม. รากจะเน่าทันที</p>
+                            <p>• <strong>ค่าความเป็นกรด-ด่าง (pH):</strong> ปรับสภาพให้อยู่ในระดับ <strong>4.5 - 5.5</strong> ดินร่วนปนทรายระบายน้ำดี หาก pH &gt; 6.0 จะเกิดอาการขาดธาตุเหล็กและสังกะสี</p>
+                            <p>• <strong>การปรับปรุงดินด้วยปูนโดโลไมต์:</strong> หาก pH &lt; 4.0 หินปูนโดโลไมต์จะช่วยเพิ่มแคลเซียมและแมกนีเซียม อัตรา 100-200 กิโลกรัม/ไร่ ไถกลบก่อนปลูก 3-4 สัปดาห์</p>
+                            <p>• <strong>โครงสร้างการยกร่อง (Bed Formation):</strong> ยกร่องสูงอย่างน้อย 30-40 ซม. สันร่องกว้าง 80-90 ซม. เพื่อป้องกันโรครากเน่าจากภาวะน้ำขังเกิน 24 ชั่วโมง</p>
                         </div>
                     </div>
                     <div class="pt-3 border-t border-pa-lightbrown/40 text-[11px] text-pa-primary font-medium">
-                        📌 ข้อควรระวัง: ห้ามปลูกในพื้นที่ดินเหนียวจัดที่ไม่ยกแปลงระบายน้ำ
+                        📌 ข้อควรระวัง: สับปะรดไม่ทนต่อดินเหนียวจัดที่มีน้ำขังและค่าเกลือในดินสูง
                     </div>
                 </div>
 
@@ -396,7 +445,7 @@
                             <span class="w-8 h-8 rounded-lg bg-pa-softorange text-pa-primary font-bold flex items-center justify-center text-sm">02</span>
                             <div class="flex items-center gap-2">
                                 <button onclick="openGuideDetail(2)" class="text-xs text-pa-primary bg-pa-softorange px-2.5 py-1 rounded-lg hover:bg-pa-primary hover:text-white transition-all font-medium">
-                                    <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>เชิงลึก
+                                    <i class="fa-solid fa-microscope mr-1"></i>วิเคราะห์เชิงลึก
                                 </button>
                                 <button onclick="toggleBookmark(2)" id="bm-btn-2" class="text-pa-brown/40 hover:text-pa-primary text-base transition-colors" title="บันทึกหัวข้อนี้">
                                     <i class="fa-regular fa-bookmark"></i>
@@ -404,16 +453,16 @@
                             </div>
                         </div>
                         <h3 class="text-lg font-bold text-pa-darkbrown flex items-center gap-2">
-                            <i class="fa-solid fa-seedling text-pa-primary"></i> 2. การคัดเลือกและเตรียมหน่อพันธุ์
+                            <i class="fa-solid fa-seedling text-pa-primary"></i> 2. การเลือกส่วนขยายพันธุ์และระยะปลูก
                         </h3>
                         <div class="text-xs text-pa-brown space-y-2.5 font-light leading-relaxed mt-3">
-                            <p>• <strong>เลือกประเภทส่วนขยายพันธุ์:</strong> นิยมใช้ <strong>หน่อข้าง (Shoots/Slips)</strong> ความยาว 30-45 ซม. เพราะเจริญเติบโตเร็วและให้ผลผลิตเร็วกว่าการใช้จุก (Crowns)</p>
-                            <p>• <strong>การผึ่งลมพักหน่อ:</strong> หลังจากเก็บหน่อพันธุ์มาแล้ว ต้องนำมาปลิดใบล่างออก 3-4 ใบ แล้วผึ่งลมในที่ร่ม 3-5 วัน ให้แผลที่โคนแห้งสนิท</p>
-                            <p>• <strong>การชุบสารเคมีป้องกันโรค:</strong> จุ่มโคนหน่อในสารป้องกันเชื้อรา (เช่น เมทาแลกซิล) ร่วมกับสารกำจัดเพลี้ยแป้ง ก่อนปลูก 5-10 นาที</p>
+                            <p>• <strong>ประเภทหน่อพันธุ์:</strong> ใช้ <strong>หน่อข้าง (Shoots/Slips)</strong> ยาว 35-45 ซม. น้ำหนัก 400-600 กรัม ให้ผลผลิตเร็วกว่าการใช้จุก 3-5 เดือน</p>
+                            <p>• <strong>การเตรียมหน่อก่อนลงปลูก:</strong> ปลิดใบล่างออก 4-5 กาบ ตากแดดผึ่งลมกลับหัวทิ้งไว้ 7-10 วัน เพื่อให้รอยแผลแห้งสนิท ป้องกันเชื้อโรคเข้าทางบาดแผล</p>
+                            <p>• <strong>ผังการปลูกแถวคู่ (Double Row System):</strong> ระยะระหว่างต้น 30 ซม. ระยะระหว่างแถว 50 ซม. ระยะระหว่างร่อง 90 ซม. (ความหนาแน่นประมาณ 7,500 - 8,500 ต้น/ไร่)</p>
                         </div>
                     </div>
                     <div class="pt-3 border-t border-pa-lightbrown/40 text-[11px] text-pa-primary font-medium">
-                        📌 ระยะปลูกที่แนะนำ: ระหว่างต้น 30 ซม. ระหว่างแถว 50-60 ซม. (ประมาณ 8,000 ต้น/ไร่)
+                        📌 เทคนิค: จุ่มโคนหน่อในสารเมทาแลกซิลผสมอิมิดาโคลพริดก่อนปลูก 5 นาที
                     </div>
                 </div>
 
@@ -427,16 +476,16 @@
                             </button>
                         </div>
                         <h3 class="text-lg font-bold text-pa-darkbrown flex items-center gap-2">
-                            <i class="fa-solid fa-flask text-pa-primary"></i> 3. สูตรปุ๋ยและการบำรุงตามระยะเวลา
+                            <i class="fa-solid fa-flask text-pa-primary"></i> 3. การจัดการโภชนาการและปุ๋ยสั่งตัด
                         </h3>
                         <div class="text-xs text-pa-brown space-y-2.5 font-light leading-relaxed mt-3">
-                            <p>• <strong>ระยะที่ 1 (1-2 เดือนแรก):</strong> เน้นเร่งรากและต้น ใส่ปุ๋ยสูตรตัวหน้าสูง เช่น <strong>21-0-0</strong> หรือ 16-16-16 อัตรา 10-15 กรัม/ต้น</p>
-                            <p>• <strong>ระยะที่ 2 (4-6 เดือน):</strong> ช่วงขยายขนาดต้นและสร้างใบ ใส่ปุ๋ยสูตร <strong>15-15-15</strong> หรือฉีดพ่นปุ๋ยทางใบร่วมกับยูเรีย</p>
-                            <p>• <strong>ระยะที่ 3 (หลังบังคับดอก 1-2 เดือน):</strong> เน้นขยายขนาดผลและเพิ่มความหวาน ใส่ปุ๋ยตัวหลังสูง เช่น <strong>13-0-46 หรือ 0-0-60</strong></p>
+                            <p>• <strong>ระยะตั้งตัว (1-3 เดือน):</strong> เน้น ไนโตรเจน (N) และ ฟอสฟอรัส (P) หยอดปุ๋ยสูตร 21-0-0 หรือ 16-16-16 บริเวณกาบใบล่าง 10-15 กรัม/ต้น</p>
+                            <p>• <strong>ระยะสร้างทรงพุ่ม (4-7 เดือน):</strong> ใส่ปุ๋ยสูตร 15-15-15 ร่วมกับการฉีดพ่นทางใบสารละลายยูเรีย 2% เพิ่มขนาดกาบใบและสะสมอาหาร</p>
+                            <p>• <strong>ระยะขยายขนาดผล (หลังบังคับดอก):</strong> ใส่ปุ๋ยโพแทสเซียมสูง เช่น 13-0-46 หรือ 0-0-60 เพื่อเพิ่มน้ำหนักผล เพิ่มความหวาน Brix และความหนาเนื้อ</p>
                         </div>
                     </div>
                     <div class="pt-3 border-t border-pa-lightbrown/40 text-[11px] text-pa-primary font-medium">
-                        💡 เทคนิค: ควรหยอดปุ๋ยลงที่กาบใบล่างของต้น เพื่อให้พืชดูดซึมได้ดีที่สุด
+                        💡 เคล็ดลับ: การหยอดปุ๋ยลงกาบใบล่างให้ผลเร็วกว่าการใส่ทางดินเนื่องจากมีรากอากาศ
                     </div>
                 </div>
 
@@ -450,16 +499,16 @@
                             </button>
                         </div>
                         <h3 class="text-lg font-bold text-pa-darkbrown flex items-center gap-2">
-                            <i class="fa-solid fa-wand-magic-sparkles text-pa-primary"></i> 4. เทคนิคการบังคับออกดอก (Forcing)
+                            <i class="fa-solid fa-wand-magic-sparkles text-pa-primary"></i> 4. การใช้สารฮอร์โมนบังคับออกดอกนอกฤดู
                         </h3>
                         <div class="text-xs text-pa-brown space-y-2.5 font-light leading-relaxed mt-3">
-                            <p>• <strong>เกณฑ์ต้นพร้อมหยอดสาร:</strong> ต้นต้องมีอายุ 8-10 เดือนขึ้นไป มีใบสมบูรณ์อย่างน้อย 35-40 ใบ น้ำหนักต้นไม่น้อยกว่า 2.5 กิโลกรัม</p>
-                            <p>• <strong>การใช้สารเอทธิฟอน (Ethephon):</strong> ผสมเอทธิฟอน (48%) อัตรา 10-20 ซีซี + ปุ๋ยยูเรีย (46-0-0) 300 กรัม ในน้ำ 20 ลิตร</p>
-                            <p>• <strong>วิธีหยอด:</strong> หยอดเข้าที่บริเวณยอดต้นละ 50-60 ซีซี หยอดในเวลาเย็นหรือค่ำ หยอดซ้ำอีกครั้งหลังจากนั้น 5-7 วัน</p>
+                            <p>• <strong>ดัชนีความพร้อมของต้น:</strong> ต้นต้องมีอายุ 8-10 เดือน น้ำหนักสดไม่น้อยกว่า 2.5 กิโลกรัม และมีจำนวนใบสมบูรณ์มากกว่า 35-40 ใบ</p>
+                            <p>• <strong>สูตรสารเอทธิฟอน (Ethephon 48%):</strong> ใช้เอทธิฟอน 10-20 ซีซี + ปุ๋ยยูเรีย (46-0-0) 300 กรัม ผสมน้ำสะอาด 20 ลิตร</p>
+                            <p>• <strong>วิธีการและเวลาที่เหมาะสม:</strong> หยอดลงกลางยอดต้นละ 60 ซีซี ในช่วงเวลาเย็น (17.00 น. เป็นต้นไป) ปากใบจะเปิดได้ดีที่สุด และหยอดซ้ำอีกครั้งในอีก 7 วัน</p>
                         </div>
                     </div>
                     <div class="pt-3 border-t border-pa-lightbrown/40 text-[11px] text-pa-primary font-medium">
-                        ⏱️ หลังหยอดสารประมาณ 40-45 วัน สับปะรดจะเริ่มแทงช่อดอกสีแดงที่ยอด
+                        ⏱️ หลังหยอดสาร 40-45 วัน จะเริ่มเห็นช่อดอกสีม่วงแดงแทงขึ้นที่กลางยอด
                     </div>
                 </div>
 
@@ -473,16 +522,16 @@
                             </button>
                         </div>
                         <h3 class="text-lg font-bold text-pa-darkbrown flex items-center gap-2">
-                            <i class="fa-solid fa-shield-halved text-pa-primary"></i> 5. การป้องกันโรคและศัตรูพืชสำคัญ
+                            <i class="fa-solid fa-shield-halved text-pa-primary"></i> 5. การจัดการโรคพืชและแมลงศัตรูพืชบูรณาการ
                         </h3>
                         <div class="text-xs text-pa-brown space-y-2.5 font-light leading-relaxed mt-3">
-                            <p>• <strong>โรคยอดเน่า / รากเน่า (Phytophthora):</strong> เกิดจากความชื้นขัง ป้องกันโดยยกร่อง ฉีดพ่นด้วยสารเมทาแลกซิล หรือฟอสเอทิล-อลูมินัม</p>
-                            <p>• <strong>เพลี้ยแป้งสับปะรด (Mealybug):</strong> เป็นพาหะของโรคใบเหี่ยวแห้ง ป้องกันโดยปราบมดพาหะ และใช้สารอิมิดาโคลพริดฉีดพ่นโคนต้น</p>
-                            <p>• <strong>แดดเผาผล (Sunscald):</strong> ผลที่โดนแดดจัดผิวจะไหม้ แก้อย่างง่ายโดยมัดปลายใบสับปะรดคลุมผล หรือใช้ฟางข้าวห่อปกคลุมผลไว้</p>
+                            <p>• <strong>โรคยอดเน่าและรากเน่า (Phytophthora parasitica):</strong> ป้องกันด้วยการยกแปลงระบายน้ำ และฉีดพ่นด้วยสาร เมทาแลกซิล หรือ ฟอสเอทิล-อลูมินัม</p>
+                            <p>• <strong>เพลี้ยแป้งสับปะรด (Dysmicoccus brevipes):</strong> พาหะนำไวรัสโรคใบเหี่ยว (PMWV) กำจัดมดดำมดแดงคอยนำทาง และฉีดพ่นสารอิมิดาโคลพริด</p>
+                            <p>• <strong>อาการผิวไหม้แดด (Sunscald):</strong> ในช่วงก่อนเก็บเกี่ยว 1-2 เดือน ต้องรวบปลายใบผูกปกคลุมผล หรือใช้ฟางข้าวห่อผลเพื่อป้องกันแสงแดดจัด</p>
                         </div>
                     </div>
                     <div class="pt-3 border-t border-pa-lightbrown/40 text-[11px] text-pa-primary font-medium">
-                        🛡️ หมั่นตรวจแปลงสัปดาห์ละครั้ง เพื่อระงับการระบาดได้ทันเวลา
+                        🛡️ การตรวจแปลงสัปดาห์ละครั้งช่วยป้องกันการระบาดลุกลามได้อย่างมีประสิทธิภาพ
                     </div>
                 </div>
 
@@ -496,16 +545,16 @@
                             </button>
                         </div>
                         <h3 class="text-lg font-bold text-pa-darkbrown flex items-center gap-2">
-                            <i class="fa-solid fa-basket-shopping text-pa-primary"></i> 6. การดัชนีเก็บเกี่ยวและการขนส่ง
+                            <i class="fa-solid fa-basket-shopping text-pa-primary"></i> 6. ดัชนีการเก็บเกี่ยวและโลจิสติกส์
                         </h3>
                         <div class="text-xs text-pa-brown space-y-2.5 font-light leading-relaxed mt-3">
-                            <p>• <strong>ส่งโรงงานแปรรูป:</strong> เก็บเกี่ยวเมื่อผลเริ่มเปลี่ยนเป็นสีเหลืองที่ตาก้นผลประมาณ 10-20% (ผลยังแข็ง เพื่อความสะดวกในการขนส่ง)</p>
-                            <p>• <strong>ขายผลสดตลาดบริโภค:</strong> เก็บเกี่ยวเมื่อตาผลสุกเปลี่ยนเป็นสีเหลืองส้ม 30-50% เพื่อให้ได้ความหวานและความหอมสูงสุด</p>
-                            <p>• <strong>วิธีการตัด:</strong> ใช้มีดคมตัดก้านผลให้ยาวติดก้านประมาณ 5-7 ซม. วางผลลงในตะกร้าอย่างระมัดระวังไม่ให้ผลกระแทกกัน</p>
+                            <p>• <strong>ส่งโรงงานแปรรูป:</strong> ตัดเมื่อตาบริเวณก้นผลเปลี่ยนเป็นสีเหลือง 1-2 ตา (ประมาณ 10%) เพื่อคงความแข็งแน่นของเนื้อระหว่างขนส่ง</p>
+                            <p>• <strong>ตลาดบริโภคผลสด:</strong> เก็บเกี่ยวเมื่อตาเปลี่ยนเป็นสีเหลืองส้ม 30-50% เพื่อให้ได้ค่าความหวานและความหอมสูงสุด</p>
+                            <p>• <strong>เทคนิคการเก็บเกี่ยว:</strong> ใช้มีดคมตัดก้านให้ติดก้านยาว 5-7 ซม. ห้ามโยนหรือกระแทก วางเรียงลงในตะกร้าพลาสติกแบบระบายอากาศ</p>
                         </div>
                     </div>
                     <div class="pt-3 border-t border-pa-lightbrown/40 text-[11px] text-pa-primary font-medium">
-                        📦 ระยะเวลาจากหยอดสารบังคับดอกถึงวันเก็บเกี่ยว: ประมาณ 130-150 วัน
+                        📦 ระยะเวลาตั้งแต่บังคับดอกถึงเก็บเกี่ยว: ประมาณ 130 - 150 วัน
                     </div>
                 </div>
 
@@ -514,50 +563,50 @@
             <!-- Planting Timeline Section -->
             <div data-aos="fade-up" class="bg-white p-6 sm:p-8 rounded-3xl border border-pa-lightbrown space-y-6 shadow-sm">
                 <div class="text-center max-w-lg mx-auto">
-                    <h3 class="text-xl font-bold text-pa-darkbrown">📅 ปฏิทินไทม์ไลน์การเติบโตของสับปะรด (14-18 เดือน)</h3>
-                    <p class="text-xs text-pa-brown font-light mt-1">ภาพรวมระยะเวลาและกิจกรรมที่ต้องทำใน แต่ละช่วงของการปลูก</p>
+                    <h3 class="text-xl font-bold text-pa-darkbrown">📅 ปฏิทินการบริหารจัดการแปลงสับปะรด (14-16 เดือน)</h3>
+                    <p class="text-xs text-pa-brown font-light mt-1">ภาพรวมแผนการทำงานแบบทีละระยะ ตั้งแต่เตรียมดินจนถึงเก็บขาย</p>
                 </div>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
                     <div class="bg-pa-card p-4 rounded-xl border-l-4 border-pa-primary space-y-1">
                         <span class="text-xs font-bold text-pa-primary block">เดือนที่ 0 - 1</span>
-                        <h4 class="font-bold text-sm text-pa-darkbrown">เตรียมดิน & ปลูก</h4>
-                        <p class="text-xs text-pa-brown font-light leading-relaxed">ตรวจ pH ดิน ยกร่อง ผึ่งลมหน่อ ชุบยา ปลูก และให้น้ำชุ่มชื้นช่วงแรก</p>
+                        <h4 class="font-bold text-sm text-pa-darkbrown">เตรียมแปลง & ปลูก</h4>
+                        <p class="text-xs text-pa-brown font-light leading-relaxed">ตรวจ pH ดิน ใส่โดโลไมต์ ยกร่อง ตากหน่อ ชุบยา ปลูก และให้น้ำช่วงเร่งราก</p>
                     </div>
                     <div class="bg-pa-card p-4 rounded-xl border-l-4 border-pa-accent space-y-1">
-                        <span class="text-xs font-bold text-pa-accent block">เดือนที่ 2 - 6</span>
-                        <h4 class="font-bold text-sm text-pa-darkbrown">สร้างลำต้น & กาบใบ</h4>
-                        <p class="text-xs text-pa-brown font-light leading-relaxed">ใส่ปุ๋ยไนโตรเจนสูง กำจัดวัชพืช รักษาระดับความชื้น ตรวจเช็คเพลี้ยแป้ง</p>
+                        <span class="text-xs font-bold text-pa-accent block">เดือนที่ 2 - 7</span>
+                        <h4 class="font-bold text-sm text-pa-darkbrown">สร้างลำต้น & ใบ</h4>
+                        <p class="text-xs text-pa-brown font-light leading-relaxed">ใส่ปุ๋ยไนโตรเจน ฉีดพ่นยูเรียทางใบ กำจัดวัชพืช ตรวจเพลี้ยแป้งประจำเดือน</p>
                     </div>
                     <div class="bg-pa-card p-4 rounded-xl border-l-4 border-pa-secondary space-y-1">
-                        <span class="text-xs font-bold text-pa-secondary block">เดือนที่ 8 - 10</span>
-                        <h4 class="font-bold text-sm text-pa-darkbrown">บังคับดอก (Forcing)</h4>
-                        <p class="text-xs text-pa-brown font-light leading-relaxed">เช็คความสมบูรณ์ต้น หยอดสารเอทธิฟอนในเวลาเย็น หยอดซ้ำหลังผ่านไป 7 วัน</p>
+                        <span class="text-xs font-bold text-pa-secondary block">เดือนที่ 8 - 9</span>
+                        <h4 class="font-bold text-sm text-pa-darkbrown">หยอดสารบังคับดอก</h4>
+                        <p class="text-xs text-pa-brown font-light leading-relaxed">คัดต้นสมบูรณ์ หยอดเอทธิฟอนในเวลาเย็น หยอดซ้ำในวันที่ 7 สังเกตดอกสีแดง</p>
                     </div>
                     <div class="bg-pa-card p-4 rounded-xl border-l-4 border-green-600 space-y-1">
-                        <span class="text-xs font-bold text-green-600 block">เดือนที่ 13 - 15</span>
-                        <h4 class="font-bold text-sm text-pa-darkbrown">บำรุงผล & เก็บเกี่ยว</h4>
-                        <p class="text-xs text-pa-brown font-light leading-relaxed">ใส่ปุ๋ยโพแทสเซียม ห่อผลกันแดดเผา เก็บเกี่ยวผลผลิตส่งตลาด</p>
+                        <span class="text-xs font-bold text-green-600 block">เดือนที่ 10 - 15</span>
+                        <h4 class="font-bold text-sm text-pa-darkbrown">ขยายผล & เก็บเกี่ยว</h4>
+                        <p class="text-xs text-pa-brown font-light leading-relaxed">อัดปุ๋ยโพแทสเซียม ห่อผลกันแดดเผา ตรวจดัชนีสีตา และเก็บเกี่ยวส่งตลาด</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Advanced Yield & Income Calculator Widget -->
+            <!-- Yield & Income Calculator -->
             <div data-aos="fade-up" class="bg-gradient-to-br from-pa-softorange/60 via-white to-pa-lightbrown/40 p-6 sm:p-8 rounded-3xl border border-pa-lightbrown space-y-6 max-w-2xl mx-auto shadow-sm">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-pa-primary text-white flex items-center justify-center text-xl">
                         <i class="fa-solid fa-calculator"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-pa-darkbrown">เครื่องมือประเมินผลผลิตและรายได้คาดการณ์</h3>
-                        <p class="text-xs text-pa-brown font-light">คำนวณจำนวนต้น น้ำหนักผลผลิต และรายได้สุทธิโดยประมาณ</p>
+                        <h3 class="text-lg font-bold text-pa-darkbrown">เครื่องมือคำนวณประเมินผลผลิตและรายได้</h3>
+                        <p class="text-xs text-pa-brown font-light">ประมาณการจำนวนต้น น้ำหนักรวม และรายได้สุทธิ</p>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-medium text-pa-darkbrown mb-1">ขนาดพื้นที่ปลูก (ไร่):</label>
-                        <input type="number" id="calc-area" min="0.1" step="0.5" placeholder="ระบุจำนวนไร่ (เช่น 2.5)..." class="w-full px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-white text-sm">
+                        <input type="number" id="calc-area" min="0.1" step="0.5" placeholder="เช่น 2.5..." class="w-full px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-white text-sm">
                     </div>
                     <div>
                         <label class="block text-xs font-medium text-pa-darkbrown mb-1">ราคาคาดการณ์ (บาท / กก.):</label>
@@ -566,7 +615,7 @@
                 </div>
 
                 <button onclick="calculatePlantsAndIncome()" class="w-full py-3 bg-pa-primary hover:bg-pa-secondary text-white rounded-xl text-sm font-medium transition-all shadow-md shadow-pa-primary/20 flex items-center justify-center gap-2 hover-lift">
-                    <i class="fa-solid fa-chart-line"></i> คำนวณประเมินผล
+                    <i class="fa-solid fa-chart-line"></i> คำนวณผลประเมิน
                 </button>
 
                 <div id="calc-result" class="hidden p-5 bg-white rounded-2xl border border-pa-lightbrown/80 space-y-3 text-sm text-pa-darkbrown">
@@ -578,10 +627,10 @@
         <section id="page-ai" class="page-section space-y-6">
             <div data-aos="fade-up" class="text-center max-w-xl mx-auto space-y-2">
                 <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pa-softorange text-pa-primary text-xs font-semibold">
-                    <i class="fa-solid fa-sparkles"></i> Powered by Gemini API
+                    <i class="fa-solid fa-sparkles"></i> AI Agriculture Expert System
                 </div>
                 <h1 class="text-3xl font-bold text-pa-darkbrown">AI สับปะรดกูรู</h1>
-                <p class="text-pa-brown text-sm font-light">สอบถามข้อสงสัยเกี่ยวกับการปลูกสับปะรด โรคพืช การใช้สารบังคับดอก หรือการดูแลรักษาได้ทันที</p>
+                <p class="text-pa-brown text-sm font-light">สอบถามปัญหาโรคพืช ปุ๋ยสั่งตัด สารเอทธิฟอนบังคับดอก หรือแนวทางการบริหารแปลงได้ตลอด 24 ชั่วโมง</p>
             </div>
 
             <!-- Chat Container -->
@@ -595,7 +644,7 @@
                         <div>
                             <h3 class="text-sm font-bold text-pa-darkbrown">ผู้ช่วยอัจฉริยะ PineappleCraft</h3>
                             <p class="text-[11px] text-green-600 font-medium flex items-center gap-1">
-                                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> พร้อมตอบคำถามตลอด 24 ชม.
+                                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> พร้อมให้คำปรึกษาเชิงลึก
                             </p>
                         </div>
                     </div>
@@ -604,33 +653,32 @@
                     </button>
                 </div>
 
-                <!-- Chat History -->
+                <!-- Chat Messages -->
                 <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 chat-scroll">
-                    <!-- Default Welcome Bot Message -->
                     <div class="flex gap-3 items-start">
                         <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">
                             🍍
                         </div>
                         <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
-                            สวัสดีครับ! ผมคือ **AI สับปะรดกูรู** ผู้ช่วยด้านการปลูกและดูแลสับปะรด มีข้อสงสัยเรื่อง pH ดิน สูตรปุ๋ย สารบังคับดอก โรคยอดเน่า หรือเทคนิคการปลูก ถามผมมาได้เลยครับ!
+                            สวัสดีครับ! ผมคือ **AI สับปะรดกูรู** ยินดีตอบคำถามเกี่ยวกับการเตรียมดิน ปุ๋ย สารเอทธิฟอนบังคับดอก โรคพืช ตลอดจนสายพันธุ์สับปะรดครับ ถามผมเข้ามาได้เลย!
                         </div>
                     </div>
                 </div>
 
                 <!-- Suggested Quick Chips -->
                 <div class="px-6 py-2 bg-white/50 border-t border-pa-lightbrown/30 flex gap-2 overflow-x-auto text-xs custom-scroll">
-                    <button onclick="askPreset('สับปะรดชอบดินแบบไหนและวัดค่า pH อย่างไร?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
-                        🌱 การเตรียมดิน & pH
+                    <button onclick="askPreset('สับปะรดชอบดินแบบไหนและปรับ pH อย่างไร?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
+                        🌱 ดิน & ค่า pH
                     </button>
-                    <button onclick="askPreset('อัตราส่วนผสมสารเอทธิฟอนบังคับดอกสับปะรดทำอย่างไร?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
-                        ✨ เทคนิคบังคับออกดอก
+                    <button onclick="askPreset('สูตรเอทธิฟอนบังคับดอกสับปะรดทำอย่างไร?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
+                        ✨ เทคนิคบังคับดอก
                     </button>
-                    <button onclick="askPreset('วิธีป้องกันและรักษาโรคยอดเน่ารากเน่าทำอย่างไร?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
+                    <button onclick="askPreset('วิธีแก้โรคยอดเน่ารากเน่าสับปะรด?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
                         🛡️ ป้องกันโรคยอดเน่า
                     </button>
                 </div>
 
-                <!-- Chat Input Form -->
+                <!-- Chat Form -->
                 <form id="chat-form" onsubmit="handleChatSubmit(event)" class="p-3 bg-white border-t border-pa-lightbrown/60 flex items-center gap-2">
                     <input type="text" id="chat-input" placeholder="พิมพ์คำถามเกี่ยวกับการปลูกสับปะรด..." class="flex-grow px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary text-sm bg-pa-bg">
                     <button type="submit" id="send-btn" class="px-5 py-2.5 bg-pa-primary hover:bg-pa-secondary text-white rounded-xl text-sm font-medium transition-all flex items-center gap-2 flex-shrink-0">
@@ -640,12 +688,65 @@
             </div>
         </section>
 
-        <!-- ================= PAGE 5: FOUNDERS ================= -->
+        <!-- ================= PAGE 5: MINI GAMES ================= -->
+        <section id="page-games" class="page-section space-y-8">
+            <div data-aos="fade-up" class="text-center max-w-xl mx-auto space-y-2">
+                <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Retro Arcade Games</span>
+                <h1 class="text-3xl font-bold text-pa-darkbrown">มินิเกมสับปะรดย้อนวัย</h1>
+                <p class="text-pa-brown text-sm font-light">ผ่อนคลายกับ 2 มินิเกมสุดคลาสสิก Flappy Pineapple & Pineapple Catcher</p>
+            </div>
+
+            <!-- Game Switcher Tabs -->
+            <div data-aos="fade-up" class="flex justify-center gap-3">
+                <button onclick="selectGame('flappy')" id="btn-game-flappy" class="px-5 py-2.5 rounded-2xl font-semibold text-sm bg-pa-primary text-white shadow-md">
+                    <i class="fa-solid fa-feather mr-1.5"></i> 1. Flappy Pineapple
+                </button>
+                <button onclick="selectGame('catcher')" id="btn-game-catcher" class="px-5 py-2.5 rounded-2xl font-semibold text-sm bg-pa-softorange text-pa-darkbrown border border-pa-lightbrown hover:bg-pa-lightbrown">
+                    <i class="fa-solid fa-basket-shopping mr-1.5"></i> 2. Pineapple Catcher
+                </button>
+            </div>
+
+            <!-- GAME 1: FLAPPY PINEAPPLE -->
+            <div id="game-container-flappy" class="max-w-md mx-auto bg-white p-4 rounded-3xl border border-pa-lightbrown shadow-lg space-y-4">
+                <div class="flex justify-between items-center px-2">
+                    <h3 class="font-bold text-pa-darkbrown text-sm">🍍 Flappy Pineapple</h3>
+                    <span class="text-xs text-pa-brown">กด Spacebar / คลิกเพื่อบิน</span>
+                </div>
+                <div class="relative flex justify-center">
+                    <canvas id="flappyCanvas" width="320" height="420" class="bg-sky-100 rounded-2xl border-2 border-pa-lightbrown shadow-inner cursor-pointer"></canvas>
+                </div>
+                <div class="flex justify-between items-center px-2">
+                    <span class="text-xs font-semibold text-pa-darkbrown">คะแนนสูงสุด: <span id="flappy-highscore" class="text-pa-primary">0</span></span>
+                    <button onclick="initFlappyGame()" class="px-4 py-1.5 bg-pa-primary text-white text-xs rounded-xl hover:bg-pa-secondary">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> เริ่มใหม่
+                    </button>
+                </div>
+            </div>
+
+            <!-- GAME 2: PINEAPPLE CATCHER -->
+            <div id="game-container-catcher" class="hidden max-w-md mx-auto bg-white p-4 rounded-3xl border border-pa-lightbrown shadow-lg space-y-4">
+                <div class="flex justify-between items-center px-2">
+                    <h3 class="font-bold text-pa-darkbrown text-sm">🧺 Pineapple Catcher</h3>
+                    <span class="text-xs text-pa-brown">ใช้ปุ่มซ้าย-ขวา / เลื่อนเมาส์</span>
+                </div>
+                <div class="relative flex justify-center">
+                    <canvas id="catcherCanvas" width="320" height="420" class="bg-amber-50 rounded-2xl border-2 border-pa-lightbrown shadow-inner cursor-pointer"></canvas>
+                </div>
+                <div class="flex justify-between items-center px-2">
+                    <span class="text-xs font-semibold text-pa-darkbrown">คะแนนสูงสุด: <span id="catcher-highscore" class="text-pa-primary">0</span></span>
+                    <button onclick="initCatcherGame()" class="px-4 py-1.5 bg-pa-primary text-white text-xs rounded-xl hover:bg-pa-secondary">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> เริ่มใหม่
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 6: FOUNDERS ================= -->
         <section id="page-founders" class="page-section space-y-8">
             <div data-aos="fade-up" class="text-center max-w-xl mx-auto space-y-2">
-                <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Our Team</span>
-                <h1 class="text-3xl font-bold text-pa-darkbrown">ผู้ก่อตั้งเว็บไซต์</h1>
-                <p class="text-pa-brown text-sm font-light">คณะผู้จัดทำและพัฒนา PineappleCraft.com</p>
+                <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Our Founding Team</span>
+                <h1 class="text-3xl font-bold text-pa-darkbrown">ผู้ก่อตั้งโครงการ</h1>
+                <p class="text-pa-brown text-sm font-light">คณะผู้จัดทำและพัฒนาระบบ PineappleCraft.com</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -703,19 +804,18 @@
 
     </main>
 
-    <!-- Modal สำหรับแสดงเนื้อหาคู่มือเชิงลึก -->
+    <!-- Deep Guide Detail Modal -->
     <div id="guide-detail-modal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-8 border border-pa-lightbrown shadow-2xl relative custom-scroll space-y-4">
             <button onclick="closeGuideDetail()" class="absolute top-5 right-5 w-9 h-9 bg-pa-softorange text-pa-darkbrown rounded-full flex items-center justify-center hover:bg-pa-primary hover:text-white transition-all">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div id="modal-detail-content">
-                <!-- Dynamic Sub-page Content loaded by JS -->
             </div>
         </div>
     </div>
 
-    <!-- Modal แสดงรายการคู่มือที่บันทึกไว้ -->
+    <!-- Saved Guides Modal -->
     <div id="saved-modal" class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-4 border border-pa-lightbrown shadow-xl">
             <div class="flex justify-between items-center border-b border-pa-lightbrown/50 pb-3">
@@ -725,7 +825,6 @@
                 <button onclick="closeSavedGuidesModal()" class="text-pa-brown/60 hover:text-pa-darkbrown text-lg">&times;</button>
             </div>
             <div id="saved-modal-list" class="space-y-3 max-h-60 overflow-y-auto text-xs text-pa-darkbrown custom-scroll">
-                <!-- Dynamic Items -->
             </div>
             <div class="pt-2 text-right">
                 <button onclick="closeSavedGuidesModal()" class="px-4 py-2 bg-pa-softorange text-pa-darkbrown rounded-xl text-xs font-medium hover:bg-pa-lightbrown">ปิดหน้าต่าง</button>
@@ -740,7 +839,7 @@
                 <span>🍍</span> PineappleCraft.com
             </div>
             <p class="text-xs text-pa-brown font-light">
-                เว็บไซต์ส่งเสริมการเกษตรและสนับสนุนผู้ปลูกสับปะรดในประเทศไทย
+                ศูนย์กลางส่งเสริมเทคโนโลยีเกษตรกรรมแม่นยำและการปลูกสับปะรดยั่งยืนแห่งประเทศไทย
             </p>
             <p class="text-[11px] text-pa-brown/70">
                 &copy; 2026 PineappleCraft. All rights reserved.
@@ -748,9 +847,9 @@
         </div>
     </footer>
 
-    <!-- JavaScript Master Script -->
+    <!-- Master Script -->
     <script>
-        // 1. เกร็ดความรู้ประจำวัน (Random Tips System)
+        // 1. Random Tips System
         const pineappleTips = [
             "สับปะรดชอบดินร่วนปนทราย ค่า pH 4.5 - 5.5 หากดินเป็นกรดมากเกินไปให้โรยโดโลไมต์",
             "การยกร่องสูง 30-40 ซม. ช่วยป้องกันโรครากเน่าจากภาวะน้ำขังได้ดีที่สุด",
@@ -774,7 +873,7 @@
             document.getElementById('daily-tip').textContent = pineappleTips[randomIndex];
         }
 
-        // 2. Tab Switching System
+        // 2. Page Navigation
         function switchPage(pageId) {
             document.querySelectorAll('.page-section').forEach(section => {
                 section.classList.remove('active');
@@ -793,16 +892,19 @@
                 targetNav.classList.add('active');
             }
 
+            if (pageId === 'games') {
+                initFlappyGame();
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 3. Mobile Menu Toggle
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
         }
 
-        // 4. Calculator Function
+        // 3. Calculator Function
         function calculatePlantsAndIncome() {
             const areaInput = document.getElementById('calc-area').value;
             const priceInput = document.getElementById('calc-price').value || 12;
@@ -810,7 +912,7 @@
             
             if (!areaInput || areaInput <= 0) {
                 resultDiv.classList.remove('hidden');
-                resultDiv.innerHTML = '<span class="text-red-500 font-medium">⚠️ กรุณาระบุจำนวนไร่ให้ถูกต้อง (ต้องมากกว่า 0)</span>';
+                resultDiv.innerHTML = '<span class="text-red-500 font-medium">⚠️ กรุณาระบุจำนวนไร่ให้ถูกต้อง</span>';
                 return;
             }
 
@@ -838,35 +940,30 @@
                         <strong class="text-sm text-green-700">~${estimatedIncome.toLocaleString()} บาท</strong>
                     </div>
                 </div>
-                <p class="text-[11px] text-pa-brown/70 font-light mt-2">* หมายเหตุ: คำนวณจากค่าเฉลี่ยความหนาแน่น 8,000 ต้น/ไร่ และน้ำหนักผลเฉลี่ย 1.8 กก./ผล ตัวเลขจริงอาจแปรผันตามการดูแลและสายพันธุ์</p>
             `;
         }
 
-        // 5. Search & Filter System for Guide Cards
+        // 4. Guide Search Filter
         function filterGuideCards() {
             const query = document.getElementById('guide-search').value.toLowerCase();
             const cards = document.querySelectorAll('.guide-card');
 
             cards.forEach(card => {
                 const text = card.textContent.toLowerCase();
-                if (text.includes(query)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
+                card.style.display = text.includes(query) ? 'flex' : 'none';
             });
         }
 
-        // 6. Bookmark System
+        // 5. Bookmark System
         let savedGuideIds = JSON.parse(localStorage.getItem('saved_pineapple_guides') || '[]');
 
         const guideTitles = {
-            1: "1. การเตรียมดินและปรับสภาพแปลง",
-            2: "2. การคัดเลือกและเตรียมหน่อพันธุ์",
-            3: "3. สูตรปุ๋ยและการบำรุงตามระยะเวลา",
-            4: "4. เทคนิคการบังคับออกดอก (Forcing)",
-            5: "5. การป้องกันโรคและศัตรูพืชสำคัญ",
-            6: "6. การดัชนีเก็บเกี่ยวและการขนส่ง"
+            1: "1. การเตรียมดิน เคมีในดิน และการยกแปลง",
+            2: "2. การเลือกส่วนขยายพันธุ์และระยะปลูก",
+            3: "3. การจัดการโภชนาการและปุ๋ยสั่งตัด",
+            4: "4. การใช้สารฮอร์โมนบังคับออกดอกนอกฤดู",
+            5: "5. การจัดการโรคพืชและแมลงศัตรูพืชบูรณาการ",
+            6: "6. ดัชนีการเก็บเกี่ยวและโลจิสติกส์"
         };
 
         function updateBookmarkUI() {
@@ -876,13 +973,7 @@
             for (let i = 1; i <= 6; i++) {
                 const btn = document.getElementById(`bm-btn-${i}`);
                 if (btn) {
-                    if (savedGuideIds.includes(i)) {
-                        btn.innerHTML = '<i class="fa-solid fa-bookmark text-pa-primary"></i>';
-                        btn.title = "เลิกบันทึก";
-                    } else {
-                        btn.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
-                        btn.title = "บันทึกหัวข้อนี้";
-                    }
+                    btn.innerHTML = savedGuideIds.includes(i) ? '<i class="fa-solid fa-bookmark text-pa-primary"></i>' : '<i class="fa-regular fa-bookmark"></i>';
                 }
             }
         }
@@ -902,7 +993,7 @@
             const listDiv = document.getElementById('saved-modal-list');
             
             if (savedGuideIds.length === 0) {
-                listDiv.innerHTML = '<p class="text-pa-brown font-light text-center py-4">ยังไม่มีรายการคู่มือที่คุณบันทึกไว้<br>กดไอคอน 🔖 ในหน้าคู่มือเพื่อบันทึก</p>';
+                listDiv.innerHTML = '<p class="text-pa-brown text-center py-4">ยังไม่มีรายการคู่มือที่บันทึกไว้</p>';
             } else {
                 listDiv.innerHTML = savedGuideIds.map(id => `
                     <div class="flex justify-between items-center p-3 bg-pa-card rounded-xl border border-pa-lightbrown/60">
@@ -918,38 +1009,38 @@
             document.getElementById('saved-modal').classList.add('hidden');
         }
 
-        // 7. Modal เนื้อหาเชิงลึก (Deep Guide Detail System)
+        // 6. Deep Guide Data
         const deepGuideData = {
             1: {
-                title: "1. การเตรียมดิน ปรับสภาพแปลง และการตรวจวัดค่า pH",
+                title: "1. การวิเคราะห์เคมีในดิน การปรับปรุงดิน และวิศวกรรมการยกร่องแปลง",
                 icon: "fa-mountain",
                 content: `
-                    <h4 class="font-bold text-pa-primary text-base mb-2">🌱 การวิเคราะห์และปรับค่า pH ดินอย่างแม่นยำ</h4>
+                    <h4 class="font-bold text-pa-primary text-base mb-2">🧪 เคมีดินและการปรับค่า pH อย่างแม่นยำ</h4>
                     <p class="text-xs text-pa-brown leading-relaxed mb-3">
-                        สับปะรดเป็นพืชที่ต้องการสภาพดินเป็นกรดอ่อนๆ (pH 4.5 - 5.5) หากค่า pH ดินสูงกว่า 6.0 จะทำให้พืชดูดซึมธาตุเหล็กและสังกะสีได้ยาก ทำให้ใบเหลือง
+                        สับปะรดดูดซึมธาตุอาหารได้ดีที่สุดในสภาวะกรดอ่อน (pH 4.5 - 5.5) หากค่า pH สูงเกิน 6.0 ธาตุเหล็ก (Fe) และสังกะสี (Zn) จะถูกตรึง ไม่สามารถดูดซึมได้ ทำให้เกิดอาการใบเหลืองยอดซีด (Chlorosis)
                     </p>
                     <div class="bg-pa-card p-4 rounded-xl text-xs space-y-2 border border-pa-lightbrown mb-4">
-                        <p><strong>วิธีแก้ปัญหาดินกรดจัด (pH < 4.0):</strong> ใส่ปูนมาร์ลหรือปูนโดโลไมต์ อัตรา 100-200 กก./ไร่ ไถกลบก่อนปลูก 2-4 สัปดาห์</p>
-                        <p><strong>วิธีแก้ปัญหาดินเป็นด่าง (pH > 6.0):</strong> ใส่กำมะถันผงเพื่อเพิ่มความเป็นกรด หรือใช้ปุ๋ยแอมโมเนียมซัลเฟต</p>
+                        <p><strong>การแก้ปัญหากรดจัด (pH < 4.0):</strong> ใส่หินปูนโดโลไมต์ 100-200 กก./ไร่ เพื่อเติมแมกนีเซียมและแคลเซียม</p>
+                        <p><strong>การแก้ปัญหาดินด่าง (pH > 6.0):</strong> เติมผงกำมะถัน หรือใช้ปุ๋ยแอมโมเนียมซัลเฟตเร่งความเป็นกรด</p>
                     </div>
-                    <h4 class="font-bold text-pa-primary text-base mb-2">🚜 เทคนิคการยกร่องป้องกันโรครากเน่า</h4>
+                    <h4 class="font-bold text-pa-primary text-base mb-2">🚜 โครงสร้างร่องแปลงระบายน้ำ</h4>
                     <p class="text-xs text-pa-brown leading-relaxed">
-                        ยกร่องสูง 30-40 ซม. ความกว้างหลังร่อง 80-100 ซม. สำหรับปลูกแบบแถวคู่ ระยะห่างระหว่างแถว 50 ซม. เพื่อความสะดวกในการใส่ปุ๋ยและเก็บเกี่ยว
+                        สับปะรดมีระบบรากตื้นต้องการอากาศในดินสูง การยกร่องสูง 30-40 ซม. จะช่วยสร้างพื้นที่ถ่ายเทอากาศให้ราก แม้ในช่วงฤดูฝนที่มีน้ำตกชักสะสม
                     </p>
                 `
             },
             2: {
-                title: "2. เทคนิคการคัดเลือกหน่อพันธุ์และการเตรียมก่อนปลูก",
+                title: "2. การคัดเลือกสายพันธุ์ การผึ่งหน่อ และเทคนิคผังการปลูก",
                 icon: "fa-seedling",
                 content: `
-                    <h4 class="font-bold text-pa-primary text-base mb-2">✂️ ประเภทของส่วนขยายพันธุ์</h4>
+                    <h4 class="font-bold text-pa-primary text-base mb-2">✂️ เปรียบเทียบส่วนขยายพันธุ์</h4>
                     <ul class="list-disc pl-5 text-xs text-pa-brown space-y-2 mb-4">
-                        <li><strong>หน่อข้าง (Shoots/Slips):</strong> ให้ผลผลิตไวที่สุด (12-14 เดือน) ต้นสมบูรณ์แข็งแรง</li>
-                        <li><strong>จุก (Crowns):</strong> ใช้เวลานานกว่า (18-20 เดือน) แต่ให้ทรงผลที่สม่ำเสมอสวยงาม</li>
+                        <li><strong>หน่อข้าง (Shoots/Slips):</strong> เจริญเติบโตเร็ว ให้ผลผลิตใน 12-14 เดือน น้ำหนักผลสม่ำเสมอ</li>
+                        <li><strong>จุก (Crowns):</strong> ปลูกง่าย ทรงผลสวย แต่ใช้เวลานานถึง 16-18 เดือน</li>
                     </ul>
-                    <h4 class="font-bold text-pa-primary text-base mb-2">🧪 สูตรชุบหน่อพันธุ์ป้องกันเพลี้ยแป้งและเชื้อรา</h4>
+                    <h4 class="font-bold text-pa-primary text-base mb-2">🛡️ สูตรชุบหน่อป้องกันโรค</h4>
                     <p class="text-xs text-pa-brown leading-relaxed">
-                        ผสมเมทาแลกซิล 30 กรัม + อิมิดาโคลพริด 10 กรัม ในน้ำ 20 ลิตร จุ่มโคนหน่อทิ้งไว้ 5 นาที แล้วตากในที่ร่มให้แห้งสนิทก่อนนำไปลงแปลงปลูก
+                        ผสมเมทาแลกซิล 30g + อิมิดาโคลพริด 10g ในน้ำ 20 ลิตร จุ่มโคนหน่อ 5 นาที แล้วผึ่งลมให้แผลแห้งสนิทก่อนปลูก 7 วัน
                     </p>
                 `
             }
@@ -971,7 +1062,6 @@
                 </div>
                 <div>${data.content}</div>
             `;
-
             modal.classList.remove('hidden');
         }
 
@@ -979,30 +1069,27 @@
             document.getElementById('guide-detail-modal').classList.add('hidden');
         }
 
-        // 8. AI Chat Knowledge Base & Logic
+        // 7. Smart AI Logic
         function getSmartKnowledgeBaseReply(msg) {
             const lowerMsg = msg.toLowerCase();
 
-            if (lowerMsg.includes('ph') || lowerMsg.includes('กรด') || lowerMsg.includes('เตรียมดิน')) {
-                return "**การเตรียมดินและค่า pH:**\n\n• สับปะรดชอบดินร่วนปนทราย ค่า pH **4.5 - 5.5** (เป็นกรดอ่อนๆ)\n• หากดินเป็นกรดจัด (pH < 4.0) ให้โรยโดโลไมต์ปรับสภาพดิน\n• ควรยกร่องแปลงสูง 30 ซม. เพื่อการระบายน้ำ เพราะสับปะรดทนน้ำขังไม่ได้เลยครับ";
+            if (lowerMsg.includes('ph') || lowerMsg.includes('กรด') || lowerMsg.includes('ดิน')) {
+                return "**เคมีในดินและค่า pH ที่เหมาะสม:**\n\n• สับปะรดชอบดินร่วนปนทราย pH **4.5 - 5.5**\n• หาก pH < 4.0 ให้ใส่โดโลไมต์ 100-200 กก./ไร่\n• ถ้าระบายน้ำไม่ดีจะเกิดโรครากเน่า ควรยกร่องสูง 30-40 ซม. ครับ";
             }
             if (lowerMsg.includes('เอทธิฟอน') || lowerMsg.includes('บังคับดอก') || lowerMsg.includes('ออกดอก')) {
-                return "**เทคนิคการบังคับออกดอก (Forcing):**\n\n• **ส่วนผสม:** เอทธิฟอน (48%) 10-20 ซีซี + ยูเรีย 300 กรัม + น้ำ 20 ลิตร\n• **การหยอด:** หยอดใส่ยอดต้นละ 50-60 ซีซี ในช่วงเวลาเย็นหรือค่ำ\n• **คำแนะนำ:** หยอดซ้ำอีกครั้งหลังจากนั้น 5-7 วัน และต้นต้องมีอายุอย่างน้อย 8-10 เดือนมีใบสมบูรณ์ 35-40 ใบครับ";
+                return "**การบังคับออกดอกนอกฤดู (Forcing):**\n\n• **ส่วนผสม:** เอทธิฟอน (48%) 10-20 ซีซี + ยูเรีย 300 กรัม + น้ำ 20 ลิตร\n• **วิธีหยอด:** หยอดลงกลางยอด 60 ซีซี/ต้น ในเวลาเย็น\n• **เกณฑ์:** ต้นต้องอายุ 8-10 เดือน และมีใบมากกว่า 35 ใบครับ";
             }
-            if (lowerMsg.includes('โรค') || lowerMsg.includes('เน่า') || lowerMsg.includes('ยอดเน่า')) {
-                return "**โรคยอดเน่ารากเน่า (Phytophthora):**\n\n• **สาเหตุ:** เกิดจากเชื้อราในสภาพความชื้นขังสูง\n• **การป้องกัน:** จุ่มโคนหน่อพันธุ์ด้วยสารเมทาแลกซิลก่อนปลูก และปรับปรุงแปลงให้ระบายน้ำได้ดี ถ้าระบาดให้ใช้ฟอสเอทิล-อลูมินัม ฉีดพ่นครับ";
+            if (lowerMsg.includes('โรค') || lowerMsg.includes('เน่า') || lowerMsg.includes('เพลี้ย')) {
+                return "**การจัดการโรคและแมลง:**\n\n• **โรคยอดเน่า (Phytophthora):** ฉีดพ่น เมทาแลกซิล หรือ ฟอสเอทิล-อลูมินัม\n• **เพลี้ยแป้ง:** พาหะไวรัสใบเหี่ยว ใช้สารอิมิดาโคลพริดฉีดโคนต้นครับ";
             }
-            if (lowerMsg.includes('ปุ๋ย') || lowerMsg.includes('บำรุง')) {
-                return "**สูตรปุ๋ยสับปะรด:**\n\n1. **เดือนที่ 1-2:** สูตร 21-0-0 หรือ 16-16-16 เร่งรากและใบ\n2. **เดือนที่ 4-6:** สูตร 15-15-15 เร่งขนาดลำต้น\n3. **หลังบังคับดอก:** สูตร 13-0-46 หรือ 0-0-60 เพื่อเพิ่มน้ำหนักและความหวานครับ";
+            if (lowerMsg.includes('ปุ๋ย') || lowerMsg.includes('สูตร')) {
+                return "**สูตรปุ๋ยสับปะรด:**\n\n1. **เดือน 1-3:** สูตร 21-0-0 หรือ 16-16-16 เร่งรากใบ\n2. **เดือน 4-7:** สูตร 15-15-15 + ยูเรียทางใบ\n3. **ขยายผล:** สูตร 13-0-46 หรือ 0-0-60 เพิ่มความหวาน Brix ครับ";
             }
-            if (lowerMsg.includes('ม่วง') || lowerMsg.includes('สีม่วง')) {
-                return "**สับปะรดสีม่วง:**\n\n1. อาจเป็นสายพันธุ์ประดับ เช่น *Bromeliad*\n2. หากใบสับปะรดทานผลเปลี่ยนเป็นสีม่วงอมแดง มักเกิดจาก **การขาดธาตุฟอสฟอรัส (P)** หรืออากาศเย็นจัด แนะนำให้เสริมปุ๋ยฟอสฟอรัสครับ";
-            }
-            if (lowerMsg.includes('ผู้ก่อตั้ง') || lowerMsg.includes('ใครทำ')) {
-                return "คณะผู้จัดทำ PineappleCraft.com ได้แก่:\n1. นาย บรรณรต ศรีปลัด\n2. นาย คณาพงษ์ กระดุมพรรค\n3. นาย ศุภกร ศิริวงค์\n4. นาย กฤติชัย สุโพธิ์\n5. นาย ปกรณ์ ธัญญารักษ์ ครับ";
+            if (lowerMsg.includes('ผู้ก่อตั้ง') || lowerMsg.includes('ทีม')) {
+                return "ทีมงานผู้ก่อตั้ง PineappleCraft.com:\n1. นาย บรรณรต ศรีปลัด\n2. นาย คณาพงษ์ กระดุมพรรค\n3. นาย ศุภกร ศิริวงค์\n4. นาย กฤติชัย สุโพธิ์\n5. นาย ปกรณ์ ธัญญารักษ์ ครับ";
             }
 
-            return "สำหรับคำถามว่า **\"" + escapeHtml(msg) + "\"**:\n\nหากท่านต้องการคำตอบเชิงลึก กรุณาใส่ **Gemini API Key** ในโค้ดตัวเว็บเพื่อเปิดใช้งาน AI แบบตอบได้ทุกเรื่องเต็มรูปแบบครับ! แต่หากเป็นเรื่องการปลูกสับปะรด ท่านสามารถถามเรื่อง *การเตรียมดิน, pH, สูตรปุ๋ย, เอทธิฟอนบังคับดอก หรือโรคพืช* ได้เลยครับ!";
+            return "สอบถามเพิ่มเติมเรื่อง *เตรียมดิน, pH, สูตรปุ๋ย, เอทธิฟอนบังคับดอก หรือโรคยอดเน่า* ได้เลยครับ!";
         }
 
         async function handleChatSubmit(e) {
@@ -1016,35 +1103,7 @@
             appendUserMessage(message);
             const typingId = appendTypingIndicator();
 
-            const API_KEY = ""; 
-
-            if (API_KEY && API_KEY.trim() !== "") {
-                try {
-                    const systemPrompt = "คุณคือ AI ผู้เชี่ยวชาญประจำเว็บ PineappleCraft.com ที่สามารถตอบได้ทุกคำถามในโลก ไม่ว่าจะเป็นเรื่องสับปะรด วิทยาศาสตร์ การเกษตร หรือเรื่องทั่วไป ตอบอย่างสุภาพ สบายตา และเป็นมิตรภาษาไทย";
-                    
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{
-                                parts: [{ text: `${systemPrompt}\n\nคำถามจากผู้ใช้: ${message}` }]
-                            }]
-                        })
-                    });
-
-                    const data = await response.json();
-                    removeMessage(typingId);
-
-                    if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-                        appendBotMessage(data.candidates[0].content.parts[0].text);
-                        return;
-                    }
-                } catch (err) {
-                    console.error("Gemini API Error:", err);
-                }
-            }
-
-            await new Promise(resolve => setTimeout(resolve, 600));
+            await new Promise(resolve => setTimeout(resolve, 500));
             removeMessage(typingId);
             appendBotMessage(getSmartKnowledgeBaseReply(message));
         }
@@ -1055,14 +1114,11 @@
         }
 
         function clearChatHistory() {
-            const chatBox = document.getElementById('chat-messages');
-            chatBox.innerHTML = `
+            document.getElementById('chat-messages').innerHTML = `
                 <div class="flex gap-3 items-start">
-                    <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">
-                        🍍
-                    </div>
-                    <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
-                        ล้างแชทเรียบร้อยแล้วครับ! มีข้อสงสัยเรื่องการปลูกสับปะรดตรงไหน สอบถามผมเพิ่มเติมได้เลยครับ!
+                    <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
+                    <div class="bg-white p-4 rounded-2xl border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
+                        ล้างแชทเรียบร้อยครับ! มีข้อสงสัยเกี่ยวกับการปลูกสับปะรด ถามเพิ่มเติมได้เลยครับ!
                     </div>
                 </div>
             `;
@@ -1072,11 +1128,7 @@
             const chatBox = document.getElementById('chat-messages');
             const msgDiv = document.createElement('div');
             msgDiv.className = 'flex justify-end';
-            msgDiv.innerHTML = `
-                <div class="bg-pa-primary text-white p-3.5 rounded-2xl rounded-tr-none text-xs sm:text-sm max-w-[80%] shadow-sm">
-                    ${escapeHtml(text)}
-                </div>
-            `;
+            msgDiv.innerHTML = `<div class="bg-pa-primary text-white p-3.5 rounded-2xl rounded-tr-none text-xs sm:text-sm max-w-[80%] shadow-sm">${escapeHtml(text)}</div>`;
             chatBox.appendChild(msgDiv);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
@@ -1085,17 +1137,10 @@
             const chatBox = document.getElementById('chat-messages');
             const msgDiv = document.createElement('div');
             msgDiv.className = 'flex gap-3 items-start';
-            
-            let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            formattedText = formattedText.replace(/\n/g, '<br>');
-
+            let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
             msgDiv.innerHTML = `
-                <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">
-                    🍍
-                </div>
-                <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
-                    ${formattedText}
-                </div>
+                <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">${formattedText}</div>
             `;
             chatBox.appendChild(msgDiv);
             chatBox.scrollTop = chatBox.scrollHeight;
@@ -1108,14 +1153,9 @@
             msgDiv.id = id;
             msgDiv.className = 'flex gap-3 items-start';
             msgDiv.innerHTML = `
-                <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">
-                    🍍
-                </div>
+                <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
                 <div class="bg-white px-4 py-3 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs text-pa-brown flex items-center gap-1.5 shadow-sm">
-                    <span>กำลังคิดคำตอบ</span>
-                    <span class="animate-bounce">.</span>
-                    <span class="animate-bounce font-bold" style="animation-delay: 0.2s">.</span>
-                    <span class="animate-bounce font-bold" style="animation-delay: 0.4s">.</span>
+                    <span>กำลังประมวลผล</span><span class="animate-bounce">.</span><span class="animate-bounce" style="animation-delay: 0.2s">.</span><span class="animate-bounce" style="animation-delay: 0.4s">.</span>
                 </div>
             `;
             chatBox.appendChild(msgDiv);
@@ -1132,12 +1172,255 @@
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
 
-        // Initialize Everything on Document Ready
+        // ================= 8. RETRO MINI GAMES SYSTEM =================
+        function selectGame(gameType) {
+            document.getElementById('game-container-flappy').classList.add('hidden');
+            document.getElementById('game-container-catcher').classList.add('hidden');
+            
+            document.getElementById('btn-game-flappy').className = "px-5 py-2.5 rounded-2xl font-semibold text-sm bg-pa-softorange text-pa-darkbrown border border-pa-lightbrown hover:bg-pa-lightbrown";
+            document.getElementById('btn-game-catcher').className = "px-5 py-2.5 rounded-2xl font-semibold text-sm bg-pa-softorange text-pa-darkbrown border border-pa-lightbrown hover:bg-pa-lightbrown";
+
+            if (gameType === 'flappy') {
+                document.getElementById('game-container-flappy').classList.remove('hidden');
+                document.getElementById('btn-game-flappy').className = "px-5 py-2.5 rounded-2xl font-semibold text-sm bg-pa-primary text-white shadow-md";
+                initFlappyGame();
+            } else {
+                document.getElementById('game-container-catcher').classList.remove('hidden');
+                document.getElementById('btn-game-catcher').className = "px-5 py-2.5 rounded-2xl font-semibold text-sm bg-pa-primary text-white shadow-md";
+                initCatcherGame();
+            }
+        }
+
+        // GAME 1: FLAPPY PINEAPPLE
+        let flappyAnimationId;
+        function initFlappyGame() {
+            cancelAnimationFrame(flappyAnimationId);
+            const canvas = document.getElementById('flappyCanvas');
+            const ctx = canvas.getContext('2d');
+
+            let bird = { x: 50, y: 150, size: 24, gravity: 0.35, lift: -6.5, velocity: 0 };
+            let pipes = [];
+            let score = 0;
+            let highScore = localStorage.getItem('flappy_pineapple_hs') || 0;
+            document.getElementById('flappy-highscore').textContent = highScore;
+            let gameOver = false;
+            let frame = 0;
+
+            function flap() {
+                if (!gameOver) {
+                    bird.velocity = bird.lift;
+                } else {
+                    initFlappyGame();
+                }
+            }
+
+            canvas.onclick = flap;
+            window.onkeydown = function(e) {
+                if (e.code === 'Space' && document.getElementById('page-games').classList.contains('active')) {
+                    e.preventDefault();
+                    flap();
+                }
+            };
+
+            function loop() {
+                frame++;
+                ctx.fillStyle = '#E0F2FE';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Bird Physics
+                bird.velocity += bird.gravity;
+                bird.y += bird.velocity;
+
+                if (bird.y + bird.size > canvas.height) {
+                    bird.y = canvas.height - bird.size;
+                    gameOver = true;
+                }
+                if (bird.y < 0) bird.y = 0;
+
+                // Spawn Pipes
+                if (frame % 90 === 0) {
+                    let gap = 110;
+                    let topHeight = Math.floor(Math.random() * (canvas.height - gap - 100)) + 30;
+                    pipes.push({ x: canvas.width, top: topHeight, bottom: canvas.height - topHeight - gap, passed: false });
+                }
+
+                // Draw Pipes
+                ctx.fillStyle = '#15803D';
+                pipes.forEach((pipe, i) => {
+                    pipe.x -= 2;
+
+                    ctx.fillRect(pipe.x, 0, 45, pipe.top);
+                    ctx.fillRect(pipe.x, canvas.height - pipe.bottom, 45, pipe.bottom);
+
+                    // Check Collision
+                    if (
+                        bird.x + bird.size > pipe.x &&
+                        bird.x < pipe.x + 45 &&
+                        (bird.y < pipe.top || bird.y + bird.size > canvas.height - pipe.bottom)
+                    ) {
+                        gameOver = true;
+                    }
+
+                    // Score
+                    if (pipe.x + 45 < bird.x && !pipe.passed) {
+                        score++;
+                        pipe.passed = true;
+                        if (score > highScore) {
+                            highScore = score;
+                            localStorage.setItem('flappy_pineapple_hs', highScore);
+                            document.getElementById('flappy-highscore').textContent = highScore;
+                        }
+                    }
+                });
+
+                // Remove Offscreen Pipes
+                pipes = pipes.filter(pipe => pipe.x > -50);
+
+                // Draw Bird (Pineapple)
+                ctx.font = '24px sans-serif';
+                ctx.fillText('🍍', bird.x, bird.y + bird.size);
+
+                // Draw Score
+                ctx.fillStyle = '#4A2E12';
+                ctx.font = 'bold 18px Prompt';
+                ctx.fillText(`คะแนน: ${score}`, 15, 30);
+
+                if (gameOver) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 22px Prompt';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('จบเกม! (Game Over)', canvas.width / 2, canvas.height / 2 - 10);
+                    ctx.font = '14px Prompt';
+                    ctx.fillText('แตะหน้าจอเพื่อเริ่มใหม่', canvas.width / 2, canvas.height / 2 + 20);
+                    ctx.textAlign = 'left';
+                } else {
+                    flappyAnimationId = requestAnimationFrame(loop);
+                }
+            }
+
+            loop();
+        }
+
+        // GAME 2: PINEAPPLE CATCHER
+        let catcherAnimationId;
+        function initCatcherGame() {
+            cancelAnimationFrame(catcherAnimationId);
+            const canvas = document.getElementById('catcherCanvas');
+            const ctx = canvas.getContext('2d');
+
+            let basket = { x: canvas.width / 2 - 30, y: canvas.height - 35, width: 60, height: 20, speed: 6 };
+            let items = [];
+            let score = 0;
+            let lives = 3;
+            let highScore = localStorage.getItem('catcher_pineapple_hs') || 0;
+            document.getElementById('catcher-highscore').textContent = highScore;
+            let gameOver = false;
+            let frame = 0;
+
+            let keys = {};
+            window.onkeydown = (e) => keys[e.code] = true;
+            window.onkeyup = (e) => keys[e.code] = false;
+
+            canvas.onmousemove = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                basket.x = e.clientX - rect.left - basket.width / 2;
+            };
+
+            function loop() {
+                frame++;
+                ctx.fillStyle = '#FEF3C7';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Move Basket
+                if (keys['ArrowLeft'] && basket.x > 0) basket.x -= basket.speed;
+                if (keys['ArrowRight'] && basket.x < canvas.width - basket.width) basket.x += basket.speed;
+
+                // Clamp Basket
+                if (basket.x < 0) basket.x = 0;
+                if (basket.x > canvas.width - basket.width) basket.x = canvas.width - basket.width;
+
+                // Draw Basket
+                ctx.font = '28px sans-serif';
+                ctx.fillText('🧺', basket.x, basket.y + 20);
+
+                // Spawn Items
+                if (frame % 45 === 0) {
+                    items.push({
+                        x: Math.random() * (canvas.width - 30),
+                        y: -20,
+                        speed: 2 + Math.random() * 2.5,
+                        isBomb: Math.random() < 0.25
+                    });
+                }
+
+                // Update Items
+                items.forEach((item, i) => {
+                    item.y += item.speed;
+
+                    // Draw Item
+                    ctx.font = '22px sans-serif';
+                    ctx.fillText(item.isBomb ? '💣' : '🍍', item.x, item.y);
+
+                    // Collision Check
+                    if (
+                        item.y >= basket.y - 10 &&
+                        item.y <= basket.y + basket.height &&
+                        item.x + 20 >= basket.x &&
+                        item.x <= basket.x + basket.width
+                    ) {
+                        if (item.isBomb) {
+                            lives--;
+                            if (lives <= 0) gameOver = true;
+                        } else {
+                            score += 10;
+                            if (score > highScore) {
+                                highScore = score;
+                                localStorage.setItem('catcher_pineapple_hs', highScore);
+                                document.getElementById('catcher-highscore').textContent = highScore;
+                            }
+                        }
+                        items.splice(i, 1);
+                    } else if (item.y > canvas.height) {
+                        if (!item.isBomb) {
+                            lives--;
+                            if (lives <= 0) gameOver = true;
+                        }
+                        items.splice(i, 1);
+                    }
+                });
+
+                // Draw Stats
+                ctx.fillStyle = '#4A2E12';
+                ctx.font = 'bold 16px Prompt';
+                ctx.fillText(`คะแนน: ${score}`, 10, 25);
+                ctx.fillText(`ชีวิต: ${'❤️'.repeat(Math.max(0, lives))}`, canvas.width - 100, 25);
+
+                if (gameOver) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 22px Prompt';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('จบเกม!', canvas.width / 2, canvas.height / 2 - 10);
+                    ctx.font = '14px Prompt';
+                    ctx.fillText(`คะแนนรวม: ${score}`, canvas.width / 2, canvas.height / 2 + 15);
+                    ctx.fillText('แตะปุ่มเริ่มใหม่เพื่อเล่นอีกครั้ง', canvas.width / 2, canvas.height / 2 + 40);
+                    ctx.textAlign = 'left';
+                } else {
+                    catcherAnimationId = requestAnimationFrame(loop);
+                }
+            }
+
+            loop();
+        }
+
+        // Initialize Everything
         window.addEventListener('DOMContentLoaded', () => {
             generateRandomTip();
             updateBookmarkUI();
             
-            // Initialize AOS Animation
             if (typeof AOS !== 'undefined') {
                 AOS.init({
                     duration: 800,
