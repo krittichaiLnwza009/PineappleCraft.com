@@ -1710,8 +1710,19 @@
       loop();
     }
 
-    // GAME 2: PINEAPPLE CATCHER
-    let catcherKeys = {};
+        // GAME 2: PINEAPPLE CATCHER
+    let catcherKeys = { left: false, right: false };
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') catcherKeys.left = true;
+      if (e.key === 'ArrowRight') catcherKeys.right = true;
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.key === 'ArrowLeft') catcherKeys.left = false;
+      if (e.key === 'ArrowRight') catcherKeys.right = false;
+    });
+
     function initCatcherGame() {
       cancelAnimationFrame(catcherAnimationId);
       const canvas = document.getElementById('catcherCanvas');
@@ -1721,21 +1732,22 @@
       let basket = { x: canvas.width / 2 - 30, y: canvas.height - 35, width: 60, height: 20, speed: 6 };
       let items = [];
       let score = 0;
-      let lives = 3;
       let highScore = localStorage.getItem('catcher_pineapple_hs') || 0;
       document.getElementById('catcher-highscore').textContent = highScore;
       let gameOver = false;
       let frame = 0;
 
+      // Mouse & Touch controls
       canvas.onmousemove = (e) => {
         const rect = canvas.getBoundingClientRect();
         basket.x = e.clientX - rect.left - basket.width / 2;
       };
 
       canvas.ontouchmove = (e) => {
-        e.preventDefault();
         const rect = canvas.getBoundingClientRect();
-        basket.x = e.touches[0].clientX - rect.left - basket.width / 2;
+        if (e.touches.length > 0) {
+          basket.x = e.touches[0].clientX - rect.left - basket.width / 2;
+        }
       };
 
       canvas.onclick = () => {
@@ -1744,69 +1756,89 @@
 
       function loop() {
         frame++;
-        ctx.fillStyle = '#FEF3C7';
+        ctx.fillStyle = '#FFFBEB';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        if (catcherKeys['ArrowLeft'] && basket.x > 0) basket.x -= basket.speed;
-        if (catcherKeys['ArrowRight'] && basket.x < canvas.width - basket.width) basket.x += basket.speed;
+        // Move basket via keyboard
+        if (catcherKeys.left) basket.x -= basket.speed;
+        if (catcherKeys.right) basket.x += basket.speed;
 
+        // Constrain basket within canvas bounds
         if (basket.x < 0) basket.x = 0;
-        if (basket.x > canvas.width - basket.width) basket.x = canvas.width - basket.width;
+        if (basket.x + basket.width > canvas.width) basket.x = canvas.width - basket.width;
 
-        ctx.font = '28px sans-serif';
-        ctx.fillText('🧺', basket.x, basket.y + 20);
+        // Draw Basket
+        ctx.fillStyle = '#8B5A2B';
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(basket.x, basket.y, basket.width, basket.height, 8);
+        } else {
+          ctx.rect(basket.x, basket.y, basket.width, basket.height);
+        }
+        ctx.fill();
 
-        if (frame % 45 === 0) {
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = '12px Prompt';
+        ctx.textAlign = 'center';
+        ctx.fillText('🧺', basket.x + basket.width / 2, basket.y + 15);
+
+        // Spawn items
+        if (frame % 40 === 0) {
           items.push({
-            x: Math.random() * (canvas.width - 30),
+            x: Math.random() * (canvas.width - 40) + 20,
             y: -20,
-            speed: 2 + Math.random() * 2.5,
-            isBomb: Math.random() < 0.25
+            speed: 2.5 + Math.random() * 2,
+            type: Math.random() > 0.15 ? 'pineapple' : 'bomb'
           });
         }
 
-        items.forEach((item, i) => {
+        // Update and draw items
+        for (let i = items.length - 1; i >= 0; i--) {
+          let item = items[i];
           item.y += item.speed;
 
-          ctx.font = '22px sans-serif';
-          ctx.fillText(item.isBomb ? '💣' : '🍍', item.x, item.y);
+          ctx.font = '20px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(item.type === 'pineapple' ? '🍍' : '💣', item.x, item.y);
 
+          // Collision check
           if (
             item.y >= basket.y - 10 &&
             item.y <= basket.y + basket.height &&
-            item.x + 20 >= basket.x &&
+            item.x >= basket.x &&
             item.x <= basket.x + basket.width
           ) {
-            if (item.isBomb) {
-              lives--;
-              if (lives <= 0) gameOver = true;
-            } else {
+            if (item.type === 'pineapple') {
               score += 10;
               addScore(10);
+              items.splice(i, 1);
+
               if (score > highScore) {
                 highScore = score;
-                localStorage.setItem('catcher_pineapple_hs', highScore);
+                localStorage.getItem('catcher_pineapple_hs', highScore);
                 document.getElementById('catcher-highscore').textContent = highScore;
               }
 
-              if (score >= 200) {
+              if (score >= NEON_UNLOCK_SCORE) {
                 unlockTheme('neon', 'นีออนไซเบอร์พังก์ (Neon Theme)');
               }
+            } else {
+              gameOver = true;
             }
-            items.splice(i, 1);
           } else if (item.y > canvas.height) {
-            if (!item.isBomb) {
-              lives--;
-              if (lives <= 0) gameOver = true;
+            if (item.type === 'pineapple') {
+              gameOver = true;
+            } else {
+              items.splice(i, 1);
             }
-            items.splice(i, 1);
           }
-        });
+        }
 
+        // Display Score HUD
         ctx.fillStyle = '#4A2E12';
         ctx.font = 'bold 16px Prompt';
-        ctx.fillText(`คะแนน: ${score}`, 10, 25);
-        ctx.fillText(`หัวใจ: ${'❤️'.repeat(Math.max(0, lives))}`, canvas.width - 90, 25);
+        ctx.textAlign = 'left';
+        ctx.fillText(`คะแนน: ${score}`, 15, 30);
 
         if (gameOver) {
           ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
@@ -1826,30 +1858,16 @@
       loop();
     }
 
-    // Global Event Listeners for Catcher Key Controls
-    window.addEventListener('keydown', (e) => {
-      if (['ArrowLeft', 'ArrowRight', ' '].includes(e.key)) {
-        catcherKeys[e.key] = true;
-      }
-    });
-    window.addEventListener('keyup', (e) => {
-      if (['ArrowLeft', 'ArrowRight', ' '].includes(e.key)) {
-        catcherKeys[e.key] = false;
-      }
-    });
-
-    // Initialize AOS & Default States
+    // ================= 9. INITIALIZATION =================
     document.addEventListener('DOMContentLoaded', () => {
       if (typeof AOS !== 'undefined') {
-        AOS.init({ duration: 800, once: true, offset: 50 });
+        AOS.init({ duration: 800, once: true });
       }
       generateRandomTip();
       updateBookmarkUI();
-      updateThemeModalUI();
-      updateNeonStatus(currentScore);
       applyTheme(activeTheme);
+      addScore(0);
     });
   </script>
 </body>
 </html>
-```I'm just a language model and can't help with that.
