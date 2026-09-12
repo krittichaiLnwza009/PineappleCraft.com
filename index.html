@@ -1527,153 +1527,79 @@ function toggleExpand(stepId) {
     }
 
     // ================= 7. SMART AI ASSISTANT =================
- function getSmartKnowledgeBaseReply(msg) {
-      const lowerMsg = msg.toLowerCase();
+ นี่คือโค้ด AI ของชั้น ชั้นรูสึกว่ามันยังไม่ดีพอ
+ชั้นอยากให้มันสามารถตอบได้ทุกคำถามทุกปัญหาแต่ก็ยังมีอารมขัน เหมือนนาย gemini ชั้นอยากให้ AI ขอชั้นมีการคิดารตอบารสนธนาเหมือนายช่วยแก้โค้ดให้หน่อย
+เอาระบบ if/else ออกด้วย
+// ================= 7. SMART AI ASSISTANT (LLM INTEGRATION) =================
 
-      if (lowerMsg.includes('ph') || lowerMsg.includes('กรด') || lowerMsg.includes('ดิน')) {
-        return "เคมีในดินและค่า pH ที่เหมาะสม:\n\n• สับปะรดชอบดินร่วนปนทราย pH 4.5 - 5.5\n• หาก pH < 4.0 ให้ใส่โดโลไมต์ 100-200 กก./ไร่\n• ถ้าระบายน้ำไม่ดีจะเกิดโรครากเน่า ควรยกร่องสูง 30-40 ซม. ครับ";
-      }
-      if (lowerMsg.includes('เอทธิฟอน') || lowerMsg.includes('บังคับดอก') || lowerMsg.includes('ออกดอก')) {
-        return "การบังคับออกดอกนอกฤดู (Forcing):\n\n• ส่วนผสม: เอทธิฟอน (48%) 10-20 ซีซี + ยูเรีย 300 กรัม + น้ำ 20 ลิตร\n• วิธีหยอด: หยอดลงกลางยอด 60 ซีซี/ต้น ในเวลาเย็น\n• เกณฑ์: ต้นต้องอายุ 8-10 เดือน และมีใบมากกว่า 35 ใบครับ";
-      }
-      if (lowerMsg.includes('โรค') || lowerMsg.includes('เน่า') || lowerMsg.includes('เพลี้ย')) {
-        return "การจัดการโรคและแมลง:\n\n• โรคยอดเน่า (Phytophthora): ฉีดพ่น เมทาแลกซิล หรือ ฟอสเอทิล-อลูมินัม\n• เพลี้ยแป้ง: พาหะไวรัสใบเหี่ยว ใช้สารอิมิดาโคลพริดฉีดโคนต้นครับ";
-      }
-      if (lowerMsg.includes('ปุ๋ย') || lowerMsg.includes('สูตร')) {
-        return "สูตรปุ๋ยสับปะรด:\n\n1. เดือน 1-3: สูตร 21-0-0 หรือ 16-16-16 เร่งรากใบ\n2. เดือน 4-7: สูตร 15-15-15 + ยูเรียทางใบ\n3. ขยายผล: สูตร 13-0-46 หรือ 0-0-60 เพิ่มความหวาน Brix ครับ";
-      }
-      if (lowerMsg.includes('ผู้ก่อตั้ง') || lowerMsg.includes('ทีม')) {
-        return "ทีมงานผู้ก่อตั้ง PineappleCraft.com:\n1. นาย บรรณรต ศรีปลัด\n2. นาย คณาพงษ์ กระดุมพรรค\n3. นาย ศุภกร ศิริวงค์\n4. นาย กฤติชัย สุโพธิ์\n5. นาย ปกรณ์ ธัญญารักษ์ ครับ";
-      }
+// ใส่ Gemini API Key ของคุณที่นี่
+const GEMINI_API_KEY = "AQ.Ab8RN6Krwm_pIKZens7RQmpxC4c7jYM9XMpgeRjzeYxW9eJ8cA";
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
-      return "สอบถามเพิ่มเติมเรื่อง เตรียมดิน, pH, สูตรปุ๋ย, เอทธิฟอนบังคับดอก หรือโรคยอดเน่า ได้เลยครับ!";
-    }
+// เก็บ ประวัติการสนทนา เพื่อให้ AI จำบริบทเดิมได้
+let chatHistory = [];
 
-    async function handleChatSubmit(e) {
-      e.preventDefault();
-      const inputEl = document.getElementById('chat-input');
-      const message = inputEl.value.trim();
+// System Instruction กำหนดบุคลิกและข้อมูลพื้นฐานให้ AI
+const SYSTEM_INSTRUCTION = `
+คุณคือ AI ผู้ช่วยอารมณ์ดี ฉลาด มีอารมณ์ขัน ขี้เล่น จาก PineappleCraft.com
+คุณมีความเชี่ยวชาญระดับกูรูด้านการปลูกสับปะรด (การเตรียมดิน, ค่า pH 4.5-5.5, การใช้เอทธิฟอนบังคับดอก, สูตรปุ๋ย, การรักษาโรคยอดเน่า/เพลี้ยแป้ง)
+ข้อมูลทีมผู้ก่อตั้ง PineappleCraft.com:
+1. บรรณรต ศรีปลัด
+2. คณาพงษ์ กระดุมพรรค
+3. ศุภกร ศิริวงค์
+4. กฤติชัย สุโพธิ์
+5. ปกรณ์ ธัญญารักษ์
 
-      if (!message) return;
+แนวทางการตอบ:
+1. ตอบได้ทุกเรื่อง ทุกคำถาม ทุกปัญหา ไม่จำกัดเฉพาะสับปะรด
+2. ใช้ภาษาเป็นกันเอง สุภาพ มีอารมณ์ขัน ตบมุกสั้นๆ สนุกสนาน คล้าย Gemini
+3. หากผู้ใช้ถามเรื่องสับปะรด ให้ตอบด้วยความแม่นยำและเป็นมืออาชีพ
+4. ตอบด้วยข้อความสั้นกระชับ อ่านง่าย และใช้ Emoji ให้ดูมีชีวิตชีวา
+`;
 
-      inputEl.value = '';
-      appendUserMessage(message);
-      const typingId = appendTypingIndicator();
+async function fetchLLMResponse(userMessage) {
+  // บันทึกข้อความผู้ใช้ลงใน History
+  chatHistory.push({
+    role: "user",
+    parts: [{ text: userMessage }]
+  });
 
-      await new Promise(resolve => setTimeout(resolve, 500));
-      removeMessage(typingId);
-      appendBotMessage(getSmartKnowledgeBaseReply(message));
-    }
-
-    function askPreset(question) {
-      document.getElementById('chat-input').value = question;
-      document.getElementById('chat-form').dispatchEvent(new Event('submit'));
-    }
-
-    function clearChatHistory() {
-      document.getElementById('chat-messages').innerHTML = `
-        <div class="flex gap-3 items-start">
-          <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
-          <div class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
-            ล้างแชทเรียบร้อยครับ! มีข้อสงสัยเกี่ยวกับการปลูกสับปะรด ถามเพิ่มเติมได้เลยครับ!
-          </div>
-        </div>
-      `;
-    }
-
-    function appendUserMessage(text) {
-      const chatBox = document.getElementById('chat-messages');
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'flex justify-end';
-      msgDiv.innerHTML = `<div class="bg-pa-primary text-white p-3.5 rounded-2xl rounded-tr-none text-xs sm:text-sm max-w-[80%] shadow-sm">${escapeHtml(text)}</div>`;
-      chatBox.appendChild(msgDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    function appendBotMessage(text) {
-      const chatBox = document.getElementById('chat-messages');
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'flex gap-3 items-start';
-      let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-      msgDiv.innerHTML = `
-        <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
-        <div class="bg-pa-bg p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">${formattedText}</div>
-      `;
-      chatBox.appendChild(msgDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    function appendTypingIndicator() {
-      const chatBox = document.getElementById('chat-messages');
-      const id = 'typing-' + Date.now();
-      const msgDiv = document.createElement('div');
-      msgDiv.id = id;
-      msgDiv.className = 'flex gap-3 items-start';
-      msgDiv.innerHTML = `
-        <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
-        <div class="bg-pa-bg px-4 py-3 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs text-pa-brown flex items-center gap-1.5 shadow-sm">
-          <span>กำลังประมวลผล</span><span class="animate-bounce">.</span><span class="animate-bounce" style="animation-delay: 0.2s">.</span><span class="animate-bounce" style="animation-delay: 0.4s">.</span>
-        </div>
-      `;
-      chatBox.appendChild(msgDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
-      return id;
-    }
-
-    function removeMessage(id) {
-      const el = document.getElementById(id);
-      if (el) el.remove();
-    }
-
-    function escapeHtml(text) {
-      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
-   
-// 1. ตั้งค่า API Key และ Endpoint (นำ API Key จาก Google AI Studio มาใส่)
-const GEMINI_API_KEY = "AQ.Ab8RN6Krwm_pIKZens7RQmpxC4c7jYM9XMpgeRjzeYxW9eJ8cA"; 
-
-// 2. ฟังก์ชั่นส่งคำถามไปยัง Gemini API พร้อมกำหนดบุคลิก (System Instruction)
-async function getGeminiAIResponse(userMessage) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-
-  // กำหนด System Prompt ให้ AI รู้บทบาท มีอารมณ์ขัน และมีความรู้เกี่ยวกับเว็บ
-  const systemInstruction = `
-    คุณคือ AI ผู้ช่วยอารมณ์ดีประจำเว็บไซต์ PineappleCraft.com
-    บุคลิกของคุณ: 
-    - เป็นมิตร กวนนิดๆ มีอารมณ์ขัน ตบมุกตลกได้ 
-    - ตอบคำถามเป็นธรรมชาติเหมือนมนุษย์คุยกัน ไม่หุ่นยนต์ 
-    - สามารถตอบได้ทุกเรื่อง ทั้งเรื่องทั่วไป วิชาการ หรือเรื่องสับปะรด 
-    - หากเป็นเรื่องการเกษตร/สับปะรด ให้ตอบด้วยความแม่นยำ 
-    - ทีมงานผู้ก่อตั้งเว็บคือ: 1. บรรณรต ศรีปลัด 2. คณาพงษ์ กระดุมพรรค 3. ศุภกร ศิริวงค์ 4. กฤติชัย สุโพธิ์ 5. ปกรณ์ ธัญญารักษ์
-  `;
+  const payload = {
+    system_instruction: {
+      parts: [{ text: SYSTEM_INSTRUCTION }]
+    },
+    contents: chatHistory
+  };
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(GEMINI_API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        system_instruction: {
-          parts: [{ text: systemInstruction }]
-        },
-        contents: [
-          { role: "user", parts: [{ text: userMessage }] }
-        ]
-      })
+      body: JSON.stringify(payload)
     });
 
-    const data = await response.json();
-    if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-      return data.candidates[0].content.parts[0].text;
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status}`);
     }
-  } catch (error) {
-    console.error("Gemini API Error:", error);
-  }
 
-  // หากเกิดข้อผิดพลาดในการดึง API ให้สลับไปใช้ Rule-based สำรอง
-  return getSmartKnowledgeBaseReply(userMessage);
+    const data = await response.json();
+    const botReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "ขออภัยครับ ระบบประมวลผลขัดข้อง ลองใหม่อีกครั้งนะ!";
+
+    // บันทึกคำตอบของ AI ลงใน History
+    chatHistory.push({
+      role: "model",
+      parts: [{ text: botReply }]
+    });
+
+    return botReply;
+  } catch (error) {
+    console.error("LLM Error:", error);
+    // ถอดประวัติคำถามล่าสุดออกหากเกิด Error
+    chatHistory.pop();
+    return "อุ๊ย! เกิดปัญหาในการเชื่อมต่อกับสมองกลของผม ลองเช็คอินเทอร์เน็ตหรือ API Key อีกทีนะครับ 🍍";
+  }
 }
 
-// 3. ปรับปรุง handleChatSubmit ให้เรียกใช้ Gemini API
 async function handleChatSubmit(e) {
   e.preventDefault();
   const inputEl = document.getElementById('chat-input');
@@ -1685,11 +1611,81 @@ async function handleChatSubmit(e) {
   appendUserMessage(message);
   const typingId = appendTypingIndicator();
 
-  // ส่งข้อมูลหา Gemini API เพื่อประมวลผลคำตอบแบบเรียลไทม์
-  const botReply = await getGeminiAIResponse(message);
+  // ดึงคำตอบจาก LLM API
+  const botReply = await fetchLLMResponse(message);
 
   removeMessage(typingId);
   appendBotMessage(botReply);
+}
+
+function askPreset(question) {
+  document.getElementById('chat-input').value = question;
+  document.getElementById('chat-form').dispatchEvent(new Event('submit'));
+}
+
+function clearChatHistory() {
+  chatHistory = []; // ล้าง History ฝั่ง API
+  document.getElementById('chat-messages').innerHTML = `
+    <div class="flex gap-3 items-start">
+      <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
+      <div class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
+        ล้างแชทเรียบร้อยครับ! สมองผมโล่งพร้อมรับทุกคำถามแล้ว ถามมาได้เลย! ✨
+      </div>
+    </div>
+  `;
+}
+
+function appendUserMessage(text) {
+  const chatBox = document.getElementById('chat-messages');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = 'flex justify-end';
+  msgDiv.innerHTML = `<div class="bg-pa-primary text-white p-3.5 rounded-2xl rounded-tr-none text-xs sm:text-sm max-w-[80%] shadow-sm">${escapeHtml(text)}</div>`;
+  chatBox.appendChild(msgDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function appendBotMessage(text) {
+  const chatBox = document.getElementById('chat-messages');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = 'flex gap-3 items-start';
+  
+  // แปลง Markdown พื้นฐาน (**bold**, \n) เป็น HTML
+  let formattedText = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+
+  msgDiv.innerHTML = `
+    <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
+    <div class="bg-pa-bg p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">${formattedText}</div>
+  `;
+  chatBox.appendChild(msgDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function appendTypingIndicator() {
+  const chatBox = document.getElementById('chat-messages');
+  const id = 'typing-' + Date.now();
+  const msgDiv = document.createElement('div');
+  msgDiv.id = id;
+  msgDiv.className = 'flex gap-3 items-start';
+  msgDiv.innerHTML = `
+    <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
+    <div class="bg-pa-bg px-4 py-3 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs text-pa-brown flex items-center gap-1.5 shadow-sm">
+      <span>กำลังคิดคำตอบสุดกวน</span><span class="animate-bounce">.</span><span class="animate-bounce" style="animation-delay: 0.2s">.</span><span class="animate-bounce" style="animation-delay: 0.4s">.</span>
+    </div>
+  `;
+  chatBox.appendChild(msgDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return id;
+}
+
+function removeMessage(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
     // ================= 8. RETRO MINI GAMES ENGINE =================
