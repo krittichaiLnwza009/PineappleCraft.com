@@ -2043,7 +2043,7 @@ document.addEventListener('keydown', function(event) {
 
   </script>
   
-  <!-- Jumpscare Overlay Modal -->
+<!-- Jumpscare Overlay Modal -->
 <div id="jumpscare-overlay" 
      style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; display: none; align-items: center; justify-content: center; background-color: black; overflow: hidden; cursor: pointer;" 
      onclick="closeJumpscare()">
@@ -2051,18 +2051,22 @@ document.addEventListener('keydown', function(event) {
   <!-- เอฟเฟกต์แสงกระพริบด้านหลัง -->
   <div style="position: absolute; inset: 0; background: rgba(127, 29, 29, 0.4); pointer-events: none;"></div>
 
-  <!-- กล่องแสดงรูปภาพและข้อความกลางจอ -->
-  <div style="text-align: center; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+  <!-- กล่องจัดวางรูปภาพและข้อความแบบเรียงต่อกันแนวตั้ง -->
+  <div style="text-align: center; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 20px; max-width: 100%;">
     
+    <!-- รูปภาพ (ปรับ max-height เป็น 55vh เพื่อไม่ให้ดันข้อความตกจอ) -->
     <img id="jumpscare-img" 
          src="https://cdn.phototourl.com/free/2026-09-12-54f5a841-793b-43bb-9a91-966bd3a59985.jpg" 
          alt="Jumpscare Pineapple" 
-         style="max-width: 90vw; max-height: 70vh; object-fit: contain; filter: drop-shadow(0 0 50px rgba(255,0,0,0.8)); transform: scale(1.2);">
+         style="max-width: 85vw; max-height: 55vh; object-fit: contain; filter: drop-shadow(0 0 50px rgba(255,0,0,0.8));">
 
-    <h2 style="color: #ef4444; font-weight: 900; font-size: 2.25rem; letter-spacing: 0.1em; margin-top: 1.5rem; font-family: sans-serif; text-transform: uppercase;">
-      👻 BOO! PINEAPPLE CURSE! 🍍
-    </h2>
-    <p style="color: #9ca3af; font-size: 0.875rem; margin-top: 0.5rem; font-family: sans-serif;">(คลิกตรงไหนก็ได้เพื่อปิด)</p>
+    <!-- กลุ่มข้อความใต้รูปภาพ -->
+    <div>
+      <h2 style="color: #ef4444; font-weight: 900; font-size: 2rem; letter-spacing: 0.1em; margin: 0; font-family: sans-serif; text-transform: uppercase; text-shadow: 0 0 15px rgba(239, 68, 68, 0.8);">
+        👻 BOO! PINEAPPLE CURSE! 🍍
+      </h2>
+      <p style="color: #9ca3af; font-size: 0.875rem; margin-top: 8px; margin-bottom: 0; font-family: sans-serif;">(คลิกตรงไหนก็ได้เพื่อปิด)</p>
+    </div>
 
   </div>
 
