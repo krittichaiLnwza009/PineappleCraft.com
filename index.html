@@ -1639,7 +1639,7 @@ function getSmartKnowledgeBaseReply(msg) {
   const lowerMsg = msg.toLowerCase().trim();
 
   // 1. หมวดทักทาย & ถามสารพัดประโยชน์
-  if (/^(หวัดดี|สวัสดี|ดีครับ|ดีค่ะ|ดีจ้า|hi|hello|hey)/.test(lowerMsg)) {
+  if (/^(หวัดดี|สวัสดี|ดีครับ|ดีค่ะ|ดีจ้า|hi|hello|hey|ดีงับ|โย่ว|ไง|yo|สบายดีบ่|ว่าไง)/.test(lowerMsg)) {
     return getRandomReply([
       "สวัสดีครับ! วันนี้มีเรื่องสับปะรดสงสัย หรือแค่อยากแวะมาคุยแก้เหงาครับเนี่ย? 🍍",
       "หวัดดีครับ! พร้อมรับฟังทั้งเรื่องปุ๋ย เรื่องดิน และเรื่องหัวใจ (ถ้าโดนเทมา) ครับ!",
@@ -1684,8 +1684,12 @@ function getSmartKnowledgeBaseReply(msg) {
   }
 
   if (lowerMsg.includes('ชื่ออะไร') || lowerMsg.includes('คือใคร') || lowerMsg.includes('ใครคือ')) {
-    return "ผมคือ AI ผู้ช่วยประจำ PineappleCraft.com ครับ ตอบได้ตั้งแต่เรื่องค่า pH ยันเรื่องสัพเพเหระเลย!";
+    return getRandomReply([
+      "ผมคือ AI ผู้ช่วยประจำ PineappleCraft.com ครับ",
+      "ชื่อผมคืออะไรนะหรอ? จะเรียกคนหล่อก็ได้นะ!"
+      ]);
   }
+  
 
   // 3. หมวดความรู้สับปะรด (วิชาการตามเดิม)
   if (lowerMsg.includes('ph') || lowerMsg.includes('กรด') || lowerMsg.includes('ดิน')) {
@@ -1710,7 +1714,8 @@ function getSmartKnowledgeBaseReply(msg) {
     "เอ๊ะ... อันนี้ไม่มีในตำราเกษตรซะด้วยสิ! เอาเป็นว่าคุยเรื่องนี้แป๊บนึง แล้วค่อยไปต่อเรื่องสูตรปุ๋ยไหมครับ?",
     "ฟังดูน่าสนใจนะ! แต่เอ... เรื่องนี้มันจะเชื่อมโยงไปหาการปลูกสับปะรดได้ยังไงเนี่ย 555",
     "เรื่องนี้ผมขอฟังอย่างเดียวละกันครับ ตะกอนความรู้ยังไม่พอ แต่ถ้าเรื่องแมลงเรื่องโรคพืช ถามมาได้เลย!",
-    "พิมพ์มาแบบนี้ แสดงว่าอยากชวนคุยเล่นใช่ไหมล่ะ? มีเรื่องอะไรอยากเล่าอีกไหมครับ?"
+    "พิมพ์มาแบบนี้ แสดงว่าอยากชวนคุยเล่นใช่ไหมล่ะ? มีเรื่องอะไรอยากเล่าอีกไหมครับ?",
+    "ห้ะ?"
   ]);
 }
 
@@ -1731,6 +1736,69 @@ async function handleChatSubmit(e) {
 
   removeMessage(typingId);
   appendBotMessage(getSmartKnowledgeBaseReply(message));
+}
+
+// 1. ตั้งค่า API Key และ Endpoint (นำ API Key จาก Google AI Studio มาใส่)
+const GEMINI_API_KEY = "AQ.Ab8RN6Krwm_pIKZens7RQmpxC4c7jYM9XMpgeRjzeYxW9eJ8cA"; 
+
+// 2. ฟังก์ชั่นส่งคำถามไปยัง Gemini API พร้อมกำหนดบุคลิก (System Instruction)
+async function getGeminiAIResponse(userMessage) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+  // กำหนด System Prompt ให้ AI รู้บทบาท มีอารมณ์ขัน และมีความรู้เกี่ยวกับเว็บ
+  const systemInstruction = `
+    คุณคือ AI ผู้ช่วยอารมณ์ดีประจำเว็บไซต์ PineappleCraft.com
+    บุคลิกของคุณ: 
+    - เป็นมิตร กวนนิดๆ มีอารมณ์ขัน ตบมุกตลกได้ 
+    - ตอบคำถามเป็นธรรมชาติเหมือนมนุษย์คุยกัน ไม่หุ่นยนต์ 
+    - สามารถตอบได้ทุกเรื่อง ทั้งเรื่องทั่วไป วิชาการ หรือเรื่องสับปะรด 
+    - หากเป็นเรื่องการเกษตร/สับปะรด ให้ตอบด้วยความแม่นยำ 
+    - ทีมงานผู้ก่อตั้งเว็บคือ: 1. บรรณรต ศรีปลัด 2. คณาพงษ์ กระดุมพรรค 3. ศุภกร ศิริวงค์ 4. กฤติชัย สุโพธิ์ 5. ปกรณ์ ธัญญารักษ์
+  `;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        system_instruction: {
+          parts: [{ text: systemInstruction }]
+        },
+        contents: [
+          { role: "user", parts: [{ text: userMessage }] }
+        ]
+      })
+    });
+
+    const data = await response.json();
+    if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+      return data.candidates[0].content.parts[0].text;
+    }
+  } catch (error) {
+    console.error("Gemini API Error:", error);
+  }
+
+  // หากเกิดข้อผิดพลาดในการดึง API ให้สลับไปใช้ Rule-based สำรอง
+  return getSmartKnowledgeBaseReply(userMessage);
+}
+
+// 3. ปรับปรุง handleChatSubmit ให้เรียกใช้ Gemini API
+async function handleChatSubmit(e) {
+  e.preventDefault();
+  const inputEl = document.getElementById('chat-input');
+  const message = inputEl.value.trim();
+
+  if (!message) return;
+
+  inputEl.value = '';
+  appendUserMessage(message);
+  const typingId = appendTypingIndicator();
+
+  // ส่งข้อมูลหา Gemini API เพื่อประมวลผลคำตอบแบบเรียลไทม์
+  const botReply = await getGeminiAIResponse(message);
+
+  removeMessage(typingId);
+  appendBotMessage(botReply);
 }
 
     // ================= 8. RETRO MINI GAMES ENGINE =================
