@@ -1987,22 +1987,23 @@ async function handleChatSubmit(e) {
     // ================= JUMPSCARE SYSTEM =================
 function triggerJumpscare() {
   const overlay = document.getElementById('jumpscare-overlay');
-  const img = document.getElementById('jumpscare-img');
-  
   if (!overlay) return;
 
-  // แสดง หน้าจอ Overlay
-  overlay.classList.remove('hidden');
+  // เปิดแสดงผลกลางหน้าจอ และล็อกไม่ให้ผู้ใช้สกรอลล์หน้าเว็บได้
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
   document.body.classList.add('jumpscare-active');
 
-  // เล่นเสียงกรีดร้อง/ตกใจผ่าน Web Audio API (ไม่ต้องพึ่งไฟล์ภายนอก)
+  // เล่นเสียง
   playJumpscareSound();
 }
 
 function closeJumpscare() {
   const overlay = document.getElementById('jumpscare-overlay');
   if (overlay) {
-    overlay.classList.add('hidden');
+    // ซ่อนหน้าจอและคืนค่าการสกรอลล์ปกติ
+    overlay.style.display = 'none';
+    document.body.style.overflow = 'auto';
     document.body.classList.remove('jumpscare-active');
   }
 }
@@ -2043,43 +2044,29 @@ document.addEventListener('keydown', function(event) {
   </script>
   
   <!-- Jumpscare Overlay Modal -->
-<div id="jumpscare-overlay" class="hidden fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center cursor-pointer select-none overflow-hidden" onclick="closeJumpscare()">
+<div id="jumpscare-overlay" 
+     style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; display: none; align-items: center; justify-content: center; background-color: black; overflow: hidden; cursor: pointer;" 
+     onclick="closeJumpscare()">
   
-  <!-- เอฟเฟกต์แสงแฟลชแดงกระพริบ -->
-  <div class="absolute inset-0 bg-red-900/30 animate-pulse pointer-events-none"></div>
+  <!-- เอฟเฟกต์แสงกระพริบด้านหลัง -->
+  <div style="position: absolute; inset: 0; background: rgba(127, 29, 29, 0.4); pointer-events: none;"></div>
 
-  <!-- รูปภาพ Jumpscare (เปลี่ยน URL เป็นรูป AI สับปะรดผีตามต้องการ) -->
-  <img id="jumpscare-img" 
-       src="https://cdn.phototourl.com/free/2026-09-12-54f5a841-793b-43bb-9a91-966bd3a59985.jpg" 
-       alt="Jumpscare Pineapple" 
-       class="max-w-[90vw] max-h-[80vh] object-contain drop-shadow-[0_0_60px_rgba(255,0,0,0.9)] transform scale-125 transition-transform duration-75">
+  <!-- กล่องแสดงรูปภาพและข้อความกลางจอ -->
+  <div style="text-align: center; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    
+    <img id="jumpscare-img" 
+         src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1000&auto=format&fit=crop" 
+         alt="Jumpscare Pineapple" 
+         style="max-width: 90vw; max-height: 70vh; object-fit: contain; filter: drop-shadow(0 0 50px rgba(255,0,0,0.8)); transform: scale(1.2);">
 
-  <h2 class="text-red-500 font-extrabold text-3xl md:text-5xl tracking-widest uppercase mt-6 drop-shadow-[0_2px_10px_rgba(255,0,0,0.8)] animate-bounce">
-    👻 BOO! PINEAPPLE CURSE! 🍍
-  </h2>
-  <p class="text-gray-400 text-xs mt-3">(คลิกตรงไหนก็ได้เพื่อปิด)</p>
+    <h2 style="color: #ef4444; font-weight: 900; font-size: 2.25rem; letter-spacing: 0.1em; margin-top: 1.5rem; font-family: sans-serif; text-transform: uppercase;">
+      👻 BOO! PINEAPPLE CURSE! 🍍
+    </h2>
+    <p style="color: #9ca3af; font-size: 0.875rem; margin-top: 0.5rem; font-family: sans-serif;">(คลิกตรงไหนก็ได้เพื่อปิด)</p>
+
+  </div>
 
 </div>
-
-<style>
-  /* CSS Animation เพิ่มความตกใจ */
-  @keyframes shakeHard {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-3px, -2px) rotate(-1deg); }
-    20% { transform: translate(-5px, 0px) rotate(1deg); }
-    30% { transform: translate(5px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(2px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
-  }
-
-  .jumpscare-active {
-    animation: shakeHard 0.15s infinite;
-  }
 </style>
 </body>
 </html>
