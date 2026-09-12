@@ -69,7 +69,7 @@
             --border-color: rgba(71, 85, 105, 0.6);
         }
 
-        /* 👑 Gold Pineapple Theme (Unlocked via Flappy Score >= 5) */
+        /* 👑 Gold Pineapple Theme */
         body.theme-gold {
             --color-bg: #1A1200;
             --color-card: #2B1D02;
@@ -84,7 +84,7 @@
             --border-color: rgba(212, 175, 55, 0.4);
         }
 
-        /* ⚡ Neon Cyberpunk Theme (Unlocked via Catcher Score >= 50 or 1000 Points) */
+        /* ⚡ Neon Cyberpunk Theme */
         body.theme-neon {
             --color-bg: #05050D;
             --color-card: #121226;
@@ -152,7 +152,6 @@
             touch-action: none;
         }
 
-        /* ================= NEON UNLOCK SYSTEM STYLES ================= */
         .neon-item {
             font-size: 20px;
             padding: 15px 30px;
@@ -160,14 +159,11 @@
             text-align: center;
             transition: all 0.5s ease;
         }
-
         .neon-locked {
             color: var(--color-brown);
             border: 2px dashed var(--color-lightbrown);
             background: rgba(255, 255, 255, 0.02);
         }
-
-        /* เอฟเฟกต์ Neon ระดับพรีเมียมเมื่อปลดล็อกครบ 1,000 แต้ม */
         .neon-unlocked {
             color: #ffffff !important;
             font-weight: bold;
@@ -176,32 +172,14 @@
             border: 2px solid #00f3ff;
             border-radius: 12px;
             background: rgba(0, 243, 255, 0.1);
-            text-shadow:
-                0 0 4px #fff,
-                0 0 11px #fff,
-                0 0 19px #fff,
-                0 0 40px #00f3ff,
-                0 0 80px #00f3ff,
-                0 0 90px #00f3ff,
-                0 0 100px #00f3ff,
-                0 0 150px #00f3ff;
-            box-shadow: 
-                0 0 20px rgba(0, 243, 255, 0.4),
-                inset 0 0 15px rgba(0, 243, 255, 0.2);
+            text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #00f3ff, 0 0 80px #00f3ff;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.4), inset 0 0 15px rgba(0, 243, 255, 0.2);
             animation: neonPulse 1.5s infinite alternate ease-in-out;
         }
-
-        /* อนิเมชันไล่เฉดสีสะท้อนแสง */
         @keyframes neonPulse {
-            0% {
-                filter: drop-shadow(0 0 5px #00f3ff) brightness(1);
-            }
-            50% {
-                filter: drop-shadow(0 0 25px #ff00a0) brightness(1.3);
-            }
-            100% {
-                filter: drop-shadow(0 0 15px #00f3ff) brightness(1.1);
-            }
+            0% { filter: drop-shadow(0 0 5px #00f3ff) brightness(1); }
+            50% { filter: drop-shadow(0 0 25px #ff00a0) brightness(1.3); }
+            100% { filter: drop-shadow(0 0 15px #00f3ff) brightness(1.1); }
         }
     </style>
 </head>
@@ -243,7 +221,6 @@
             </nav>
 
             <div class="flex items-center gap-2">
-                <!-- Theme Selector Dropdown Button -->
                 <button onclick="toggleThemeModal()" class="flex items-center gap-2 bg-pa-card hover:bg-pa-softorange px-3 py-2 rounded-xl border border-pa-lightbrown transition-all text-xs text-pa-darkbrown" title="เลือกโทนสี">
                     <i class="fa-solid fa-palette text-pa-primary text-sm"></i>
                     <span class="hidden sm:inline font-medium">เปลี่ยนโทนสี</span>
@@ -290,9 +267,8 @@
     <!-- Main Content Area -->
     <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        <!-- ================= PAGE 1: HOME ================= -->
+        <!-- PAGE 1: HOME -->
         <section id="page-home" class="page-section active space-y-12">
-            <!-- Hero Section -->
             <div data-aos="fade-up" class="relative bg-gradient-to-br from-pa-softorange via-pa-card to-pa-lightbrown/40 rounded-3xl p-8 sm:p-12 border border-pa-lightbrown/60 overflow-hidden shadow-sm">
                 <div class="max-w-2xl relative z-10 space-y-6">
                     <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-pa-primary/10 text-pa-primary border border-pa-primary/20">
@@ -318,7 +294,6 @@
                 </div>
             </div>
 
-            <!-- Detailed Benefits & Physiology -->
             <div class="space-y-6">
                 <div data-aos="fade-up" class="text-center max-w-xl mx-auto space-y-2">
                     <h2 class="text-2xl sm:text-3xl font-bold text-pa-darkbrown">ทำไมสับปะรดจึงเป็นพืชเศรษฐกิจทรงคุณค่า?</h2>
@@ -358,7 +333,6 @@
                 </div>
             </div>
 
-            <!-- Deep Variety Comparison -->
             <div data-aos="fade-up" class="bg-pa-card p-8 rounded-3xl border border-pa-lightbrown/60 space-y-6">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
@@ -425,14 +399,13 @@
                 </div>
             </div>
 
-            <!-- Navigation Cards Hub -->
             <div data-aos="fade-up" class="bg-gradient-to-r from-pa-softorange/40 to-pa-lightbrown/30 p-8 rounded-3xl border border-pa-lightbrown/60 space-y-6">
                 <h2 class="text-xl font-bold text-pa-darkbrown text-center">เมนูศูนย์รวมความรู้และกิจกรรม</h2>
                 <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
                     <button onclick="switchPage('purpose')" class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
                         <i class="fa-solid fa-bullseye text-2xl text-pa-primary mb-2 block group-hover:scale-110 transition-transform"></i>
                         <h4 class="font-bold text-pa-darkbrown text-sm">วัตถุประสงค์</h4>
-                        <p class="text-[11px] text-pa-brown mt-0.5">วิvisionและพันธกิจ</p>
+                        <p class="text-[11px] text-pa-brown mt-0.5">วิสัยทัศน์และพันธกิจ</p>
                     </button>
                     <button onclick="switchPage('guide')" class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 text-left hover-lift group">
                         <i class="fa-solid fa-book-open text-2xl text-pa-primary mb-2 block group-hover:scale-110 transition-transform"></i>
@@ -458,7 +431,7 @@
             </div>
         </section>
 
-        <!-- ================= PAGE 2: PURPOSE ================= -->
+        <!-- PAGE 2: PURPOSE -->
         <section id="page-purpose" class="page-section space-y-8">
             <div class="max-w-4xl mx-auto space-y-6">
                 <div data-aos="fade-up" class="text-center space-y-3">
@@ -517,7 +490,7 @@
             </div>
         </section>
 
-        <!-- ================= PAGE 3: PLANTING GUIDE ================= -->
+        <!-- PAGE 3: PLANTING GUIDE -->
         <section id="page-guide" class="page-section space-y-10">
             <div data-aos="fade-up" class="text-center max-w-2xl mx-auto space-y-3">
                 <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Comprehensive Guide</span>
@@ -525,14 +498,11 @@
                 <p class="text-pa-brown text-sm font-light">คู่มือปฏิบัติจริงครอบคลุมวิเคราะห์เคมีดิน การจัดการโภชนาการ ฮอร์โมน และโรคพืช</p>
             </div>
 
-            <!-- Search & Filter Bar -->
             <div data-aos="fade-up" class="max-w-md mx-auto relative">
                 <input type="text" id="guide-search" oninput="filterGuideCards()" placeholder="🔍 ค้นหาหัวข้อคู่มือ (เช่น ดิน, ปุ๋ย, เอทธิฟอน, เพลี้ยแป้ง)..." class="w-full px-4 py-2.5 rounded-2xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-pa-card text-sm shadow-sm">
             </div>
 
-            <!-- Steps Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="guide-cards-container">
-                
                 <!-- Step 1 -->
                 <div data-aos="fade-up" class="guide-card bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-4 relative overflow-hidden flex flex-col justify-between shadow-sm hover-lift">
                     <div>
@@ -551,7 +521,7 @@
                             <i class="fa-solid fa-mountain text-pa-primary"></i> 1. การเตรียมดิน เคมีในดิน และการยกแปลง
                         </h3>
                         <div class="text-xs text-pa-brown space-y-2.5 font-light leading-relaxed mt-3">
-                            <p>• <strong>ค่าความเป็นกรด-ด่าง (pH):</strong> ปรับสภาพให้อยู่ในระดับ <strong>4.5 - 5.5</strong> ดินร่วนปนทรายระบายน้ำดี หาก pH &gt; 6.0 จะเกิดอาการขาดธาตุเหล็กและสังกะสี</p>
+                            <p>• <strong>ค่าความเป็นกรด-ด่าง (pH):</strong> ปรับสภาพให้อยู่อินระดับ <strong>4.5 - 5.5</strong> ดินร่วนปนทรายระบายน้ำดี หาก pH &gt; 6.0 จะเกิดอาการขาดธาตุเหล็กและสังกะสี</p>
                             <p>• <strong>การปรับปรุงดินด้วยปูนโดโลไมต์:</strong> หาก pH &lt; 4.0 หินปูนโดโลไมต์จะช่วยเพิ่มแคลเซียมและแมกนีเซียม อัตรา 100-200 กิโลกรัม/ไร่ ไถกลบก่อนปลูก 3-4 สัปดาห์</p>
                             <p>• <strong>โครงสร้างการยกร่อง (Bed Formation):</strong> ยกร่องสูงอย่างน้อย 30-40 ซม. สันร่องกว้าง 80-90 ซม. เพื่อป้องกันโรครากเน่าจากภาวะน้ำขังเกิน 24 ชั่วโมง</p>
                         </div>
@@ -594,9 +564,14 @@
                     <div>
                         <div class="flex justify-between items-start mb-2">
                             <span class="w-8 h-8 rounded-lg bg-pa-softorange text-pa-primary font-bold flex items-center justify-center text-sm">03</span>
-                            <button onclick="toggleBookmark(3)" id="bm-btn-3" class="text-pa-brown/40 hover:text-pa-primary text-base transition-colors" title="บันทึกหัวข้อนี้">
-                                <i class="fa-regular fa-bookmark"></i>
-                            </button>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openGuideDetail(3)" class="text-xs text-pa-primary bg-pa-softorange px-2.5 py-1 rounded-lg hover:bg-pa-primary hover:text-white transition-all font-medium">
+                                    <i class="fa-solid fa-microscope mr-1"></i>วิเคราะห์เชิงลึก
+                                </button>
+                                <button onclick="toggleBookmark(3)" id="bm-btn-3" class="text-pa-brown/40 hover:text-pa-primary text-base transition-colors" title="บันทึกหัวข้อนี้">
+                                    <i class="fa-regular fa-bookmark"></i>
+                                </button>
+                            </div>
                         </div>
                         <h3 class="text-lg font-bold text-pa-darkbrown flex items-center gap-2">
                             <i class="fa-solid fa-flask text-pa-primary"></i> 3. การจัดการโภชนาการและปุ๋ยสั่งตัด
@@ -617,9 +592,14 @@
                     <div>
                         <div class="flex justify-between items-start mb-2">
                             <span class="w-8 h-8 rounded-lg bg-pa-softorange text-pa-primary font-bold flex items-center justify-center text-sm">04</span>
-                            <button onclick="toggleBookmark(4)" id="bm-btn-4" class="text-pa-brown/40 hover:text-pa-primary text-base transition-colors" title="บันทึกหัวข้อนี้">
-                                <i class="fa-regular fa-bookmark"></i>
-                            </button>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openGuideDetail(4)" class="text-xs text-pa-primary bg-pa-softorange px-2.5 py-1 rounded-lg hover:bg-pa-primary hover:text-white transition-all font-medium">
+                                    <i class="fa-solid fa-microscope mr-1"></i>วิเคราะห์เชิงลึก
+                                </button>
+                                <button onclick="toggleBookmark(4)" id="bm-btn-4" class="text-pa-brown/40 hover:text-pa-primary text-base transition-colors" title="บันทึกหัวข้อนี้">
+                                    <i class="fa-regular fa-bookmark"></i>
+                                </button>
+                            </div>
                         </div>
                         <h3 class="text-lg font-bold text-pa-darkbrown flex items-center gap-2">
                             <i class="fa-solid fa-wand-magic-sparkles text-pa-primary"></i> 4. การใช้สารฮอร์โมนบังคับออกดอกนอกฤดู
@@ -640,9 +620,14 @@
                     <div>
                         <div class="flex justify-between items-start mb-2">
                             <span class="w-8 h-8 rounded-lg bg-pa-softorange text-pa-primary font-bold flex items-center justify-center text-sm">05</span>
-                            <button onclick="toggleBookmark(5)" id="bm-btn-5" class="text-pa-brown/40 hover:text-pa-primary text-base transition-colors" title="บันทึกหัวข้อนี้">
-                                <i class="fa-regular fa-bookmark"></i>
-                            </button>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openGuideDetail(5)" class="text-xs text-pa-primary bg-pa-softorange px-2.5 py-1 rounded-lg hover:bg-pa-primary hover:text-white transition-all font-medium">
+                                    <i class="fa-solid fa-microscope mr-1"></i>วิเคราะห์เชิงลึก
+                                </button>
+                                <button onclick="toggleBookmark(5)" id="bm-btn-5" class="text-pa-brown/40 hover:text-pa-primary text-base transition-colors" title="บันทึกหัวข้อนี้">
+                                    <i class="fa-regular fa-bookmark"></i>
+                                </button>
+                            </div>
                         </div>
                         <h3 class="text-lg font-bold text-pa-darkbrown flex items-center gap-2">
                             <i class="fa-solid fa-shield-halved text-pa-primary"></i> 5. การจัดการโรคพืชและแมลงศัตรูพืชบูรณาการ
@@ -663,9 +648,14 @@
                     <div>
                         <div class="flex justify-between items-start mb-2">
                             <span class="w-8 h-8 rounded-lg bg-pa-softorange text-pa-primary font-bold flex items-center justify-center text-sm">06</span>
-                            <button onclick="toggleBookmark(6)" id="bm-btn-6" class="text-pa-brown/40 hover:text-pa-primary text-base transition-colors" title="บันทึกหัวข้อนี้">
-                                <i class="fa-regular fa-bookmark"></i>
-                            </button>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openGuideDetail(6)" class="text-xs text-pa-primary bg-pa-softorange px-2.5 py-1 rounded-lg hover:bg-pa-primary hover:text-white transition-all font-medium">
+                                    <i class="fa-solid fa-microscope mr-1"></i>วิเคราะห์เชิงลึก
+                                </button>
+                                <button onclick="toggleBookmark(6)" id="bm-btn-6" class="text-pa-brown/40 hover:text-pa-primary text-base transition-colors" title="บันทึกหัวข้อนี้">
+                                    <i class="fa-regular fa-bookmark"></i>
+                                </button>
+                            </div>
                         </div>
                         <h3 class="text-lg font-bold text-pa-darkbrown flex items-center gap-2">
                             <i class="fa-solid fa-basket-shopping text-pa-primary"></i> 6. ดัชนีการเก็บเกี่ยวและโลจิสติกส์
@@ -746,7 +736,7 @@
             </div>
         </section>
 
-        <!-- ================= PAGE 4: AI ASSISTANT ================= -->
+        <!-- PAGE 4: AI ASSISTANT -->
         <section id="page-ai" class="page-section space-y-6">
             <div data-aos="fade-up" class="text-center max-w-xl mx-auto space-y-2">
                 <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pa-softorange text-pa-primary text-xs font-semibold">
@@ -756,9 +746,7 @@
                 <p class="text-pa-brown text-sm font-light">สอบถามปัญหาโรคพืช ปุ๋ยสั่งตัด สารเอทธิฟอนบังคับดอก หรือแนวทางการบริหารแปลงได้ตลอด 24 ชั่วโมง</p>
             </div>
 
-            <!-- Chat Container -->
             <div data-aos="fade-up" data-aos-delay="100" class="max-w-3xl mx-auto bg-pa-card rounded-3xl border border-pa-lightbrown/80 shadow-sm flex flex-col h-[540px] overflow-hidden">
-                <!-- Chat Header -->
                 <div class="bg-pa-card/80 backdrop-blur px-6 py-4 border-b border-pa-lightbrown/50 flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <div class="w-9 h-9 rounded-full bg-pa-primary text-white flex items-center justify-center text-sm font-bold">
@@ -776,7 +764,6 @@
                     </button>
                 </div>
 
-                <!-- Chat Messages -->
                 <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 chat-scroll">
                     <div class="flex gap-3 items-start">
                         <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">
@@ -788,7 +775,6 @@
                     </div>
                 </div>
 
-                <!-- Suggested Quick Chips -->
                 <div class="px-6 py-2 bg-pa-bg/50 border-t border-pa-lightbrown/30 flex gap-2 overflow-x-auto text-xs custom-scroll">
                     <button onclick="askPreset('สับปะรดชอบดินแบบไหนและปรับ pH อย่างไร?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
                         🌱 ดิน & ค่า pH
@@ -801,7 +787,6 @@
                     </button>
                 </div>
 
-                <!-- Chat Form -->
                 <form id="chat-form" onsubmit="handleChatSubmit(event)" class="p-3 bg-pa-card border-t border-pa-lightbrown/60 flex items-center gap-2">
                     <input type="text" id="chat-input" placeholder="พิมพ์คำถามเกี่ยวกับการปลูกสับปะรด..." class="flex-grow px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary text-sm bg-pa-bg">
                     <button type="submit" id="send-btn" class="px-5 py-2.5 bg-pa-primary hover:bg-pa-secondary text-white rounded-xl text-sm font-medium transition-all flex items-center gap-2 flex-shrink-0">
@@ -811,19 +796,24 @@
             </div>
         </section>
 
-        <!-- ================= PAGE 5: MINI GAMES ================= -->
+        <!-- PAGE 5: MINI GAMES -->
         <section id="page-games" class="page-section space-y-8">
             <div data-aos="fade-up" class="text-center max-w-xl mx-auto space-y-2">
                 <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Retro Arcade & Neon Unlock System</span>
                 <h1 class="text-3xl font-bold text-pa-darkbrown">มินิเกมสับปะรด ย้อนวัย & ปลดล็อกธีม</h1>
-                <p class="text-pa-brown text-sm font-light">สะสมคะแนนในมินิเกมเพื่อปลดล็อก **ธีมสับปะรดทองคำ** และ **ธีมนีออนไซเบอร์พังก์ร**!</p>
+                <p class="text-pa-brown text-sm font-light">สะสมคะแนนในมินิเกมเพื่อปลดล็อก **ธีมสับปะรดทองคำ** และ **ธีมนีออนไซเบอร์พังก์**!</p>
             </div>
 
-            <!-- Unlock Info Banner -->
-            <div data-aos="fade-up" class="bg-pa-card p-4 rounded-2xl border border-pa-lightbrown/80 max-w-lg mx-auto text-xs text-center space-y-1">
-                <p class="font-bold text-pa-primary">🏆 ภารกิจปลดล็อกธีมพิเศษ:</p>
-                <p class="text-pa-brown">• Flappy Pineapple ถึง **5 คะแนน** 👉 ปลดล็อก <span class="font-bold text-amber-500">👑 ธีมทองคำ (Gold)</span></p>
-                <p class="text-pa-brown">• Pineapple Catcher ถึง **200 คะแนน** 👉 ปลดล็อก <span class="font-bold text-emerald-400">⚡ ธีมนีออน (Neon)</span></p>
+            <!-- Unlock Info Banner & Global Score Display -->
+            <div data-aos="fade-up" class="bg-pa-card p-4 rounded-2xl border border-pa-lightbrown/80 max-w-lg mx-auto text-xs text-center space-y-2 shadow-sm">
+                <div class="flex items-center justify-center gap-2 font-bold text-pa-primary text-sm">
+                    <i class="fa-solid fa-trophy"></i> คะแนนสะสมรวม: <span id="score-text" class="text-base text-pa-darkbrown">0</span> แต้ม
+                </div>
+                <div class="border-t border-pa-lightbrown/40 pt-2 space-y-1">
+                    <p class="font-bold text-pa-primary">🏆 ภารกิจปลดล็อกธีมพิเศษ:</p>
+                    <p class="text-pa-brown">• Flappy Pineapple ถึง **5 คะแนน** 👉 ปลดล็อก <span class="font-bold text-amber-500">👑 ธีมทองคำ (Gold)</span></p>
+                    <p class="text-pa-brown">• Pineapple Catcher หรือ คะแนนรวมถึง **200 คะแนน** 👉 ปลดล็อก <span class="font-bold text-emerald-400" id="neon-skin">⚡ ธีมนีออน (Neon)</span></p>
+                </div>
             </div>
 
             <!-- Game Switcher Tabs -->
@@ -871,7 +861,7 @@
             </div>
         </section>
 
-        <!-- ================= PAGE 6: FOUNDERS ================= -->
+        <!-- PAGE 6: FOUNDERS -->
         <section id="page-founders" class="page-section space-y-8">
             <div data-aos="fade-up" class="text-center max-w-xl mx-auto space-y-2">
                 <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full">Our Founding Team</span>
@@ -881,9 +871,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
                 <div data-aos="fade-up" data-aos-delay="100" class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 text-center space-y-3 hover-lift">
-                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">
-                        บ
-                    </div>
+                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">บ</div>
                     <div>
                         <h3 class="font-bold text-pa-darkbrown text-base">นาย บรรณรต ศรีปลัด</h3>
                         <p class="text-xs text-pa-brown mt-0.5">ผู้ก่อตั้ง & ทีมพัฒนาโครงการ</p>
@@ -891,9 +879,7 @@
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="200" class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 text-center space-y-3 hover-lift">
-                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">
-                        ค
-                    </div>
+                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">ค</div>
                     <div>
                         <h3 class="font-bold text-pa-darkbrown text-base">นาย คณาพงษ์ กระดุมพรรค</h3>
                         <p class="text-xs text-pa-brown mt-0.5">ผู้ก่อตั้ง & ทีมพัฒนาโครงการ</p>
@@ -901,9 +887,7 @@
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="300" class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 text-center space-y-3 hover-lift">
-                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">
-                        ศ
-                    </div>
+                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">ศ</div>
                     <div>
                         <h3 class="font-bold text-pa-darkbrown text-base">นาย ศุภกร ศิริวงค์</h3>
                         <p class="text-xs text-pa-brown mt-0.5">ผู้ก่อตั้ง & ทีมพัฒนาโครงการ</p>
@@ -911,9 +895,7 @@
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="400" class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 text-center space-y-3 hover-lift">
-                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">
-                        ก
-                    </div>
+                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">ก</div>
                     <div>
                         <h3 class="font-bold text-pa-darkbrown text-base">นาย กฤติชัย สุโพธิ์</h3>
                         <p class="text-xs text-pa-brown mt-0.5">ผู้ก่อตั้ง & ทีมพัฒนาโครงการ</p>
@@ -921,9 +903,7 @@
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="500" class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 text-center space-y-3 hover-lift sm:col-span-2 lg:col-span-1">
-                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">
-                        ป
-                    </div>
+                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white text-2xl font-bold shadow-sm">ป</div>
                     <div>
                         <h3 class="font-bold text-pa-darkbrown text-base">นาย ปกรณ์ ธัญญารักษ์</h3>
                         <p class="text-xs text-pa-brown mt-0.5">ผู้ก่อตั้ง & ทีมพัฒนาโครงการ</p>
@@ -934,7 +914,7 @@
 
     </main>
 
-    <!-- Theme Selector Modal -->
+    <!-- Modals -->
     <div id="theme-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-4">
         <div class="bg-pa-card rounded-3xl max-w-md w-full p-6 space-y-5 border border-pa-lightbrown shadow-2xl relative">
             <div class="flex justify-between items-center border-b border-pa-lightbrown/50 pb-3">
@@ -945,7 +925,6 @@
             </div>
 
             <div class="grid grid-cols-1 gap-3">
-                <!-- Theme 1: Light Mode (Default) -->
                 <button onclick="applyTheme('light')" class="flex items-center justify-between p-3.5 rounded-2xl border border-pa-lightbrown bg-pa-bg text-pa-darkbrown hover:border-pa-primary transition-all">
                     <div class="flex items-center gap-3">
                         <span class="text-xl">☀️</span>
@@ -957,7 +936,6 @@
                     <span id="badge-light" class="text-xs font-bold text-pa-primary hidden">✓ ใช้งานอยู่</span>
                 </button>
 
-                <!-- Theme 2: Dark Mode -->
                 <button onclick="applyTheme('dark')" class="flex items-center justify-between p-3.5 rounded-2xl border border-pa-lightbrown bg-slate-900 text-slate-100 hover:border-pa-primary transition-all">
                     <div class="flex items-center gap-3">
                         <span class="text-xl">🌙</span>
@@ -969,7 +947,6 @@
                     <span id="badge-dark" class="text-xs font-bold text-pa-primary hidden">✓ ใช้งานอยู่</span>
                 </button>
 
-                <!-- Theme 3: Gold Pineapple (Special Unlocked) -->
                 <button id="btn-theme-gold" onclick="applyTheme('gold')" class="flex items-center justify-between p-3.5 rounded-2xl border border-amber-500/50 bg-amber-950 text-amber-100 hover:border-amber-400 transition-all opacity-60">
                     <div class="flex items-center gap-3">
                         <span class="text-xl">👑</span>
@@ -981,7 +958,6 @@
                     <span id="badge-gold" class="text-xs font-bold text-amber-400 hidden">✓ ใช้งานอยู่</span>
                 </button>
 
-                <!-- Theme 4: Neon Cyberpunk (Special Unlocked) -->
                 <button id="btn-theme-neon" onclick="applyTheme('neon')" class="flex items-center justify-between p-3.5 rounded-2xl border border-emerald-500/50 bg-slate-950 text-emerald-300 hover:border-emerald-400 transition-all opacity-60">
                     <div class="flex items-center gap-3">
                         <span class="text-xl">⚡</span>
@@ -1000,18 +976,15 @@
         </div>
     </div>
 
-    <!-- Deep Guide Detail Modal -->
     <div id="guide-detail-modal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center p-4">
         <div class="bg-pa-card rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-8 border border-pa-lightbrown shadow-2xl relative custom-scroll space-y-4">
             <button onclick="closeGuideDetail()" class="absolute top-5 right-5 w-9 h-9 bg-pa-softorange text-pa-darkbrown rounded-full flex items-center justify-center hover:bg-pa-primary hover:text-white transition-all">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            <div id="modal-detail-content">
-            </div>
+            <div id="modal-detail-content"></div>
         </div>
     </div>
 
-    <!-- Saved Guides Modal -->
     <div id="saved-modal" class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-pa-card rounded-3xl max-w-lg w-full p-6 space-y-4 border border-pa-lightbrown shadow-xl">
             <div class="flex justify-between items-center border-b border-pa-lightbrown/50 pb-3">
@@ -1020,8 +993,7 @@
                 </h3>
                 <button onclick="closeSavedGuidesModal()" class="text-pa-brown hover:text-pa-darkbrown text-lg">&times;</button>
             </div>
-            <div id="saved-modal-list" class="space-y-3 max-h-60 overflow-y-auto text-xs text-pa-darkbrown custom-scroll">
-            </div>
+            <div id="saved-modal-list" class="space-y-3 max-h-60 overflow-y-auto text-xs text-pa-darkbrown custom-scroll"></div>
             <div class="pt-2 text-right">
                 <button onclick="closeSavedGuidesModal()" class="px-4 py-2 bg-pa-softorange text-pa-darkbrown rounded-xl text-xs font-medium hover:bg-pa-lightbrown">ปิดหน้าต่าง</button>
             </div>
@@ -1058,12 +1030,10 @@
         }
 
         function updateThemeModalUI() {
-            // Update Badges
             document.querySelectorAll('[id^="badge-"]').forEach(el => el.classList.add('hidden'));
             const currentBadge = document.getElementById(`badge-${activeTheme}`);
             if (currentBadge) currentBadge.classList.remove('hidden');
 
-            // Update Lock Status for Gold Theme
             const btnGold = document.getElementById('btn-theme-gold');
             const subGold = document.getElementById('sub-theme-gold');
             if (unlockedThemes.includes('gold')) {
@@ -1072,7 +1042,6 @@
                 subGold.className = 'text-[10px] text-amber-400 font-bold';
             }
 
-            // Update Lock Status for Neon Theme
             const btnNeon = document.getElementById('btn-theme-neon');
             const subNeon = document.getElementById('sub-theme-neon');
             if (unlockedThemes.includes('neon')) {
@@ -1107,17 +1076,16 @@
             }
         }
 
-        // ================= NEON SYSTEM SCORE TRACKER =================
         function addScore(amount) {
             currentScore += amount;
             localStorage.setItem('pineapple_total_score', currentScore);
-            document.getElementById('score-text').innerText = currentScore;
+            const scoreEl = document.getElementById('score-text');
+            if (scoreEl) scoreEl.innerText = currentScore;
             updateNeonStatus(currentScore);
         }
 
         function updateNeonStatus(score) {
             const neonItem = document.getElementById('neon-skin');
-            
             if (score >= NEON_UNLOCK_SCORE) {
                 if (neonItem) {
                     neonItem.classList.add('neon-unlocked');
@@ -1174,6 +1142,11 @@
             if (pageId === 'games') {
                 initFlappyGame();
             }
+
+            // Refresh AOS animations after DOM layout change
+            setTimeout(() => {
+                if (typeof AOS !== 'undefined') AOS.refresh();
+            }, 100);
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -1245,7 +1218,8 @@
         };
 
         function updateBookmarkUI() {
-            document.getElementById('saved-count').textContent = savedGuideIds.length;
+            const savedCountEl = document.getElementById('saved-count');
+            if (savedCountEl) savedCountEl.textContent = savedGuideIds.length;
 
             for (let i = 1; i <= 6; i++) {
                 const btn = document.getElementById(`bm-btn-${i}`);
@@ -1319,6 +1293,63 @@
                     <p class="text-xs text-pa-brown leading-relaxed">
                         ผสมเมทาแลกซิล 30g + อิมิดาโคลพริด 10g ในน้ำ 20 ลิตร จุ่มโคนหน่อ 5 นาที แล้วผึ่งลมให้แผลแห้งสนิทก่อนปลูก 7 วัน
                     </p>
+                `
+            },
+            3: {
+                title: "3. การจัดการโภชนาการและปุ๋ยสั่งตัดตามระยะการเจริญเติบโต",
+                icon: "fa-flask",
+                content: `
+                    <h4 class="font-bold text-pa-primary text-base mb-2">🌱 อัตราส่วน N-P-K ที่เหมาะสม</h4>
+                    <p class="text-xs text-pa-brown leading-relaxed mb-3">
+                        การหยอดปุ๋ยเคมีบริเวณกาบใบล่างตรงโคนต้นจะให้ประสิทธิภาพการดูดซึมดีกว่าการโรยทางดิน เนื่องจากสับปะรดมีระบบรากอากาศซ่อนอยู่ตามกาบใบ
+                    </p>
+                    <div class="bg-pa-bg p-4 rounded-xl text-xs space-y-2 border border-pa-lightbrown mb-4">
+                        <p><strong>ช่วง 1-3 เดือน:</strong> เน้นสูตร 21-0-0 หรือ 16-16-16 ปริมาณ 10-15 กรัม/ต้น</p>
+                        <p><strong>ช่วง 4-7 เดือน:</strong> ฉีดพ่นทางใบด้วยยูเรีย 2% ร่วมกับซิงค์ซัลเฟตเพื่อขยายทรงพุ่ม</p>
+                        <p><strong>ช่วงหลังบังคับดอก:</strong> อัดโพแทสเซียม (0-0-60 หรือ 13-0-46) เพื่อเร่งความหวานและความแน่นของเนื้อ</p>
+                    </div>
+                `
+            },
+            4: {
+                title: "4. วิศวกรรมการบังคับดอกนอกฤดูด้วยสารเอทธิฟอน",
+                icon: "fa-wand-magic-sparkles",
+                content: `
+                    <h4 class="font-bold text-pa-primary text-base mb-2">🧪 สูตรผสมสารเร่งดอกคุณภาพสูง</h4>
+                    <p class="text-xs text-pa-brown leading-relaxed mb-3">
+                        สารเอทธิฟอน (Ethephon 48%) 10-20 ซีซี + ปุ๋ยยูเรีย 300 กรัม ผสมน้ำสะอาด 20 ลิตร หยอดลงกลางยอด 60 ซีซี ต่อต้น
+                    </p>
+                    <div class="bg-pa-bg p-4 rounded-xl text-xs space-y-2 border border-pa-lightbrown mb-4">
+                        <p><strong>เงื่อนไขสำคัญ:</strong> ต้องหยอดช่วงเวลาเย็น (17.00 - 20.00 น.) ปากใบพืชจะเปิดกว้างที่สุด</p>
+                        <p><strong>ข้อควรระวัง:</strong> หลีกเลี่ยงการหยอดในวันที่แดดจัด หรือคาดว่าฝนจะตกภายใน 4 ชั่วโมง</p>
+                    </div>
+                `
+            },
+            5: {
+                title: "5. การจัดการโรคพืชและแมลงศัตรูพืชแบบผสมผสาน (IPM)",
+                icon: "fa-shield-halved",
+                content: `
+                    <h4 class="font-bold text-pa-primary text-base mb-2">🐛 การควบคุมและป้องกันโรคระบาดหลัก</h4>
+                    <p class="text-xs text-pa-brown leading-relaxed mb-3">
+                        เพลี้ยแป้งสับปะรดเป็นตัวการสำคัญในการนำเชื้อไวรัสโรคใบเหี่ยว (PMWV) การตัดวงจรพาหะอย่างมดดำมดแดงจะช่วยลดการระบาดได้อย่างมีประสิทธิภาพ
+                    </p>
+                    <div class="bg-pa-bg p-4 rounded-xl text-xs space-y-2 border border-pa-lightbrown mb-4">
+                        <p><strong>โรคยอดเน่า:</strong> ใช้สารฟอสเอทิล-อลูมินัม พ่นเมื่อพบการระบาดในแปลง</p>
+                        <p><strong>แดดเผาผลสด:</strong> มัดรวบปลายใบหรือใช้ฟางข้าวปกคลุมผลก่อนเก็บเกี่ยว 2 เดือน</p>
+                    </div>
+                `
+            },
+            6: {
+                title: "6. ดัชนีความสุก การเก็บเกี่ยว และระบบการขนส่งโลจิสติกส์",
+                icon: "fa-basket-shopping",
+                content: `
+                    <h4 class="font-bold text-pa-primary text-base mb-2">📐 เกณฑ์การประเมินการเก็บเกี่ยว</h4>
+                    <p class="text-xs text-pa-brown leading-relaxed mb-3">
+                        การพิจารณาความสุกแก่ของสับปะรดประเมินจากอัตราส่วนการเปลี่ยนสีของร่องตาผล จากโคนผลไปหายอด
+                    </p>
+                    <div class="bg-pa-bg p-4 rounded-xl text-xs space-y-2 border border-pa-lightbrown mb-4">
+                        <p><strong>ตลาดอุตสาหกรรมแปรรูป:</strong> เก็บเกี่ยวเมื่อเหลือง 1-2 ตา (ประมาณ 10%)</p>
+                        <p><strong>ตลาดผลสดพรีเมียม:</strong> เก็บเกี่ยวเมื่อเหลือง 30-50% เพื่อรสชาติที่ดีที่สุด</p>
+                    </div>
                 `
             }
         };
@@ -1450,7 +1481,15 @@
         }
 
         // ================= 8. RETRO MINI GAMES ENGINE =================
+        let activeGameType = null;
+        let flappyAnimationId;
+        let catcherAnimationId;
+
         function selectGame(gameType) {
+            activeGameType = gameType;
+            cancelAnimationFrame(flappyAnimationId);
+            cancelAnimationFrame(catcherAnimationId);
+
             document.getElementById('game-container-flappy').classList.add('hidden');
             document.getElementById('game-container-catcher').classList.add('hidden');
             
@@ -1469,10 +1508,10 @@
         }
 
         // GAME 1: FLAPPY PINEAPPLE
-        let flappyAnimationId;
         function initFlappyGame() {
             cancelAnimationFrame(flappyAnimationId);
             const canvas = document.getElementById('flappyCanvas');
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
 
             let bird = { x: 50, y: 150, size: 24, gravity: 0.35, lift: -6.5, velocity: 0 };
@@ -1492,12 +1531,6 @@
             }
 
             canvas.onclick = flap;
-            window.onkeydown = function(e) {
-                if (e.code === 'Space' && document.getElementById('page-games').classList.contains('active')) {
-                    e.preventDefault();
-                    flap();
-                }
-            };
 
             function loop() {
                 frame++;
@@ -1536,7 +1569,7 @@
 
                     if (pipe.x + 45 < bird.x && !pipe.passed) {
                         score++;
-                        addScore(10); // Add points to total Neon Score System
+                        addScore(10);
                         pipe.passed = true;
                         if (score > highScore) {
                             highScore = score;
@@ -1544,7 +1577,6 @@
                             document.getElementById('flappy-highscore').textContent = highScore;
                         }
 
-                        // Check Theme Unlock Condition (Score >= 5)
                         if (score >= 5) {
                             unlockTheme('gold', 'สับปะรดทองคำ (Gold Theme)');
                         }
@@ -1579,10 +1611,11 @@
         }
 
         // GAME 2: PINEAPPLE CATCHER
-        let catcherAnimationId;
+        let catcherKeys = {};
         function initCatcherGame() {
             cancelAnimationFrame(catcherAnimationId);
             const canvas = document.getElementById('catcherCanvas');
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
 
             let basket = { x: canvas.width / 2 - 30, y: canvas.height - 35, width: 60, height: 20, speed: 6 };
@@ -1593,10 +1626,6 @@
             document.getElementById('catcher-highscore').textContent = highScore;
             let gameOver = false;
             let frame = 0;
-
-            let keys = {};
-            window.onkeydown = (e) => keys[e.code] = true;
-            window.onkeyup = (e) => keys[e.code] = false;
 
             canvas.onmousemove = (e) => {
                 const rect = canvas.getBoundingClientRect();
@@ -1610,7 +1639,7 @@
             };
 
             canvas.onclick = () => {
-                if(gameOver) initCatcherGame();
+                if (gameOver) initCatcherGame();
             };
 
             function loop() {
@@ -1618,8 +1647,8 @@
                 ctx.fillStyle = '#FEF3C7';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                if (keys['ArrowLeft'] && basket.x > 0) basket.x -= basket.speed;
-                if (keys['ArrowRight'] && basket.x < canvas.width - basket.width) basket.x += basket.speed;
+                if (catcherKeys['ArrowLeft'] && basket.x > 0) basket.x -= basket.speed;
+                if (catcherKeys['ArrowRight'] && basket.x < canvas.width - basket.width) basket.x += basket.speed;
 
                 if (basket.x < 0) basket.x = 0;
                 if (basket.x > canvas.width - basket.width) basket.x = canvas.width - basket.width;
@@ -1653,14 +1682,13 @@
                             if (lives <= 0) gameOver = true;
                         } else {
                             score += 10;
-                            addScore(10); // Add points to total Neon Score System
+                            addScore(10);
                             if (score > highScore) {
                                 highScore = score;
                                 localStorage.setItem('catcher_pineapple_hs', highScore);
                                 document.getElementById('catcher-highscore').textContent = highScore;
                             }
 
-                            // Check Theme Unlock Condition (Score >= 200)
                             if (score >= 200) {
                                 unlockTheme('neon', 'นีออนไซเบอร์พังก์ (Neon Theme)');
                             }
@@ -1698,20 +1726,40 @@
             loop();
         }
 
+        // Global Key Controls Listener
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && activeGameType === 'flappy' && document.getElementById('page-games').classList.contains('active')) {
+                e.preventDefault();
+                const canvas = document.getElementById('flappyCanvas');
+                if (canvas && canvas.onclick) canvas.onclick();
+            }
+            if (activeGameType === 'catcher') {
+                catcherKeys[e.code] = true;
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (activeGameType === 'catcher') {
+                catcherKeys[e.code] = false;
+            }
+        });
+
         // ================= 9. INITIALIZATION =================
         document.addEventListener('DOMContentLoaded', () => {
-            AOS.init({
-                duration: 800,
-                once: true,
-                offset: 50
-            });
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    once: true,
+                    offset: 50
+                });
+            }
 
-            // Initialize saved theme, tips, total score & neon status
             applyTheme(activeTheme);
             generateRandomTip();
             updateBookmarkUI();
             
-            document.getElementById('score-text').innerText = currentScore;
+            const scoreEl = document.getElementById('score-text');
+            if (scoreEl) scoreEl.innerText = currentScore;
             updateNeonStatus(currentScore);
         });
     </script>
