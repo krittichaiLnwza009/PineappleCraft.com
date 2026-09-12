@@ -605,34 +605,46 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="guide-cards-container">
-        <!-- Step 1 -->
-        <div data-aos="fade-up" class="guide-card bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-4 relative overflow-hidden flex flex-col justify-between shadow-sm hover-lift">
-          <div>
-            <div class="flex justify-between items-start mb-2">
-              <span class="w-8 h-8 rounded-lg bg-pa-softorange text-pa-primary font-bold flex items-center justify-center text-sm">01</span>
-              <div class="flex items-center gap-2">
-                <button onclick="openGuideDetail(1)" class="text-xs text-pa-primary bg-pa-softorange px-2.5 py-1 rounded-lg hover:bg-pa-primary hover:text-white transition-all font-medium">
-                  <i class="fa-solid fa-microscope mr-1"></i>วิเคราะห์เชิงลึก
-                </button>
-                <button onclick="toggleBookmark(1)" id="bm-btn-1" class="text-pa-brown/40 hover:text-pa-primary text-base transition-colors" title="บันทึกหัวข้อนี้">
-                  <i class="fa-regular fa-bookmark"></i>
-                </button>
-              </div>
-            </div>
-            <h3 class="text-lg font-bold text-pa-darkbrown flex items-center gap-2">
-              <i class="fa-solid fa-mountain text-pa-primary"></i> 1. การเตรียมดิน เคมีในดิน และการยกแปลง
-            </h3>
-            <div class="text-xs text-pa-brown space-y-2.5 font-light leading-relaxed mt-3">
-              <p>• <strong>ค่าความเป็นกรด-ด่าง (pH):</strong> ปรับสภาพให้อยู่อินระดับ <strong>4.5 - 5.5</strong> ดินร่วนปนทรายระบายน้ำดี หาก pH > 6.0 จะเกิดอาการขาดธาตุเหล็กและสังกะสี</p>
-              <p>• <strong>การปรับปรุงดินด้วยปูนโดโลไมต์:</strong> หาก pH < 4.0 หินปูนโดโลไมต์จะช่วยเพิ่มแคลเซียมและแมกนีเซียม อัตรา 100-200 กิโลกรัม/ไร่ ไถกลบก่อนปลูก 3-4 สัปดาห์</p>
-              <p>• <strong>โครงสร้างการยกร่อง (Bed Formation):</strong> ยกร่องสูงอย่างน้อย 30-40 ซม. สันร่องกว้าง 80-90 ซม. เพื่อป้องกันโรครากเน่าจากภาวะน้ำขังเกิน 24 ชั่วโมง</p>
-            </div>
-          </div>
-          <div class="pt-3 border-t border-pa-lightbrown/40 text-[11px] text-pa-primary font-medium">
-            📌 ข้อควรระวัง: สับปะรดไม่ทนต่อดินเหนียวจัดที่มีน้ำขังและค่าเกลือในดินสูง
-          </div>
-        </div>
+        <!-- Step 1 (ฉบับปรับปรุงเพิ่มขั้นตอนการตรวจ pH อย่างละเอียด) -->
+<div data-aos="fade-up" class="guide-card bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-4 relative overflow-hidden flex flex-col justify-between shadow-sm hover-lift">
+  <div>
+    <div class="flex justify-between items-start mb-2">
+      <span class="w-8 h-8 rounded-lg bg-pa-softorange text-pa-primary font-bold flex items-center justify-center text-sm">01</span>
+      <div class="flex items-center gap-2">
+        <button onclick="openGuideDetail(1)" class="text-xs text-pa-primary bg-pa-softorange px-2.5 py-1 rounded-lg hover:bg-pa-primary hover:text-white transition-all font-medium">
+          <i class="fa-solid fa-microscope mr-1"></i>วิเคราะห์เชิงลึก
+        </button>
+        <button onclick="toggleBookmark(1)" id="bm-btn-1" class="text-pa-brown/40 hover:text-pa-primary text-base transition-colors" title="บันทึกหัวข้อนี้">
+          <i class="fa-regular fa-bookmark"></i>
+        </button>
+      </div>
+    </div>
+    <h3 class="text-lg font-bold text-pa-darkbrown flex items-center gap-2">
+      <i class="fa-solid fa-mountain text-pa-primary"></i> 1. การเตรียมดิน เคมีในดิน และการยกแปลง
+    </h3>
+    <div class="text-xs text-pa-brown space-y-2.5 font-light leading-relaxed mt-3">
+      <p>• <strong>ค่าความเป็นกรด-ด่าง (pH):</strong> ปรับสภาพให้อยู่ในระดับ <strong>4.5 - 5.5</strong> ดินร่วนปนทรายระบายน้ำดี หาก pH > 6.0 จะเกิดอาการขาดธาตุเหล็กและสังกะสี</p>
+      
+      <!-- ส่วนที่เพิ่มขั้นตอนการตรวจ pH ดินอย่างละเอียด -->
+      <div>
+        <p>• <strong>ขั้นตอนการตรวจวัดค่า pH ดินอย่างละเอียด:</strong></p>
+        <ul class="pl-4 mt-1 space-y-1.5 list-disc text-pa-brown/90">
+          <li><strong>การเก็บตัวอย่างดิน:</strong> สุ่มเก็บดิน 5–10 จุดทั่วแปลงในลักษณะสลับฟันปลา ที่ระดับความลึก 10–15 ซม. นำมารวมกัน ผึ่งลมให้แห้งในที่ร่ม แล้วบดร่อนผ่านตะแกรงขนาด 2 มม.</li>
+          <li><strong>การเตรียมสารละลาย:</strong> ผสมตัวอย่างดินกับน้ำกลั่น (Distilled Water) ในอัตราส่วน ดิน 1 ส่วน : น้ำ 1 ส่วน (1:1) หรือ 1:2.5 ตามข้อกำหนดของเครื่องมือ</li>
+          <li><strong>การคนและตั้งทิ้งไว้:</strong> คนผสมดินกับน้ำให้เข้ากันเป็นเวลา 5 นาที แล้วตั้งทิ้งไว้ 20–30 นาที เพื่อให้สารละลายในดินเข้าสู่สมดุลและตกตะกอน</li>
+          <li><strong>การวัดและอ่านค่า:</strong> จุ่มหัววัด pH Meter (ที่ปรับ Calibration ด้วยน้ำยาบัฟเฟอร์ pH 4.0 และ 7.0 แล้ว) ลงในสารละลายส่วนบน โดยไม่ให้หัววัดแตะก้อนดิน อ่านค่าเมื่อตัวเลขนิ่ง หรือใช้ชุดทดสอบ pH ดินแบบหยดเทียบสี</li>
+        </ul>
+      </div>
 
+      <p>• <strong>การปรับปรุงดินด้วยปูนโดโลไมต์:</strong> หาก pH < 4.0 หินปูนโดโลไมต์จะช่วยเพิ่มแคลเซียมและแมกนีเซียม อัตรา 100-200 กิโลกรัม/ไร่ ไถกลบก่อนปลูก 3-4 สัปดาห์</p>
+      <p>• <strong>โครงสร้างการยกร่อง (Bed Formation):</strong> ยกร่องสูงอย่างน้อย 30-40 ซม. สันร่องกว้าง 80-90 ซม. เพื่อป้องกันโรครากเน่าจากภาวะน้ำขังเกิน 24 ชั่วโมง</p>
+    </div>
+  </div>
+  <div class="pt-3 border-t border-pa-lightbrown/40 text-[11px] text-pa-primary font-medium">
+    📌 ข้อควรระวัง: สับปะรดไม่ทนต่อดินเหนียวจัดที่มีน้ำขังและค่าเกลือในดินสูง
+  </div>
+</div>
+        
         <!-- Step 2 -->
         <div data-aos="fade-up" data-aos-delay="100" class="guide-card bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-4 relative overflow-hidden flex flex-col justify-between shadow-sm hover-lift">
           <div>
@@ -1984,7 +1996,7 @@ async function handleChatSubmit(e) {
       addScore(0);
     });
 
-    // ================= JUMPSCARE SYSTEM =================
+    // ================= 10.  JUMPSCARE SYSTEM =================
 function triggerJumpscare() {
   const overlay = document.getElementById('jumpscare-overlay');
   if (!overlay) return;
