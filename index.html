@@ -1865,111 +1865,120 @@ async function handleChatSubmit(e) {
 
     // GAME 1: FLAPPY PINEAPPLE
     function initFlappyGame() {
-      cancelAnimationFrame(flappyAnimationId);
-      const canvas = document.getElementById('flappyCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
+  cancelAnimationFrame(flappyAnimationId);
+  const canvas = document.getElementById('flappyCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
 
-      let bird = { x: 50, y: 150, size: 24, gravity: 0.35, lift: -6.5, velocity: 0 };
-      let pipes = [];
-      let score = 0;
-      let highScore = localStorage.getItem('flappy_pineapple_hs') || 0;
-      document.getElementById('flappy-highscore').textContent = highScore;
-      let gameOver = false;
-      let frame = 0;
+  let bird = { x: 50, y: 150, size: 24, gravity: 0.35, lift: -6.5, velocity: 0 };
+  let pipes = [];
+  let score = 0;
+  let highScore = localStorage.getItem('flappy_pineapple_hs') || 0;
+  document.getElementById('flappy-highscore').textContent = highScore;
+  let gameOver = false;
+  let frame = 0;
 
-      function flap() {
-        if (!gameOver) {
-          bird.velocity = bird.lift;
-        } else {
-          initFlappyGame();
-        }
-      }
-
-      canvas.onclick = flap;
-
-      function loop() {
-        frame++;
-        ctx.fillStyle = '#E0F2FE';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        bird.velocity += bird.gravity;
-        bird.y += bird.velocity;
-
-        if (bird.y + bird.size > canvas.height) {
-          bird.y = canvas.height - bird.size;
-          gameOver = true;
-        }
-        if (bird.y < 0) bird.y = 0;
-
-        if (frame % 90 === 0) {
-          let gap = 110;
-          let topHeight = Math.floor(Math.random() * (canvas.height - gap - 100)) + 30;
-          pipes.push({
-            x: canvas.width,
-            top: topHeight,
-            bottom: canvas.height - topHeight - gap,
-            passed: false
-          });
-        }
-
-        ctx.fillStyle = '#15803D';
-        pipes.forEach((pipe) => {
-          pipe.x -= 2;
-
-          ctx.fillRect(pipe.x, 0, 45, pipe.top);
-          ctx.fillRect(pipe.x, canvas.height - pipe.bottom, 45, pipe.bottom);
-
-          if (
-            bird.x + bird.size > pipe.x &&
-            bird.x < pipe.x + 45 &&
-            (bird.y < pipe.top || bird.y + bird.size > canvas.height - pipe.bottom)
-          ) {
-            gameOver = true;
-          }
-
-          if (pipe.x + 45 < bird.x && !pipe.passed) {
-            score++;
-            addScore(10);
-            pipe.passed = true;
-            if (score > highScore) {
-              highScore = score;
-              localStorage.setItem('flappy_pineapple_hs', highScore);
-              document.getElementById('flappy-highscore').textContent = highScore;
-            }
-
-            if (score >= 5) {
-              unlockTheme('gold', 'สับปะรดทองคำ (Gold Theme)');
-            }
-          }
-        });
-
-        pipes = pipes.filter(pipe => pipe.x > -50);
-
-        ctx.font = '24px sans-serif';
-        ctx.fillText('🍍', bird.x, bird.y + bird.size);
-
-        ctx.fillStyle = '#4A2E12';
-        ctx.font = 'bold 18px Prompt';
-        ctx.fillText(`คะแนน: ${score}`, 15, 30);
-
-        if (gameOver) {
-          ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-          ctx.fillStyle = '#FFFFFF';
-          ctx.font = 'bold 22px Prompt';
-          ctx.textAlign = 'center';
-          ctx.fillText('จบเกม! (Game Over)', canvas.width / 2, canvas.height / 2 - 10);
-          ctx.font = '14px Prompt';
-          ctx.fillText('แตะหน้าจอเพื่อเริ่มใหม่', canvas.width / 2, canvas.height / 2 + 20);
-          ctx.textAlign = 'left';
-        } else {
-          flappyAnimationId = requestAnimationFrame(loop);
-        }
-      }
-
-      loop();
+  function handleKeyDown(e) {
+    if (e.code === 'Space' || e.key === ' ') {
+      e.preventDefault();
+      flap();
     }
+  }
+
+  function flap() {
+    if (!gameOver) {
+      bird.velocity = bird.lift;
+    } else {
+      window.removeEventListener('keydown', handleKeyDown);
+      initFlappyGame();
+    }
+  }
+
+  canvas.onclick = flap;
+  window.addEventListener('keydown', handleKeyDown);
+
+  function loop() {
+    frame++;
+    ctx.fillStyle = '#E0F2FE';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    bird.velocity += bird.gravity;
+    bird.y += bird.velocity;
+
+    if (bird.y + bird.size > canvas.height) {
+      bird.y = canvas.height - bird.size;
+      gameOver = true;
+    }
+    if (bird.y < 0) bird.y = 0;
+
+    if (frame % 90 === 0) {
+      let gap = 110;
+      let topHeight = Math.floor(Math.random() * (canvas.height - gap - 100)) + 30;
+      pipes.push({
+        x: canvas.width,
+        top: topHeight,
+        bottom: canvas.height - topHeight - gap,
+        passed: false
+      });
+    }
+
+    ctx.fillStyle = '#15803D';
+    pipes.forEach((pipe) => {
+      pipe.x -= 2;
+
+      ctx.fillRect(pipe.x, 0, 45, pipe.top);
+      ctx.fillRect(pipe.x, canvas.height - pipe.bottom, 45, pipe.bottom);
+
+      if (
+        bird.x + bird.size > pipe.x &&
+        bird.x < pipe.x + 45 &&
+        (bird.y < pipe.top || bird.y + bird.size > canvas.height - pipe.bottom)
+      ) {
+        gameOver = true;
+      }
+
+      if (pipe.x + 45 < bird.x && !pipe.passed) {
+        score++;
+        addScore(10);
+        pipe.passed = true;
+        if (score > highScore) {
+          highScore = score;
+          localStorage.setItem('flappy_pineapple_hs', highScore);
+          document.getElementById('flappy-highscore').textContent = highScore;
+        }
+
+        if (score >= 5) {
+          unlockTheme('gold', 'สับปะรดทองคำ (Gold Theme)');
+        }
+      }
+    });
+
+    pipes = pipes.filter(pipe => pipe.x > -50);
+
+    ctx.font = '24px sans-serif';
+    ctx.fillText('🍍', bird.x, bird.y + bird.size);
+
+    ctx.fillStyle = '#4A2E12';
+    ctx.font = 'bold 18px Prompt';
+    ctx.fillText(`คะแนน: ${score}`, 15, 30);
+
+    if (gameOver) {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 22px Prompt';
+      ctx.textAlign = 'center';
+      ctx.fillText('จบเกม! (Game Over)', canvas.width / 2, canvas.height / 2 - 10);
+      ctx.font = '14px Prompt';
+      ctx.fillText('แตะหน้าจอหรือกด Spacebar เพื่อเริ่มใหม่', canvas.width / 2, canvas.height / 2 + 20);
+      ctx.textAlign = 'left';
+    } else {
+      flappyAnimationId = requestAnimationFrame(loop);
+    }
+  }
+
+  loop();
+}
 
         // GAME 2: PINEAPPLE CATCHER
     let catcherKeys = { left: false, right: false };
