@@ -1657,7 +1657,15 @@ function getSmartKnowledgeBaseReply(msg) {
       "นั่งคำนวณสูตรปุ๋ยปวดหัวอยู่ครับ มีเรื่องอะไรให้ช่วยไหมเอ่ย?"
     ]);
   }
-
+  
+if (lowerMsg.includes('143')) {
+    return getRandomReply([
+      "I always love you, even you were a rock...",
+      "I Love You...",
+      "I Love You Too Sunny..."
+    ]);
+  }
+  
   if (lowerMsg.includes('หิว') || lowerMsg.includes('กินไรดี') || lowerMsg.includes('กินอะไรดี')) {
     return getRandomReply([
       "เมนูวันนี้ขอเสนอ: ต้มยำกุ้งใส่สับปะรด หรือพิซซ่าหน้าฮาวายเอี้ยนครับ! (อย่าตีกันเรื่องสับปะรดบนพิซซ่านะ)",
@@ -1667,7 +1675,7 @@ function getSmartKnowledgeBaseReply(msg) {
   }
 
   // 2. หมวดตบมุก / หยอกล้อ / คุยเล่นทั่วไป
-  if (lowerMsg.includes('น่ารัก') || lowerMsg.includes('หล่อ') || lowerMsg.includes('จีบ')) {
+  if (lowerMsg.includes('น่ารัก') || lowerMsg.includes('หล่อ') || lowerMsg.includes('จีบ') || lowerMsg.includes('น่ารัก')) {
     return getRandomReply([
       "เขินเลยครับ... แต่ผมเป็นแค่อัลกอริทึมนะ คุณจะตกหลุมรักหุ่นยนต์จริงๆ เหรอ? 😳",
       "อย่ามาหยอดครับ เดี๋ยวผมยอมเขียวช้ำเหมือนสับปะรดโดนกระแทกนะ!",
@@ -1675,7 +1683,7 @@ function getSmartKnowledgeBaseReply(msg) {
     ]);
   }
 
-  if (lowerMsg.includes('กวน') || lowerMsg.includes('บ้า') || lowerMsg.includes('ตลก')) {
+  if (lowerMsg.includes('กวน') || lowerMsg.includes('บ้า') || lowerMsg.includes('ตลก') || lowerMsg.includes('ล้อเล่นปะเนี่ย')) {
     return getRandomReply([
       "ไม่ได้กวนครับ เขาเรียกว่ามีอารมณ์ขันระดับพืชสวน! 🍍",
       "หยอกวันละนิดจิตแจ่มใสครับ คุยเรื่องวิชาการมาเยอะ มาคุยสบายๆ บ้าง",
@@ -1803,7 +1811,9 @@ if (lowerMsg.includes('ปุ๋ย') || lowerMsg.includes('สูตร')) {
     "ฟังดูน่าสนใจนะ! แต่เอ... เรื่องนี้มันจะเชื่อมโยงไปหาการปลูกสับปะรดได้ยังไงเนี่ย 555",
     "เรื่องนี้ผมขอฟังอย่างเดียวละกันครับ ตะกอนความรู้ยังไม่พอ แต่ถ้าเรื่องแมลงเรื่องโรคพืช ถามมาได้เลย!",
     "พิมพ์มาแบบนี้ แสดงว่าอยากชวนคุยเล่นใช่ไหมล่ะ? มีเรื่องอะไรอยากเล่าอีกไหมครับ?",
-    "ห้ะ?"
+    "ห้ะ?",
+    "อะไรนะ?",
+    "ไรนะ?"
   ]);
 }
 
