@@ -74,7 +74,36 @@
       --border-color: rgba(71, 85, 105, 0.6);
     }
 
-    /* 👑 Gold Pineapple Theme */
+/* 🌊 Blue Ocean Theme (โทนสีฟ้าสบายตา) */
+    body.theme-blue {
+      --color-bg: #F0F9FF;
+      --color-card: #E0F2FE;
+      --color-primary: #0284C7;
+      --color-secondary: #0369A1;
+      --color-accent: #38BDF8;
+      --color-brown: #334155;
+      --color-darkbrown: #0F172A;
+      --color-softorange: #BAE6FD;
+      --color-lightbrown: #CBD5E1;
+      --header-bg: rgba(240, 249, 255, 0.9);
+      --border-color: rgba(186, 230, 253, 0.6);
+    }
+
+/* 🌿 Calm Green Theme (สีเขียวสงบ) */
+    body.theme-green {
+      --color-bg: #F0FDF4;
+      --color-card: #DCFCE7;
+      --color-primary: #16A34A;
+      --color-secondary: #15803D;
+      --color-accent: #4ADE80;
+      --color-brown: #374151;
+      --color-darkbrown: #14532D;
+      --color-softorange: #BBF7D0;
+      --color-lightbrown: #D1D5DB;
+      --header-bg: rgba(240, 253, 244, 0.9);
+      --border-color: rgba(187, 247, 208, 0.6);
+    }
+/* 👑 Gold Pineapple Theme */
     body.theme-gold {
       --color-bg: #1A1200;
       --color-card: #2B1D02;
@@ -1079,6 +1108,28 @@ function toggleExpand(stepId) {
           <span id="badge-dark" class="text-xs font-bold text-pa-primary hidden">✓ ใช้งานอยู่</span>
         </button>
 
+        <button onclick="applyTheme('blue')" class="flex items-center justify-between p-3.5 rounded-2xl border border-sky-300 bg-sky-50 text-sky-950 hover:border-sky-500 transition-all">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">🌊</span>
+            <div class="text-left">
+              <span class="font-bold text-xs block">ฟ้าสบายตา (Ocean Blue)</span>
+              <span class="text-[10px] text-sky-700">โทนสีฟ้าเย็น สบายตา รู้สึกโปร่งโล่ง</span>
+            </div>
+          </div>
+          <span id="badge-blue" class="text-xs font-bold text-sky-600 hidden">✓ ใช้งานอยู่</span>
+        </button>
+
+        <button onclick="applyTheme('green')" class="flex items-center justify-between p-3.5 rounded-2xl border border-emerald-300 bg-emerald-50 text-emerald-950 hover:border-emerald-500 transition-all">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">🌿</span>
+            <div class="text-left">
+              <span class="font-bold text-xs block">เขียวสงบ (Calm Green)</span>
+              <span class="text-[10px] text-emerald-700">โทนสีธรรมชาติ ผ่อนคลายและสมดุล</span>
+            </div>
+          </div>
+          <span id="badge-green" class="text-xs font-bold text-emerald-600 hidden">✓ ใช้งานอยู่</span>
+        </button>
+
         <button id="btn-theme-gold" onclick="applyTheme('gold')" class="flex items-center justify-between p-3.5 rounded-2xl border border-amber-500/50 bg-amber-950 text-amber-100 hover:border-amber-400 transition-all opacity-60">
           <div class="flex items-center gap-3">
             <span class="text-xl">👑</span>
@@ -1156,7 +1207,7 @@ function toggleExpand(stepId) {
   <script>
     // ================= 1. THEME ENGINE & NEON UNLOCK SYSTEM =================
     let activeTheme = localStorage.getItem('pineapple_theme') || 'light';
-    let unlockedThemes = JSON.parse(localStorage.getItem('pineapple_unlocked_themes') || '["light", "dark"]');
+    let unlockedThemes = JSON.parse(localStorage.getItem('pineapple_unlocked_themes') || '["light", "dark", "blue", "green"]');
     let currentScore = parseInt(localStorage.getItem('pineapple_total_score') || '0');
     const NEON_UNLOCK_SCORE = 200;
 
