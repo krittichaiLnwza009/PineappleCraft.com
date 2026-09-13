@@ -2217,32 +2217,26 @@ function closeJumpscare() {
   }
 }
 
-// เล่นเสียงสังเคราะห์สไตล์หนังสยองขวัญ
 function playJumpscareSound() {
-  try {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    
-    // สร้าง Oscillator สำหรับเสียงกรีดร้องความถี่สูง
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    
-    osc.type = 'sawtooth';
-    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.8);
-    
-    gain.gain.setValueAtTime(1, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.8);
-    
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    
-    osc.start();
-    osc.stop(audioCtx.currentTime + 0.8);
-  } catch (e) {
-    console.log("Audio play blocked by browser interaction rules.");
-  }
-}
+  // 1. ใส่รายการไฟล์เสียงทั้งหมดที่ต้องการสุ่มไว้ใน Array
+  const sounds = [
+    'https://www.image2url.com/r2/default/audio/1789297764626-bf412f97-79af-482a-ac14-121ff76fac1e.mp3',
+    'https://www.image2url.com/r2/default/audio/1789297840483-943ea2d0-b1e0-451e-ac20-e9de76fea020.mp3',
+    'https://www.image2url.com/r2/default/audio/1789297882204-8e8f81fc-33e8-41c4-882c-2e7f412b9990.mp3'
+  ];
+  
+  // 2. สุ่มลำดับ index จากความยาวของ Array
+  const randomIndex = Math.floor(Math.random() * sounds.length);
+  const selectedSound = sounds[randomIndex];
 
+  // 3. สร้างและเล่นไฟล์เสียงที่ถูกสุ่มเลือก
+  const audio = new Audio(selectedSound); 
+  
+  audio.play().catch(e => {
+    console.log("Audio play blocked by browser interaction rules.");
+  });
+}
+    
 // กดปุ่ม ESC บนคีย์บอร์ดเพื่อปิดได้ด้วย
 document.addEventListener('keydown', function(event) {
   if (event.key === 'Escape') {
@@ -2263,11 +2257,42 @@ document.addEventListener('keydown', function(event) {
   <!-- กล่องจัดวางรูปภาพและข้อความแบบเรียงต่อกันแนวตั้ง -->
   <div style="text-align: center; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 20px; max-width: 100%;">
     
-    <!-- รูปภาพ (ปรับ max-height เป็น 55vh เพื่อไม่ให้ดันข้อความตกจอ) -->
+    <!-- รูปภาพ (จะถูกเปลี่ยนตามการสุ่มใน JS) -->
     <img id="jumpscare-img" 
-         src="https://cdn.phototourl.com/free/2026-09-12-54f5a841-793b-43bb-9a91-966bd3a59985.jpg" 
-         alt="Jumpscare Pineapple" 
+         src="" 
+         alt="Jumpscare Image" 
          style="max-width: 85vw; max-height: 55vh; object-fit: contain; filter: drop-shadow(0 0 50px rgba(255,0,0,0.8));">
+  </div>
+</div>
+
+<script>
+  // 1. เพิ่มรายการ URL รูปภาพที่คุณต้องการสุ่มไว้ใน Array นี้
+  const jumpscareImages = [
+    "https://cdn.phototourl.com/free/2026-09-12-54f5a841-793b-43bb-9a91-966bd3a59985.jpg",
+    "https://cdn.phototourl.com/free/2026-09-13-e5454998-fc48-419f-8433-d2d2cb5c6300.jpg",
+    "https://cdn.phototourl.com/free/2026-09-13-419c6187-6ee5-4ebc-9f87-f87441715745.jpg",
+    "https://cdn.phototourl.com/free/2026-09-13-0ba307e8-65ed-4eb1-9cdd-d1defbee95b3.jpg"
+  ];
+
+  // 2. ฟังก์ชันเปิด Jumpscare พร้อมสุ่มเปลี่ยนรูปภาพ
+  function showJumpscare() {
+    const overlay = document.getElementById('jumpscare-overlay');
+    const img = document.getElementById('jumpscare-img');
+    
+    // สุ่มดึงตำแหน่งภาพจาก Array
+    const randomIndex = Math.floor(Math.random() * jumpscareImages.length);
+    img.src = jumpscareImages[randomIndex];
+    
+    // แสดง Modal
+    overlay.style.display = 'flex';
+  }
+
+  // 3. ฟังก์ชันปิด Jumpscare
+  function closeJumpscare() {
+    const overlay = document.getElementById('jumpscare-overlay');
+    overlay.style.display = 'none';
+  }
+</script>
 
     <!-- กลุ่มข้อความใต้รูปภาพ -->
     <div>
