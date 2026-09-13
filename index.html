@@ -1204,7 +1204,7 @@ function toggleExpand(stepId) {
   </footer>
 
   <!-- Master Script -->
-  <script>
+    <script>
     // ================= 1. THEME ENGINE & NEON UNLOCK SYSTEM =================
     let activeTheme = localStorage.getItem('pineapple_theme') || 'light';
     let unlockedThemes = JSON.parse(localStorage.getItem('pineapple_unlocked_themes') || '["light", "dark", "blue", "green"]');
@@ -1224,7 +1224,7 @@ function toggleExpand(stepId) {
 
       const btnGold = document.getElementById('btn-theme-gold');
       const subGold = document.getElementById('sub-theme-gold');
-      if (unlockedThemes.includes('gold')) {
+      if (btnGold && unlockedThemes.includes('gold')) {
         btnGold.classList.remove('opacity-60');
         subGold.textContent = '🔓 ปลดล็อกแล้ว!';
         subGold.className = 'text-[10px] text-amber-400 font-bold';
@@ -1232,7 +1232,7 @@ function toggleExpand(stepId) {
 
       const btnNeon = document.getElementById('btn-theme-neon');
       const subNeon = document.getElementById('sub-theme-neon');
-      if (unlockedThemes.includes('neon')) {
+      if (btnNeon && unlockedThemes.includes('neon')) {
         btnNeon.classList.remove('opacity-60');
         subNeon.textContent = '🔓 ปลดล็อกแล้ว!';
         subNeon.className = 'text-[10px] text-emerald-400 font-bold';
