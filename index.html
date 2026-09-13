@@ -1,5 +1,3 @@
-ระบบโค้ดเปลี่ยนสีใช้งานไม่ได้ช่วยแก้ให้หน่อยสิ
-เพิ่มระเบบเลื่อนหน้าของ ที่เลือกโทนสี ส่วนอื่นๆที่ไม่เกี่ยวข้องไม่ต้องแก้
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -1209,7 +1207,9 @@ function toggleExpand(stepId) {
   <script>
     // ================= 1. THEME ENGINE & NEON UNLOCK SYSTEM =================
     let activeTheme = localStorage.getItem('pineapple_theme') || 'light';
-    let unlockedThemes = JSON.parse(localStorage.getItem('pineapple_unlocked_themes') || '["light", "dark", "blue", "green"]');
+    const defaultThemes = ['light', 'dark', 'blue', 'green'];
+    const savedThemes = JSON.parse(localStorage.getItem('pineapple_unlocked_themes') || '[]');
+    let unlockedThemes = Array.from(new Set([...defaultThemes, ...savedThemes]));
     let currentScore = parseInt(localStorage.getItem('pineapple_total_score') || '0');
     const NEON_UNLOCK_SCORE = 200;
 
