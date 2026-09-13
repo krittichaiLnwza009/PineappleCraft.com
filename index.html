@@ -1087,16 +1087,17 @@ function toggleExpand(stepId) {
       </div>
 
       <div class="grid grid-cols-1 gap-3">
-        <button onclick="applyTheme('light')" class="flex items-center justify-between p-3.5 rounded-2xl border border-pa-lightbrown bg-pa-bg text-pa-darkbrown hover:border-pa-primary transition-all">
+        <button onclick="applyTheme('light')" class="flex items-center justify-between p-3.5 rounded-2xl border border-orange-200 bg-[#FFFDF9] text-amber-950 hover:border-amber-500 transition-all">
           <div class="flex items-center gap-3">
-            <span class="text-xl">☀️</span>
+          <span class="text-xl">☀️</span>
             <div class="text-left">
               <span class="font-bold text-xs block">สว่างคลาสสิก (Light)</span>
-              <span class="text-[10px] text-pa-brown">โทนอุ่น เรียบง่าย สบายตา</span>
+              <span class="text-[10px] text-amber-800">โทนอุ่น เรียบง่าย สบายตา</span>
             </div>
           </div>
-          <span id="badge-light" class="text-xs font-bold text-pa-primary hidden">✓ ใช้งานอยู่</span>
+          <span id="badge-light" class="text-xs font-bold text-amber-600 hidden">✓ ใช้งานอยู่</span>
         </button>
+        
 
         <button onclick="applyTheme('blue')" class="flex items-center justify-between p-3.5 rounded-2xl border border-sky-300 bg-sky-50 text-sky-950 hover:border-sky-500 transition-all">
           <div class="flex items-center gap-3">
@@ -1120,15 +1121,15 @@ function toggleExpand(stepId) {
           <span id="badge-green" class="text-xs font-bold text-emerald-600 hidden">✓ ใช้งานอยู่</span>
         </button>
          
-        <button onclick="applyTheme('dark')" class="flex items-center justify-between p-3.5 rounded-2xl border border-pa-lightbrown bg-slate-900 text-slate-100 hover:border-pa-primary transition-all">
+        <button onclick="applyTheme('dark')" class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-700 bg-slate-900 text-slate-100 hover:border-amber-500 transition-all">
           <div class="flex items-center gap-3">
-            <span class="text-xl">🌙</span>
-            <div class="text-left">
-              <span class="font-bold text-xs block">มืดถนอมสายตา (Dark Mode)</span>
-              <span class="text-[10px] text-slate-400">เหมาะสำหรับการอ่านเวลากลางคืน</span>
-            </div>
-          </div>
-          <span id="badge-dark" class="text-xs font-bold text-pa-primary hidden">✓ ใช้งานอยู่</span>
+          <span class="text-xl">🌙</span>
+             <div class="text-left">
+               <span class="font-bold text-xs block">มืดถนอมสายตา (Dark Mode)</span>
+               <span class="text-[10px] text-slate-400">เหมาะสำหรับการอ่านเวลากลางคืน</span>
+             </div>
+           </div>
+           <span id="badge-dark" class="text-xs font-bold text-amber-400 hidden">✓ ใช้งานอยู่</span>
         </button>
 
         <button id="btn-theme-gold" onclick="applyTheme('gold')" class="flex items-center justify-between p-3.5 rounded-2xl border border-amber-500/50 bg-amber-950 text-amber-100 hover:border-amber-400 transition-all opacity-60">
