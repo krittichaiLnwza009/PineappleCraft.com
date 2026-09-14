@@ -1998,7 +1998,7 @@ async function handleChatSubmit(e) {
 
       if (pipe.x + 45 < bird.x && !pipe.passed) {
         score++;
-        addScore(10);
+        addScore(1);
         pipe.passed = true;
         if (score > highScore) {
           highScore = score;
