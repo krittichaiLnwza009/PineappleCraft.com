@@ -284,6 +284,9 @@
         <button onclick="switchPage('founders')" id="nav-founders" class="tab-btn px-3.5 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
           <i class="fa-solid fa-users mr-1"></i>ผู้ก่อตั้ง
         </button>
+        <button onclick="switchPage('upcycle')" id="nav-upcycle" class="tab-btn px-3.5 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+          <i class="fa-solid fa-recycle mr-1"></i>แปรรูปเศษเหลือใช้
+        </button>
       </nav>
 
       <div class="flex items-center gap-2">
@@ -312,6 +315,7 @@
       <button onclick="switchPage('games'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">🎮 มินิเกมสับปะรด</button>
       <button onclick="switchPage('founders'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">ผู้ก่อตั้ง</button>
       <button onclick="toggleThemeModal(); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-primary bg-pa-softorange/50 flex items-center justify-between">
+      <button onclick="switchPage('upcycle'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">♻️ แปรรูปเศษเหลือใช้</button>
         <span><i class="fa-solid fa-palette mr-2"></i>เปลี่ยนโทนสีเว็บไซต์</span>
       </button>
     </div>
@@ -1186,6 +1190,248 @@ function toggleExpand(stepId) {
         </div>
       </div>
     </section>
+    <!-- PAGE 7: WASTE UPCYCLING & CIRCULAR ECONOMY -->
+<section id="page-upcycle" class="page-section space-y-10">
+  
+  <!-- Header Banner -->
+  <div data-aos="fade-up" class="text-center max-w-2xl mx-auto space-y-3">
+    <span class="text-xs font-semibold uppercase tracking-wider text-pa-primary bg-pa-softorange px-3 py-1 rounded-full border border-pa-primary/20">
+      ♻️ Zero-Waste Circular Economy
+    </span>
+    <h1 class="text-3xl font-bold text-pa-darkbrown">การแปรรูปเศษสับปะรดเหลือใช้ สู่รายได้ยั่งยืน</h1>
+    <p class="text-pa-brown text-sm font-light leading-relaxed">
+      เปลี่ยนขยะเกษตรกรรม (เปลือก ใบ แกน จุก) ที่เคยถูกทิ้งให้เป็นขุมทรัพย์สร้างมูลค่าเพิ่ม (Value Addition) และรายได้เสริมตามหลักเศรษฐกิจหมุนเวียน
+    </p>
+  </div>
+
+  <!-- 4 Main Waste Upcycling Streams Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    
+    <!-- Card 1: ใบสับปะรด (Leaves) -->
+    <div data-aos="fade-up" class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-4 hover-lift shadow-sm flex flex-col justify-between">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="w-12 h-12 rounded-2xl bg-green-500/10 text-green-600 flex items-center justify-center text-2xl font-bold">
+            🍃
+          </div>
+          <span class="text-[10px] font-bold bg-green-100 text-green-800 px-2.5 py-1 rounded-full">อุตสาหกรรมสิ่งทอ & กระดาษ</span>
+        </div>
+        <h3 class="text-lg font-bold text-pa-darkbrown">1. ใบสับปะรด (Pineapple Leaves)</h3>
+        <p class="text-xs text-pa-brown font-light leading-relaxed">
+          ใบสับปะรดมีเส้นใยธรรมชาติต่างจากพืชอื่น มีความเหนียวและแรงดึงสูง (High Tensile Strength) สามารถสกัดเป็น **เส้นใยใยสับปะรด (PALF)** สำหรับทำผ้าทอ หนังชีวภาพ (เช่น Piñatex) และกระดาษทำมือแปรรูป
+        </p>
+        <ul class="text-xs text-pa-darkbrown/80 space-y-1.5 pl-4 list-disc font-medium">
+          <li><strong>เส้นใยแห้ง (PALF):</strong> ขายเข้าวิสาหกิจชุมชน/โรงงานสิ่งทอ ได้ราคา 80–120 บาท/กก.</li>
+          <li><strong>กระดาษใยสับปะรด:</strong> นำไปแปรรูปเป็นสมุด ก่อให้เกิดมูลค่าเพิ่มสูงถึง 25 บาท/แผ่น</li>
+        </ul>
+      </div>
+      <div class="pt-3 border-t border-pa-lightbrown/40 text-[11px] text-green-600 font-semibold">
+        💡 สร้างมูลค่าเพิ่ม: จากใบสดทิ้งข้ามปี สู่เส้นใยราคากิโลกรัมละหลักร้อย
+      </div>
+    </div>
+
+    <!-- Card 2: เปลือกและเยื่อเนื้อ (Peel & Pomace) -->
+    <div data-aos="fade-up" data-aos-delay="100" class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-4 hover-lift shadow-sm flex flex-col justify-between">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center text-2xl font-bold">
+            🍍
+          </div>
+          <span class="text-[10px] font-bold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full">อาหารหมัก & สารสกัดชีวภาพ</span>
+        </div>
+        <h3 class="text-lg font-bold text-pa-darkbrown">2. เปลือกและเยื่อเนื้อ (Peel & Pomace)</h3>
+        <p class="text-xs text-pa-brown font-light leading-relaxed">
+          เปลือกสับปะรดมีน้ำตาลธรรมชาติและเอนไซม์ย่อยโปรตีน **โบรมีเลน (Bromelain)** ปริมาณสูง สามารถหมักทำน้ำส้มสายชูหมัก (Pineapple Vinegar), ไซเดอร์สับปะรด หรือสกัดเอนไซม์สำหรับอุตสาหกรรมแปรรูปเนื้อสัตว์
+        </p>
+        <ul class="text-xs text-pa-darkbrown/80 space-y-1.5 pl-4 list-disc font-medium">
+          <li><strong>น้ำส้มสายชูหมัก / ไซเดอร์:</strong> บรรจุขวดขายเป็นเครื่องดื่มเพื่อสุขภาพ 150–350 บาท/ขวด</li>
+          <li><strong>อาหารสัตว์โปรตีนสูง:</strong> ตากแห้งผสมอาหารหมักสำหรับโคและสุกร ช่วยย่อยอาหาร</li>
+        </ul>
+      </div>
+      <div class="pt-3 border-t border-pa-lightbrown/40 text-[11px] text-amber-600 font-semibold">
+        💡 สร้างมูลค่าเพิ่ม: จากขยะเปลือกสับปะรด เปลี่ยนเป็นเครื่องดื่มสุขภาพมูลค่าสูง
+      </div>
+    </div>
+
+    <!-- Card 3: แกนสับปะรด (Core) -->
+    <div data-aos="fade-up" class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-4 hover-lift shadow-sm flex flex-col justify-between">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="w-12 h-12 rounded-2xl bg-pa-softorange text-pa-primary flex items-center justify-center text-2xl font-bold">
+            🍿
+          </div>
+          <span class="text-[10px] font-bold bg-orange-100 text-orange-800 px-2.5 py-1 rounded-full">สแน็ค & อาหารสุขภาพ</span>
+        </div>
+        <h3 class="text-lg font-bold text-pa-darkbrown">3. แกนสับปะรด (Pineapple Core)</h3>
+        <p class="text-xs text-pa-brown font-light leading-relaxed">
+          ส่วนแกนสับปะรดมักถูกคัดทิ้งจากโรงงานแปรรูป ทั้งที่มีไฟเบอร์กากใยสูงและรสสัมผัสกรุบกรอบ นำมาผ่านกระบวนการกวน อบแห้ง หรือ Freeze-dried ทำเป็นขนมทานเล่นเพื่อสุขภาพ
+        </p>
+        <ul class="text-xs text-pa-darkbrown/80 space-y-1.5 pl-4 list-disc font-medium">
+          <li><strong>แกนสับปะรดหนึบอบแห้ง:</strong> บรรจุถุงซิปล็อกขายถุงละ 35–80 บาท</li>
+          <li><strong>ชาแกนสับปะรดอบแห้ง:</strong> ชงดื่มลดอาการอักเสบและช่วยระบบย่อยอาหาร</li>
+        </ul>
+      </div>
+      <div class="pt-3 border-t border-pa-lightbrown/40 text-[11px] text-pa-primary font-semibold">
+        💡 สร้างมูลค่าเพิ่ม: เปลี่ยนส่วนที่แข็งรับประทานยากให้เป็นขนมทานเล่นที่ตลาดยอมรับ
+      </div>
+    </div>
+
+    <!-- Card 4: จุกและกอต้น (Crown & Stalk) -->
+    <div data-aos="fade-up" data-aos-delay="100" class="bg-pa-card p-6 rounded-2xl border border-pa-lightbrown/60 space-y-4 hover-lift shadow-sm flex flex-col justify-between">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-600 flex items-center justify-center text-2xl font-bold">
+            🌱
+          </div>
+          <span class="text-[10px] font-bold bg-blue-100 text-blue-800 px-2.5 py-1 rounded-full">เกษตรอินทรีย์ & พลังงาน</span>
+        </div>
+        <h3 class="text-lg font-bold text-pa-darkbrown">4. จุกสับปะรดและเศษกอ (Crown & Stalk)</h3>
+        <p class="text-xs text-pa-brown font-light leading-relaxed">
+          จุกและเศษซากกอหลังเก็บเกี่ยว สามารถนำไปหมักเป็นปุ๋ยชีวภาพคุณภาพสูง สับย่อยทำน้ำหมักจุลินทรีย์ (EM) หรือนำไปเผาแบบจำกัดอากาศทำ **ถ่านไบโอชาร์ (Biochar)** เพื่อปรับปรุงโครงสร้างดิน
+        </p>
+        <ul class="text-xs text-pa-darkbrown/80 space-y-1.5 pl-4 list-disc font-medium">
+          <li><strong>ถ่านไบโอชาร์ปรับดิน:</strong> ขายกระสอบละ 80–150 บาท สำหรับแปลงเกษตรอินทรีย์</li>
+          <li><strong>ปุ๋ยอินทรีย์หมักสับปะรด:</strong> ช่วยลดการใช้ปุ๋ยเคมีในแปลงสับปะรดลงได้ถึง 30%</li>
+        </ul>
+      </div>
+      <div class="pt-3 border-t border-pa-lightbrown/40 text-[11px] text-blue-600 font-semibold">
+        💡 สร้างมูลค่าเพิ่ม: คืนธาตุอาหารลงสู่ดิน ประหยัดค่าปุ๋ยเคมีในฤดูกาลถัดไป
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Value Creation Comparison Table -->
+  <div data-aos="fade-up" class="bg-pa-card p-6 sm:p-8 rounded-3xl border border-pa-lightbrown/60 space-y-6">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+      <div>
+        <h2 class="text-xl font-bold text-pa-darkbrown">📊 เปรียบเทียบมูลค่าเพิ่มจากการแปรรูปเศษสับปะรด</h2>
+        <p class="text-xs text-pa-brown font-light mt-1">สรุปการสร้างรายได้เฉลี่ยต่อหน่วยจากเศษเหลือทิ้ง</p>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto rounded-2xl border border-pa-lightbrown/50">
+      <table class="w-full text-left border-collapse text-xs">
+        <thead>
+          <tr class="bg-pa-softorange text-pa-darkbrown border-b border-pa-lightbrown">
+            <th class="p-3 font-bold">ชนิดเศษเหลือ</th>
+            <th class="p-3 font-bold">ผลิตภัณฑ์แปรรูป</th>
+            <th class="p-3 font-bold">มูลค่าเดิม (ขายสด/ทิ้ง)</th>
+            <th class="p-3 font-bold">มูลค่าหลังแปรรูป</th>
+            <th class="p-3 font-bold">อัตราส่วนการเติบโตรายได้</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-pa-lightbrown/40 bg-pa-bg">
+          <tr>
+            <td class="p-3 font-semibold text-pa-darkbrown">ใบสับปะรด (1 กก.)</td>
+            <td class="p-3">เส้นใยแห้งสิ่งทอ (PALF)</td>
+            <td class="p-3 text-red-500 font-medium">0 – 2 บาท</td>
+            <td class="p-3 text-green-600 font-bold">80 – 120 บาท</td>
+            <td class="p-3 font-bold text-pa-primary">+4,000%</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-semibold text-pa-darkbrown">ใบสับปะรด (10 ใบ)</td>
+            <td class="p-3">กระดาษใยสับปะรดทำมือ</td>
+            <td class="p-3 text-red-500 font-medium">0 บาท</td>
+            <td class="p-3 text-green-600 font-bold">25 บาท/แผ่น</td>
+            <td class="p-3 font-bold text-pa-primary">+2,500%</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-semibold text-pa-darkbrown">เปลือกสับปะรด (5 กก.)</td>
+            <td class="p-3">ไซเดอร์หมัก / น้ำส้มสายชู</td>
+            <td class="p-3 text-red-500 font-medium">0 บาท</td>
+            <td class="p-3 text-green-600 font-bold">180 – 250 บาท/ขวด</td>
+            <td class="p-3 font-bold text-pa-primary">+1,800%</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-semibold text-pa-darkbrown">แกนสับปะรด (1 กก.)</td>
+            <td class="p-3">แกนสับปะรดอบแห้งหนึบ</td>
+            <td class="p-3 text-red-500 font-medium">2 – 5 บาท</td>
+            <td class="p-3 text-green-600 font-bold">120 – 160 บาท/กก.</td>
+            <td class="p-3 font-bold text-pa-primary">+3,100%</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-semibold text-pa-darkbrown">จุก & เศษกอ (100 กก.)</td>
+            <td class="p-3">ปุ๋ยอินทรีย์ชีวภาพ / ไบโอชาร์</td>
+            <td class="p-3 text-red-500 font-medium">0 บาท</td>
+            <td class="p-3 text-green-600 font-bold">400 – 600 บาท</td>
+            <td class="p-3 font-bold text-pa-primary">+500%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Interactive Upcycling Income Calculator -->
+  <div data-aos="fade-up" class="bg-gradient-to-br from-pa-softorange/60 via-pa-card to-pa-lightbrown/40 p-6 sm:p-8 rounded-3xl border border-pa-lightbrown space-y-6 max-w-2xl mx-auto shadow-sm">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-pa-primary text-white flex items-center justify-center text-xl shadow-md">
+        <i class="fa-solid fa-coins"></i>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-pa-darkbrown">เครื่องมือประเมินรายได้จากการแปรรูปเศษสับปะรด</h3>
+        <p class="text-xs text-pa-brown font-light">คำนวณมูลค่ารายได้คาดการณ์จากการแปรรูปขยะเกษตรในสวนของคุณ</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-xs font-medium text-pa-darkbrown mb-1">ปริมาณเศษสับปะรดที่มี (กิโลกรัม):</label>
+        <input type="number" id="upcycle-weight" min="1" placeholder="เช่น 50, 100, 500..." class="w-full px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-pa-bg text-sm">
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-pa-darkbrown mb-1">รูปแบบการแปรรูปเป้าหมาย:</label>
+        <select id="upcycle-type" class="w-full px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary bg-pa-bg text-sm text-pa-darkbrown">
+          <option value="palf">🍃 ใบสับปะรด -> เส้นใยสิ่งทอ (PALF)</option>
+          <option value="paper">📄 ใบสับปะรด -> กระดาษใยสับปะรด</option>
+          <option value="vinegar">🍾 เปลือก -> ไซเดอร์ / น้ำส้มสายชูหมัก</option>
+          <option value="snack">🍿 แกน -> สแน็คแกนสับปะรดอบแห้ง</option>
+          <option value="biochar">🔥 จุก & กอ -> ปุ๋ยชีวภาพ / ถ่านไบโอชาร์</option>
+        </select>
+      </div>
+    </div>
+
+    <button onclick="calculateUpcycleIncome()" class="w-full py-3 bg-pa-primary hover:bg-pa-secondary text-white rounded-xl text-sm font-medium transition-all shadow-md shadow-pa-primary/20 flex items-center justify-center gap-2 hover-lift">
+      <i class="fa-solid fa-calculator"></i> ประเมินรายได้และมูลค่าเพิ่ม
+    </button>
+
+    <div id="upcycle-result" class="hidden p-5 bg-pa-bg rounded-2xl border border-pa-lightbrown/80 space-y-3 text-sm text-pa-darkbrown"></div>
+  </div>
+
+  <!-- 4 Steps Getting Started Roadmap -->
+  <div data-aos="fade-up" class="bg-pa-card p-6 sm:p-8 rounded-3xl border border-pa-lightbrown/60 space-y-6">
+    <div class="text-center max-w-xl mx-auto space-y-1">
+      <h3 class="text-xl font-bold text-pa-darkbrown">🚀 4 ขั้นตอนการเริ่มต้นแปรรูปเศษสับปะรดสำหรับเกษตรกร</h3>
+      <p class="text-xs text-pa-brown font-light">แนวทางปฏิบัติจริงเพื่อสร้างวิสาหกิจชุมชนสินค้าแปรรูปจากสับปะรด</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 space-y-2">
+        <span class="w-7 h-7 rounded-lg bg-pa-primary text-white font-bold text-xs flex items-center justify-center">1</span>
+        <h4 class="font-bold text-sm text-pa-darkbrown">คัดแยกขยะตั้งแต่ต้นทาง</h4>
+        <p class="text-xs text-pa-brown font-light leading-relaxed">แยกส่วนใบ เปลือก แกน และจุก ออกจากกันทันทีหลังเก็บเกี่ยว เพื่อคงคุณภาพวัตถุดิบสดใหม่</p>
+      </div>
+
+      <div class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 space-y-2">
+        <span class="w-7 h-7 rounded-lg bg-pa-primary text-white font-bold text-xs flex items-center justify-center">2</span>
+        <h4 class="font-bold text-sm text-pa-darkbrown">ทำความสะอาด & ตากผึ่งลม</h4>
+        <p class="text-xs text-pa-brown font-light leading-relaxed">ล้างสิ่งสกปรกและดิน ตากแดดผึ่งลมลดความชื้น ป้องกันเชื้อราก่อนเข้าสู่เครื่องสกัดหรือถังหมัก</p>
+      </div>
+
+      <div class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 space-y-2">
+        <span class="w-7 h-7 rounded-lg bg-pa-primary text-white font-bold text-xs flex items-center justify-center">3</span>
+        <h4 class="font-bold text-sm text-pa-darkbrown">รวมกลุ่มวิสาหกิจชุมชน</h4>
+        <p class="text-xs text-pa-brown font-light leading-relaxed">แชร์เครื่องสกัดเส้นใยใบสับปะรด หรือถังหมักขนาดใหญ่ ร่วมกับวิสาหกิจชุมชนเพื่อลดต้นทุนเครื่องจักร</p>
+      </div>
+
+      <div class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 space-y-2">
+        <span class="w-7 h-7 rounded-lg bg-pa-primary text-white font-bold text-xs flex items-center justify-center">4</span>
+        <h4 class="font-bold text-sm text-pa-darkbrown">เชื่อมโยงตลาดสาย Green</h4>
+        <p class="text-xs text-pa-brown font-light leading-relaxed">จำหน่ายผลิตภัณฑ์เข้าสู่ตลาดสินค้าเป็นมิตรต่อสิ่งแวดล้อม (Eco-friendly) ตลาดสุขภาพ และโรงงานสิ่งทอ</p>
+      </div>
+    </div>
+  </div>
+</section>
 
   </main>
 
@@ -2465,6 +2711,79 @@ document.addEventListener('keydown', function(event) {
     closeJumpscare();
   }
 });
+  // ฟังก์ชันคำนวณประเมินรายได้จากการแปรรูปเศษสับปะรด
+function calculateUpcycleIncome() {
+  const weightInput = document.getElementById('upcycle-weight');
+  const typeSelect = document.getElementById('upcycle-type');
+  const resultDiv = document.getElementById('upcycle-result');
+
+  const weight = parseFloat(weightInput.value);
+  const type = typeSelect.value;
+
+  if (!weight || weight <= 0) {
+    alert('กรุณากรอกปริมาณเศษสับปะรดเป็นตัวเลขที่มากกว่า 0');
+    return;
+  }
+
+  let outputTitle = '';
+  let estimatedValue = 0;
+  let detailText = '';
+
+  switch (type) {
+    case 'palf':
+      // อัตราสกัดเส้นใยแห้งประมาณ 2.5% จากน้ำหนักใบสด
+      const fiberWeight = (weight * 0.025).toFixed(1);
+      estimatedValue = Math.round(fiberWeight * 100); // เฉลี่ย 100 บาท/กก.
+      outputTitle = '🍃 เส้นใยสับปะรดแห้ง (PALF)';
+      detailText = `จากใบสับปะรดสด ${weight.toLocaleString()} กก. สกัดเป็นเส้นใยแห้งได้ประมาณ <b>${fiberWeight} กก.</b> ประเมินมูลค่าขายได้ราว <b>${estimatedValue.toLocaleString()} บาท</b>`;
+      break;
+
+    case 'paper':
+      // 1 กก. ทำกระดาษได้ประมาณ 8-10 แผ่น
+      const sheets = Math.round(weight * 8);
+      estimatedValue = sheets * 25; // แผ่นละ 25 บาท
+      outputTitle = '📄 กระดาษใยสับปะรดทำมือ';
+      detailText = `จากใบสับปะรด ${weight.toLocaleString()} กก. แปรรูปทำกระดาษได้ประมาณ <b>${sheets.toLocaleString()} แผ่น</b> ประเมินมูลค่าขาย (แผ่นละ 25 บาท) ได้ราว <b>${estimatedValue.toLocaleString()} บาท</b>`;
+      break;
+
+    case 'vinegar':
+      // 5 กก. ผลิตน้ำส้มสายชูหมักได้ประมาณ 1 ขวด (บรรจุ 500ml)
+      const bottles = Math.floor(weight / 5);
+      estimatedValue = bottles * 200; // ขวดละ 200 บาท
+      outputTitle = '🍾 ไซเดอร์ / น้ำส้มสายชูหมักสับปะรด';
+      detailText = `จากเปลือกสับปะรด ${weight.toLocaleString()} กก. หมักเป็นเครื่องดื่มสุขภาพบรรจุขวดได้ประมาณ <b>${bottles.toLocaleString()} ขวด</b> ประเมินมูลค่าขายได้ราว <b>${estimatedValue.toLocaleString()} บาท</b>`;
+      break;
+
+    case 'snack':
+      // แกนสับปะรดอบแห้ง (น้ำหนักลดลงเหลือ 20% หลังอบแห้ง)
+      const snackWeight = (weight * 0.2).toFixed(1);
+      estimatedValue = Math.round(snackWeight * 140); // กก. ละ 140 บาท
+      outputTitle = '🍿 แกนสับปะรดอบแห้งหนึบ';
+      detailText = `จากแกนสับปะรดสด ${weight.toLocaleString()} กก. แปรรูปอบแห้งได้ประมาณ <b>${snackWeight} กก.</b> ประเมินมูลค่าขายได้ราว <b>${estimatedValue.toLocaleString()} บาท</b>`;
+      break;
+
+    case 'biochar':
+      // อัตราปุ๋ยหมัก/ไบโอชาร์ 100 กก. ได้มูลค่าราว 500 บาท
+      estimatedValue = Math.round((weight / 100) * 500);
+      outputTitle = '🔥 ถ่านไบโอชาร์ & ปุ๋ยอินทรีย์หมัก';
+      detailText = `จากเศษจุกและซากกอ ${weight.toLocaleString()} กก. แปรรูปเป็นปุ๋ยหมัก/ไบโอชาร์ ประเมินมูลค่าทดแทนการซื้อปุ๋ยเคมีได้ประมาณ <b>${estimatedValue.toLocaleString()} บาท</b>`;
+      break;
+  }
+
+  resultDiv.innerHTML = `
+    <div class="flex items-center gap-2 border-b border-pa-lightbrown/50 pb-2 mb-2">
+      <span class="text-base font-bold text-pa-primary">${outputTitle}</span>
+    </div>
+    <div class="space-y-1.5 text-xs text-pa-darkbrown leading-relaxed">
+      <p>${detailText}</p>
+      <div class="p-2.5 bg-pa-softorange/40 rounded-xl font-bold text-center text-pa-primary text-sm mt-3 border border-pa-lightbrown/40">
+        💰 คาดการณ์รายได้สร้างเพิ่ม: ~${estimatedValue.toLocaleString()} บาท
+      </div>
+    </div>
+  `;
+
+  resultDiv.classList.remove('hidden');
+}
 </script>
 </body>
 </html>
