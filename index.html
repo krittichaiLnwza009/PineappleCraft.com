@@ -362,14 +362,14 @@
          <!-- Mascot พร้อมปุ่มกดไปหน้า AI กูรู -->
 <div class="hidden lg:block absolute right-[20px] bottom-5 select-none z-20 cursor-pointer group" onclick="goToAIChat()">
   
-  <!-- บอลลูนคำพูด (Speech Bubble) เหนือ Mascot -->
-  <div class="absolute -top-12 left-1/2 -translate-x-1/2 bg-pa-primary text-white text-xs font-semibold px-4 py-2 rounded-2xl shadow-lg border-2 border-white whitespace-nowrap animate-bounce flex items-center gap-1.5 group-hover:bg-pa-secondary transition-colors">
-    <i class="fa-solid fa-comments text-amber-200"></i>
-    <span>มีข้อสงสัย? คลิกคุยกับ AI กูรูสิ!</span>
-    <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-pa-primary group-hover:border-t-pa-secondary"></div>
-  </div>
+  <!-- บอลลูนคำพูด (Speech Bubble) ปรับตำแหน่งให้อยู่ในกรอบ -->
+  <div class="absolute top-2 left-1/2 -translate-x-1/2 bg-pa-primary text-white text-xs font-semibold px-4 py-2 rounded-2xl shadow-lg border-2 border-white whitespace-nowrap animate-bounce flex items-center gap-1.5 group-hover:bg-pa-secondary transition-colors">
+  <i class="fa-solid fa-comments text-amber-200"></i>
+  <span>มีข้อสงสัย? คลิกคุยกับ AI กูรูสิ!</span>
+  <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-pa-primary group-hover:border-t-pa-secondary"></div>
+</div>
 
-  <!-- รูป Mascot เพิ่ม Effect ขยายเมื่อเอาเมาส์ชี้ (Hover) -->
+  <!-- รูป Mascot -->
   <img src="https://cdn.discordapp.com/attachments/1417094894467420214/1549328515889889320/IMG_8698.png?ex=6aaa4c1f&is=6aa8fa9f&hm=8c77581c75af5feb8d975a92fff5647c0160dc71b6c9c999eff19070d19ea10a" 
        alt="Mascot Pineapple" 
        class="w-[400px] h-auto drop-shadow-xl group-hover:scale-105 transition-transform duration-300 ease-out" />
