@@ -1048,54 +1048,77 @@ function toggleExpand(stepId) {
         <p class="text-pa-brown text-sm font-light">สอบถามปัญหาโรคพืช ปุ๋ยสั่งตัด สารเอทธิฟอนบังคับดอก หรือแนวทางการบริหารแปลงได้ตลอด 24 ชั่วโมง</p>
       </div>
 
-      <div data-aos="fade-up" data-aos-delay="100" class="max-w-3xl mx-auto bg-pa-card rounded-3xl border border-pa-lightbrown/80 shadow-sm flex flex-col h-[540px] overflow-hidden">
-        <div class="bg-pa-card/80 backdrop-blur px-6 py-4 border-b border-pa-lightbrown/50 flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-full bg-pa-primary text-white flex items-center justify-center text-sm font-bold">
-              🍍
+      <!-- Layout 2 คอลัมน์ (Mascot + Chatbox) -->
+      <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
+        
+        <!-- ฝั่งซ้าย: Mascot แสดงตัวพร้อม บอลลูนคำพูด -->
+        <div data-aos="fade-right" class="lg:col-span-4 flex flex-col items-center justify-end relative order-2 lg:order-1 pt-6 lg:pt-0">
+          <!-- Speech Bubble ของ Mascot -->
+          <div id="mascot-ai-bubble" class="bg-pa-primary text-white p-3.5 rounded-2xl shadow-xl border-2 border-white text-xs font-medium relative mb-2 animate-bounce w-full max-w-[280px] text-center">
+            <span id="mascot-speech-text">👋 สวัสดีค่ะ! มีข้อสงสัยอะไรเกี่ยวกับสับปะรด ถามกูรูได้เลยนะ!</span>
+            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-pa-primary"></div>
+          </div>
+          
+          <!-- รูป Mascot -->
+          <img src="https://cdn.discordapp.com/attachments/1417094894467420214/1549328515889889320/IMG_8698.png?ex=6aaa4c1f&is=6aa8fa9f&hm=8c77581c75af5feb8d975a92fff5647c0160dc71b6c9c999eff19070d19ea10a" 
+               alt="AI Guru Mascot" 
+               class="w-48 lg:w-64 h-auto drop-shadow-2xl hover:scale-105 transition-transform duration-300 ease-out" />
+        </div>
+
+        <!-- ฝั่งขวา: กล่องแชท Chatbot -->
+        <div data-aos="fade-left" data-aos-delay="100" class="lg:col-span-8 bg-pa-card rounded-3xl border border-pa-lightbrown/80 shadow-sm flex flex-col h-[520px] overflow-hidden order-1 lg:order-2 w-full">
+          <div class="bg-pa-card/80 backdrop-blur px-6 py-4 border-b border-pa-lightbrown/50 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <!-- Avatar Mascot ใน Header -->
+              <div class="w-10 h-10 rounded-full bg-pa-primary/10 border border-pa-primary/30 overflow-hidden flex items-center justify-center p-0.5">
+                <img src="https://cdn.discordapp.com/attachments/1417094894467420214/1549328515889889320/IMG_8698.png?ex=6aaa4c1f&is=6aa8fa9f&hm=8c77581c75af5feb8d975a92fff5647c0160dc71b6c9c999eff19070d19ea10a" class="w-full h-full object-contain" alt="Guru Avatar">
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-pa-darkbrown">ผู้ช่วยอัจฉริยะ PineappleCraft</h3>
+                <p class="text-[11px] text-green-600 font-medium flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Mascot กูรู พร้อมให้คำปรึกษา
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 class="text-sm font-bold text-pa-darkbrown">ผู้ช่วยอัจฉริยะ PineappleCraft</h3>
-              <p class="text-[11px] text-green-600 font-medium flex items-center gap-1">
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> พร้อมให้คำปรึกษาเชิงลึก
-              </p>
+            <button onclick="clearChatHistory()" class="text-xs text-pa-brown/60 hover:text-red-500 transition-colors" title="ล้างประวัติการคุย">
+              <i class="fa-solid fa-trash-can mr-1"></i>ล้างแชท
+            </button>
+          </div>
+
+          <!-- ข้อความแชท -->
+          <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 chat-scroll">
+            <div class="flex gap-3 items-start">
+              <!-- Avatar Mascot ในข้อความต้อนรับ -->
+              <div class="w-8 h-8 rounded-full bg-pa-primary/10 border border-pa-primary/30 overflow-hidden shrink-0 p-0.5">
+                <img src="https://cdn.discordapp.com/attachments/1417094894467420214/1549328515889889320/IMG_8698.png?ex=6aaa4c1f&is=6aa8fa9f&hm=8c77581c75af5feb8d975a92fff5647c0160dc71b6c9c999eff19070d19ea10a" class="w-full h-full object-contain" alt="Guru Avatar">
+              </div>
+              <div class="bg-pa-bg p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
+                สวัสดีค่ะ! หนูคือ <b>Mascot AI สับปะรดกูรู</b> ยินดีตอบคำถามเกี่ยวกับการเตรียมดิน ปุ๋ย สารเอทธิฟอนบังคับดอก โรคพืช ตลอดจนสายพันธุ์สับปะรดน่ะ ถามหนูมาได้เลย!
+              </div>
             </div>
           </div>
-          <button onclick="clearChatHistory()" class="text-xs text-pa-brown/60 hover:text-red-500 transition-colors" title="ล้างประวัติการคุย">
-            <i class="fa-solid fa-trash-can mr-1"></i>ล้างแชท
-          </button>
-        </div>
 
-        <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 chat-scroll">
-          <div class="flex gap-3 items-start">
-            <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">
-              🍍
-            </div>
-            <div class="bg-pa-bg p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
-              สวัสดีครับ! ผมคือ AI สับปะรดกูรู ยินดีตอบคำถามเกี่ยวกับการเตรียมดิน ปุ๋ย สารเอทธิฟอนบังคับดอก โรคพืช ตลอดจนสายพันธุ์สับปะรดครับ ถามผมเข้ามาได้เลย!
-            </div>
+          <div class="px-6 py-2 bg-pa-bg/50 border-t border-pa-lightbrown/30 flex gap-2 overflow-x-auto text-xs custom-scroll">
+            <button onclick="askPreset('สับปะรดชอบดินแบบไหนและปรับ pH อย่างไร?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
+              🌱 ดิน & ค่า pH
+            </button>
+            <button onclick="askPreset('สูตรเอทธิฟอนบังคับดอกสับปะรดทำอย่างไร?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
+              ✨ เทคนิคบังคับดอก
+            </button>
+            <button onclick="askPreset('วิธีแก้โรคยอดเน่ารากเน่าสับปะรด?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
+              🛡️ ป้องกันโรคยอดเน่า
+            </button>
           </div>
+
+          <form id="chat-form" onsubmit="handleChatSubmit(event)" class="p-3 bg-pa-card border-t border-pa-lightbrown/60 flex items-center gap-2">
+            <input type="text" id="chat-input" placeholder="พิมพ์คำถามเกี่ยวกับการปลูกสับปะรด..." class="flex-grow px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary text-sm bg-pa-bg">
+            <button type="submit" id="send-btn" class="px-5 py-2.5 bg-pa-primary hover:bg-pa-secondary text-white rounded-xl text-sm font-medium transition-all flex items-center gap-2 flex-shrink-0">
+              <span>ส่ง</span>
+              <i class="fa-solid fa-paper-plane text-xs"></i>
+            </button>
+          </form>
         </div>
 
-        <div class="px-6 py-2 bg-pa-bg/50 border-t border-pa-lightbrown/30 flex gap-2 overflow-x-auto text-xs custom-scroll">
-          <button onclick="askPreset('สับปะรดชอบดินแบบไหนและปรับ pH อย่างไร?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
-            🌱 ดิน & ค่า pH
-          </button>
-          <button onclick="askPreset('สูตรเอทธิฟอนบังคับดอกสับปะรดทำอย่างไร?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
-            ✨ เทคนิคบังคับดอก
-          </button>
-          <button onclick="askPreset('วิธีแก้โรคยอดเน่ารากเน่าสับปะรด?')" class="bg-pa-softorange/60 hover:bg-pa-softorange text-pa-darkbrown px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-pa-lightbrown/40">
-            🛡️ ป้องกันโรคยอดเน่า
-          </button>
-        </div>
-
-        <form id="chat-form" onsubmit="handleChatSubmit(event)" class="p-3 bg-pa-card border-t border-pa-lightbrown/60 flex items-center gap-2">
-          <input type="text" id="chat-input" placeholder="พิมพ์คำถามเกี่ยวกับการปลูกสับปะรด..." class="flex-grow px-4 py-2.5 rounded-xl border border-pa-lightbrown focus:outline-none focus:border-pa-primary text-sm bg-pa-bg">
-          <button type="submit" id="send-btn" class="px-5 py-2.5 bg-pa-primary hover:bg-pa-secondary text-white rounded-xl text-sm font-medium transition-all flex items-center gap-2 flex-shrink-0">
-            <span>ส่ง</span>
-            <i class="fa-solid fa-paper-plane text-xs"></i>
-          </button>
-        </form>
       </div>
     </section>
 
@@ -2067,9 +2090,9 @@ function getSmartKnowledgeBaseReply(msg) {
   // 1. หมวดทักทาย & ถามสารพัดประโยชน์
   if (/^(หวัดดี|สวัสดี|ดีครับ|ดีค่ะ|ดีจ้า|hi|hello|hey|ดีงับ|โย่ว|ไง|yo|สบายดีบ่|ว่าไง)/.test(lowerMsg)) {
     return getRandomReply([
-      "สวัสดีครับ! วันนี้มีเรื่องสับปะรดสงสัย หรือแค่อยากแวะมาคุยแก้เหงาครับเนี่ย? 🍍",
-      "หวัดดีครับ! พร้อมรับฟังทั้งเรื่องปุ๋ย เรื่องดิน และเรื่องหัวใจ (ถ้าโดนเทมา) ครับ!",
-      "สวัสดีครับผม! วันนี้รับสับปะรดหวานๆ หรืออยากฟังมุกกรอบๆ ดีครับ?",
+      "สวัสดีค่ะ! วันนี้มีเรื่องสับปะรดสงสัย หรือแค่อยากแวะมาคุยแก้เหงาค่ะเนี่ย? 🍍",
+      "หวัดดีคะ! พร้อมรับฟังทั้งเรื่องปุ๋ย เรื่องดิน และเรื่องหัวใจ (ถ้าโดนเทมา) ค่ะ!",
+      "สวัสดีจ้า! วันนี้รับสับปะรดหวานๆ หรืออยากฟังมุกกรอบๆ ดีจ๊ะ?",
       "​เป็นจั่งได๋แนทางพุ้น ฝนตกดีบ่ทางนี้ตกสุมื้อเลย รักษาสุขภาพแนเด้อ",
       "​สบายดีบ่พ่อแม่พี่น้อง บ่ได้พอกันโดนเป็นจั่งได๋แน คิดฮอดคือเก่าเด้อ",
       "​ช่วงนี้เป็นจั่งได๋แน สบายดีอยู่บ่ งานยุ่งหลายบ่หาเวลาพักผ่อนแ"
@@ -2078,9 +2101,9 @@ function getSmartKnowledgeBaseReply(msg) {
 
   if (lowerMsg.includes('ทำไรอยู่') || lowerMsg.includes('ทำอะไรอยู่')) {
     return getRandomReply([
-      "กำลังยืนเฝ้าแปลงสับปะรดครับ เผลอไม่ได้เดี๋ยวเพลี้ยแป้งมาลง!",
-      "กำลังคิดมุกตลกไว้คุยกับคุณอยู่นี่แหละครับ 555",
-      "นั่งคำนวณสูตรปุ๋ยปวดหัวอยู่ครับ มีเรื่องอะไรให้ช่วยไหมเอ่ย?"
+      "กำลังยืนเฝ้าแปลงสับปะรดค่ะ เผลอไม่ได้เดี๋ยวเพลี้ยแป้งมาลง!",
+      "กำลังคิดมุกตลกไว้คุยกับคุณอยู่นี่แหละค่า 555",
+      "นั่งคำนวณสูตรปุ๋ยปวดหัวอยู่ค่า มีเรื่องอะไรให้ช่วยไหมเอ่ย?"
     ]);
   }
   
@@ -2094,26 +2117,26 @@ if (lowerMsg.includes('143')) {
   
   if (lowerMsg.includes('หิว') || lowerMsg.includes('กินไรดี') || lowerMsg.includes('กินอะไรดี')) {
     return getRandomReply([
-      "เมนูวันนี้ขอเสนอ: ต้มยำกุ้งใส่สับปะรด หรือพิซซ่าหน้าฮาวายเอี้ยนครับ! (อย่าตีกันเรื่องสับปะรดบนพิซซ่านะ)",
+      "เมนูวันนี้ขอเสนอ: ต้มยำกุ้งใส่สับปะรด หรือพิซซ่าหน้าฮาวายเอี้ยนค่ะ! (อย่าตีกันเรื่องสับปะรดบนพิซซ่านะ)",
       "หิวก็ต้องกินข้าวครับ แต่ถ้าอยากได้ความหวาน ลองสับปะรดฉ่ำๆ สักชิ้นไหม?",
-      "แนะนำข้าวผัดสับปะรดครับ อร่อยด้วย ได้อุดหนุนเกษตรกรด้วย (ขายของสุดๆ)"
+      "แนะนำข้าวผัดสับปะรดค่ะ อร่อยด้วย ได้อุดหนุนเกษตรกรด้วย (ขายของสุดๆ)"
     ]);
   }
 
   // 2. หมวดตบมุก / หยอกล้อ / คุยเล่นทั่วไป
   if (lowerMsg.includes('น่ารัก') || lowerMsg.includes('หล่อ') || lowerMsg.includes('จีบ') || lowerMsg.includes('น่ารัก')) {
     return getRandomReply([
-      "เขินเลยครับ... แต่ผมเป็นแค่อัลกอริทึมนะ คุณจะตกหลุมรักหุ่นยนต์จริงๆ เหรอ? 😳",
-      "อย่ามาหยอดครับ เดี๋ยวผมยอมเขียวช้ำเหมือนสับปะรดโดนกระแทกนะ!",
-      "จีบได้ครับ แต่ต้องแลกกับสูตรปุ๋ยเร่งดอก 1 สูตรนะ!"
+      "เขิน... แต่หนูเป็นแค่อัลกอริทึมนะ คุณจะตกหลุมรักหุ่นยนต์จริงๆ เหรอ? 😳",
+      "อย่ามาหยอดน่ะ เดี๋ยวหนูยอมเขียวช้ำเหมือนสับปะรดโดนกระแทกนะ!",
+      "จีบได้ค่ะ แต่ต้องแลกกับสูตรปุ๋ยเร่งดอก 1 สูตรนะ!"
     ]);
   }
 
   if (lowerMsg.includes('กวน') || lowerMsg.includes('บ้า') || lowerMsg.includes('ตลก') || lowerMsg.includes('ล้อเล่นปะเนี่ย')) {
     return getRandomReply([
-      "ไม่ได้กวนครับ เขาเรียกว่ามีอารมณ์ขันระดับพืชสวน! 🍍",
-      "หยอกวันละนิดจิตแจ่มใสครับ คุยเรื่องวิชาการมาเยอะ มาคุยสบายๆ บ้าง",
-      "บ้าแล้วรักปะล่ะ? หมายถึงรักสับปะรดนะครับ!"
+      "ไม่ได้กวนน่ะ เขาเรียกว่ามีอารมณ์ขันระดับพืชสวน! 🍍",
+      "หยอกวันละนิดจิตแจ่มใสค่ะ คุยเรื่องวิชาการมาเยอะ มาคุยสบายๆ บ้าง",
+      "บ้าแล้วรักปะล่ะ? หมายถึงรักสับปะรดนะUWU!"
     ]);
   }
 
@@ -2123,8 +2146,8 @@ if (lowerMsg.includes('143')) {
 
   if (lowerMsg.includes('ชื่ออะไร') || lowerMsg.includes('คือใคร') || lowerMsg.includes('ใครคือ') || lowerMsg.includes('name')) {
     return getRandomReply([
-      "ผมคือ AI ผู้ช่วยประจำ PineappleCraft.com ครับ",
-      "ชื่อผมคืออะไรนะหรอ? จะเรียกคนหล่อก็ได้นะ!"
+      "หนูคือ AI ผู้ช่วยประจำ PineappleCraft.com ครับ",
+      "หนูคืออะไรนะหรอ? จะเรียกคนสวยก็ได้นะ!"
       ]);
   }
 
@@ -2236,12 +2259,11 @@ if (lowerMsg.includes('ปุ๋ย') || lowerMsg.includes('สูตร')) {
 
   // 4. Fallback ตอบโต้เรื่องอื่นๆ ที่ไม่ตรงคีย์เวิร์ด (ไม่ให้คำตอบดูเป็นหุ่นยนต์แข็งๆ)
   return getRandomReply([
-    "หัวข้อนี้ลึกซึ้งมาก! ผมอาจจะยังไม่เชี่ยวชาญเท่าเรื่องสับปะรด แต่เล่าต่อได้นะ รอฟังอยู่ครับ 🍍",
-    "เอ๊ะ... อันนี้ไม่มีในตำราเกษตรซะด้วยสิ! เอาเป็นว่าคุยเรื่องนี้แป๊บนึง แล้วค่อยไปต่อเรื่องสูตรปุ๋ยไหมครับ?",
+    "หัวข้อนี้ลึกซึ้งมาก! หนูอาจจะยังไม่เชี่ยวชาญเท่าเรื่องสับปะรด แต่เล่าต่อได้นะ รอฟังอยู่คะ 🍍",
+    "เอ๊ะ... อันนี้ไม่มีในตำราเกษตรซะด้วยสิ! เอาเป็นว่าคุยเรื่องนี้แป๊บนึง แล้วค่อยไปต่อเรื่องสูตรปุ๋ยไหมค่ะ?",
     "ฟังดูน่าสนใจนะ! แต่เอ... เรื่องนี้มันจะเชื่อมโยงไปหาการปลูกสับปะรดได้ยังไงเนี่ย 555",
-    "เรื่องนี้ผมขอฟังอย่างเดียวละกันครับ ตะกอนความรู้ยังไม่พอ แต่ถ้าเรื่องแมลงเรื่องโรคพืช ถามมาได้เลย!",
-    "พิมพ์มาแบบนี้ แสดงว่าอยากชวนคุยเล่นใช่ไหมล่ะ? มีเรื่องอะไรอยากเล่าอีกไหมครับ?",
-    "ห้ะ?",
+    "เรื่องนี้หนูขอฟังอย่างเดียวละกันครับ ตะกอนความรู้ยังไม่พอ แต่ถ้าเรื่องแมลงเรื่องโรคพืช ถามมาได้เลย!",
+    "พิมพ์มาแบบนี้ แสดงว่าอยากชวนคุยเล่นใช่ไหมล่ะ? มีเรื่องอะไรอยากเล่าอีกไหมค่ะ?",
     "อะไรนะ?",
     "ไรนะ?"
   ]);
@@ -2818,6 +2840,29 @@ function goToAIChat(defaultText = '') {
     }
   }, 300);
 }
+  // ฟังก์ชันกด Mascot จากหน้าหลักไปหน้า AI กูรู
+function goToAIChat() {
+  switchPage('ai');
+  updateMascotSpeech('พร้อมตอบคำถามแล้วค่ะ! พิมพ์ถามกูรูได้เลยนะ 😊');
+}
+
+// ฟังก์ชันอัปเดตคำพูดในบอลลูนของ Mascot
+function updateMascotSpeech(text) {
+  const speechText = document.getElementById('mascot-speech-text');
+  if (speechText) {
+    speechText.textContent = text;
+  }
+}
+
+// ตัวอย่างการปรับฟังก์ชันการส่งแชทให้ Mascot ตอบรับ (อัปเดตใส่ในฟังก์ชันส่งแชทเดิมของคุณ)
+/*
+  ขณะผู้ใช้กดส่งคำถาม: 
+  updateMascotSpeech('กำลังคิดคำตอบให้นะครับ... 🤔');
+
+  เมื่อ AI ประมวลผลและตอบคำถามเรียบร้อย:
+  updateMascotSpeech('ตอบเรียบร้อยแล้วครับ! มีคำถามเพิ่มเติมไหมครับ? 🍍');
+*/
+
 
 </script>
 </body>
