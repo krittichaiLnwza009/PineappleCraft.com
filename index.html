@@ -2852,22 +2852,31 @@ function goToAIChat() {
   updateMascotSpeech('พร้อมตอบคำถามแล้วค่ะ! พิมพ์ถามกูรูได้เลยนะ 😊');
 }
 
-// ฟังก์ชันอัปเดตคำพูดในบอลลูนของ Mascot
-function updateMascotSpeech(text) {
-  const speechText = document.getElementById('mascot-speech-text');
-  if (speechText) {
-    speechText.textContent = text;
-  }
-}
+    // ฟังก์ชันอัปเดตข้อความ Mascot
+    function updateMascotSpeech(text) {
+      const speechText = document.getElementById('mascot-speech-text');
+      if (speechText) {
+        speechText.textContent = text;
+      }
+    }
 
-// ตัวอย่างการปรับฟังก์ชันการส่งแชทให้ Mascot ตอบรับ (อัปเดตใส่ในฟังก์ชันส่งแชทเดิมของคุณ)
-/*
-  ขณะผู้ใช้กดส่งคำถาม: 
-  updateMascotSpeech('กำลังคิดคำตอบให้นะครับ... 🤔');
+    // ฟังก์ชันส่งข้อความ (Simulate AI Request)
+    async function handleSendMessage() {
+      const input = document.getElementById('user-input');
+      const userText = input.value.trim();
 
-  เมื่อ AI ประมวลผลและตอบคำถามเรียบร้อย:
-  updateMascotSpeech('ตอบเรียบร้อยแล้วครับ! มีคำถามเพิ่มเติมไหมครับ? 🍍');
-*/
+      if (!userText) return;
+
+      // 1. แจ้ง Mascot ให้แสดงสถานะกำลังคิดทันทีที่กดส่ง
+      updateMascotSpeech('กำลังคิดคำตอบให้อยู่ค่ะ 🤔');
+      input.value = ''; // ล้างช่องพิมพ์
+
+      // 2. จำลองการส่งคำถามไปประมวลผลที่ AI (หน่วงเวลา 2 วินาที)
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // 3. เปลี่ยนข้อความ Mascot เมื่อ AI ประมวลผลเสร็จสิ้น
+      updateMascotSpeech('ตอบเรียบร้อยแล้วค่า! มีคำถามเพิ่มเติมไหมค่ะ? 🍍UWU');
+    }
 
 
 </script>
