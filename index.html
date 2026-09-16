@@ -251,75 +251,79 @@
 
 <body class="antialiased selection:bg-pa-softorange selection:text-pa-darkbrown">
 
-  <!-- Header & Navigation -->
-  <header class="sticky top-0 z-40 backdrop-blur-md border-b">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <a href="#" onclick="switchPage('home'); return false;" class="flex items-center gap-3 group">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white shadow-md shadow-pa-primary/20 group-hover:scale-105 transition-transform">
-          <i class="fa-solid font-bold text-xl">🍍</i>
-        </div>
-        <div>
-          <span class="text-xl font-bold tracking-tight text-pa-darkbrown block leading-tight">Pineapple<span class="text-pa-primary">Craft</span></span>
-          <span class="text-xs text-pa-brown font-light tracking-wide">.com</span>
-        </div>
-      </a>
-
-      <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-1 bg-pa-softorange/50 p-1.5 rounded-full border border-pa-lightbrown/40">
-        <button onclick="switchPage('home')" id="nav-home" class="tab-btn active px-3 py-2 rounded-full text-xs lg:text-sm font-medium transition-all duration-200">
-          <i class="fa-solid fa-house mr-1"></i>หน้าหลัก
-        </button>
-        <button onclick="switchPage('purpose')" id="nav-purpose" class="tab-btn px-3 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
-          <i class="fa-solid fa-bullseye mr-1"></i>วัตถุประสงค์
-        </button>
-        <button onclick="switchPage('guide')" id="nav-guide" class="tab-btn px-3 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
-          <i class="fa-solid fa-book-open mr-1"></i>คู่มือการปลูก
-        </button>
-        <button onclick="switchPage('ai')" id="nav-ai" class="tab-btn px-3 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
-          <i class="fa-solid fa-robot mr-1"></i>AI กูรู
-        </button>
-        <button onclick="switchPage('games')" id="nav-games" class="tab-btn px-3 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
-          <i class="fa-solid fa-gamepad mr-1"></i>มินิเกม
-        </button>
-        <button onclick="switchPage('founders')" id="nav-founders" class="tab-btn px-3 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
-          <i class="fa-solid fa-users mr-1"></i>ผู้ก่อตั้ง
-        </button>
-        <button onclick="switchPage('upcycle')" id="nav-upcycle" class="tab-btn px-3 py-2 rounded-full text-xs lg:text-sm font-medium text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
-          <i class="fa-solid fa-recycle mr-1"></i>แปรรูปเศษเหลือใช้
-        </button>
-      </nav>
-
-      <div class="flex items-center gap-2">
-        <button onclick="toggleThemeModal()" class="flex items-center gap-2 bg-pa-card hover:bg-pa-softorange px-3 py-2 rounded-xl border border-pa-lightbrown transition-all text-xs text-pa-darkbrown" title="เลือกโทนสี">
-          <i class="fa-solid fa-palette text-pa-primary text-sm"></i>
-          <span class="hidden sm:inline font-medium">เปลี่ยนโทนสี</span>
-        </button>
-
-        <button onclick="showSavedGuidesModal()" class="hidden sm:flex items-center gap-2 bg-pa-card hover:bg-pa-softorange px-3 py-2 rounded-xl border border-pa-lightbrown transition-all text-xs text-pa-darkbrown">
-          <i class="fa-solid fa-bookmark text-pa-primary"></i>
-          <span>บันทึก (<span id="saved-count">0</span>)</span>
-        </button>
-
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl text-pa-darkbrown hover:bg-pa-softorange focus:outline-none">
-          <i class="fa-solid fa-bars text-xl"></i>
-        </button>
+ <!-- Header & Navigation -->
+<header class="sticky top-0 z-40 backdrop-blur-md border-b bg-pa-bg/80">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2">
+    
+    <!-- Logo (ใส่ shrink-0 ป้องกันโดนบีบขนาด) -->
+    <a href="#" onclick="switchPage('home'); return false;" class="flex items-center gap-3 group shrink-0">
+      <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-pa-primary to-pa-accent flex items-center justify-center text-white shadow-md shadow-pa-primary/20 group-hover:scale-105 transition-transform">
+        <i class="fa-solid font-bold text-xl">🍍</i>
       </div>
-    </div>
+      <div class="flex flex-col justify-center">
+        <span class="text-lg sm:text-xl font-bold tracking-tight text-pa-darkbrown leading-tight whitespace-nowrap">
+          Pineapple<span class="text-pa-primary">Craft</span><span class="text-xs text-pa-brown font-light tracking-wide ml-0.5">.com</span>
+        </span>
+      </div>
+    </a>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-pa-bg border-b border-pa-lightbrown px-4 pt-2 pb-6 space-y-2">
-      <button onclick="switchPage('home'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">หน้าหลัก</button>
-      <button onclick="switchPage('purpose'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">วัตถุประสงค์</button>
-      <button onclick="switchPage('guide'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">คู่มือการปลูก</button>
-      <button onclick="switchPage('ai'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">AI สับปะรดกูรู</button>
-      <button onclick="switchPage('games'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">🎮 มินิเกมสับปะรด</button>
-      <button onclick="switchPage('founders'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">ผู้ก่อตั้ง</button>
-      <button onclick="toggleThemeModal(); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-primary bg-pa-softorange/50 flex items-center justify-between">
-      <button onclick="switchPage('upcycle'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">♻️ แปรรูปเศษเหลือใช้</button>
-        <span><i class="fa-solid fa-palette mr-2"></i>เปลี่ยนโทนสีเว็บไซต์</span>
+    <!-- Desktop Nav (เปลี่ยนเป็น xl:flex เพื่อให้แสดงบนจอใหญ่เท่านั้น เนื่องจากมีถึง 7 เมนู จอขนาดกลางจะใช้แฮมเบอร์เกอร์เมนูแทนเพื่อไม่ให้เบียดกัน) -->
+    <nav class="hidden xl:flex items-center gap-1 bg-pa-softorange/50 p-1.5 rounded-full border border-pa-lightbrown/40">
+      <button onclick="switchPage('home')" id="nav-home" class="tab-btn active px-3 py-2 rounded-full text-xs xl:text-sm font-medium whitespace-nowrap transition-all duration-200">
+        <i class="fa-solid fa-house mr-1"></i>หน้าหลัก
+      </button>
+      <button onclick="switchPage('purpose')" id="nav-purpose" class="tab-btn px-3 py-2 rounded-full text-xs xl:text-sm font-medium whitespace-nowrap text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+        <i class="fa-solid fa-bullseye mr-1"></i>วัตถุประสงค์
+      </button>
+      <button onclick="switchPage('guide')" id="nav-guide" class="tab-btn px-3 py-2 rounded-full text-xs xl:text-sm font-medium whitespace-nowrap text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+        <i class="fa-solid fa-book-open mr-1"></i>คู่มือการปลูก
+      </button>
+      <button onclick="switchPage('ai')" id="nav-ai" class="tab-btn px-3 py-2 rounded-full text-xs xl:text-sm font-medium whitespace-nowrap text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+        <i class="fa-solid fa-robot mr-1"></i>AI กูรู
+      </button>
+      <button onclick="switchPage('games')" id="nav-games" class="tab-btn px-3 py-2 rounded-full text-xs xl:text-sm font-medium whitespace-nowrap text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+        <i class="fa-solid fa-gamepad mr-1"></i>มินิเกม
+      </button>
+      <button onclick="switchPage('founders')" id="nav-founders" class="tab-btn px-3 py-2 rounded-full text-xs xl:text-sm font-medium whitespace-nowrap text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+        <i class="fa-solid fa-users mr-1"></i>ผู้ก่อตั้ง
+      </button>
+      <button onclick="switchPage('upcycle')" id="nav-upcycle" class="tab-btn px-3 py-2 rounded-full text-xs xl:text-sm font-medium whitespace-nowrap text-pa-darkbrown hover:text-pa-primary transition-all duration-200">
+        <i class="fa-solid fa-recycle mr-1"></i>แปรรูปเศษเหลือใช้
+      </button>
+    </nav>
+
+    <!-- Right Action Buttons (ใส่ shrink-0 ป้องกันโดนบีบ) -->
+    <div class="flex items-center gap-2 shrink-0">
+      <button onclick="toggleThemeModal()" class="flex items-center gap-2 bg-pa-card hover:bg-pa-softorange px-3 py-2 rounded-xl border border-pa-lightbrown transition-all text-xs text-pa-darkbrown whitespace-nowrap" title="เลือกโทนสี">
+        <i class="fa-solid fa-palette text-pa-primary text-sm"></i>
+        <span class="hidden sm:inline font-medium">เปลี่ยนโทนสี</span>
+      </button>
+
+      <button onclick="showSavedGuidesModal()" class="hidden sm:flex items-center gap-2 bg-pa-card hover:bg-pa-softorange px-3 py-2 rounded-xl border border-pa-lightbrown transition-all text-xs text-pa-darkbrown whitespace-nowrap">
+        <i class="fa-solid fa-bookmark text-pa-primary"></i>
+        <span>บันทึก (<span id="saved-count">0</span>)</span>
+      </button>
+
+      <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="xl:hidden p-2.5 rounded-xl text-pa-darkbrown hover:bg-pa-softorange focus:outline-none">
+        <i class="fa-solid fa-bars text-xl"></i>
       </button>
     </div>
-  </header>
+  </div>
+
+  <!-- Mobile Menu (ปรับโครงสร้างปุ่มให้แยกกันถูกต้อง) -->
+  <div id="mobile-menu" class="hidden xl:hidden bg-pa-bg border-b border-pa-lightbrown px-4 pt-2 pb-6 space-y-2">
+    <button onclick="switchPage('home'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">หน้าหลัก</button>
+    <button onclick="switchPage('purpose'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">วัตถุประสงค์</button>
+    <button onclick="switchPage('guide'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">คู่มือการปลูก</button>
+    <button onclick="switchPage('ai'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">AI สับปะรดกูรู</button>
+    <button onclick="switchPage('games'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">🎮 มินิเกมสับปะรด</button>
+    <button onclick="switchPage('founders'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">ผู้ก่อตั้ง</button>
+    <button onclick="switchPage('upcycle'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-darkbrown hover:bg-pa-softorange">♻️ แปรรูปเศษเหลือใช้</button>
+    <button onclick="toggleThemeModal(); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium text-pa-primary bg-pa-softorange/50 flex items-center justify-between">
+      <span><i class="fa-solid fa-palette mr-2"></i>เปลี่ยนโทนสีเว็บไซต์</span>
+    </button>
+  </div>
+</header>
 
   <!-- Daily Quick Tip Banner -->
   <div class="bg-gradient-to-r from-pa-primary/10 via-pa-accent/10 to-pa-primary/10 border-b border-pa-lightbrown/40 py-2.5 px-4 text-xs text-pa-darkbrown">
