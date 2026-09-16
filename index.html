@@ -2047,7 +2047,9 @@ function toggleExpand(stepId) {
       msgDiv.className = 'flex gap-3 items-start';
       let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
       msgDiv.innerHTML = `
-        <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
+        <div class="w-8 h-8 rounded-full bg-pa-primary/10 border border-pa-primary/30 overflow-hidden shrink-0 p-0.5">
+  <img src="https://cdn.discordapp.com/attachments/1417094894467420214/1549328515889889320/IMG_8698.png" class="w-full h-full object-contain" alt="Guru Avatar">
+</div>
         <div class="bg-pa-bg p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">${formattedText}</div>
       `;
       chatBox.appendChild(msgDiv);
