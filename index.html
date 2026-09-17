@@ -2625,6 +2625,8 @@ async function readSSE(response, onEvent) {
     const chunk = await reader.read();
     if (chunk.done) break;
     buffer += decoder.decode(chunk.value, { stream: true });
+    // Google คั่นก้อนข้อมูลด้วย CRLF ต้องแปลงเป็น LF ก่อน ไม่งั้นหาขอบก้อนไม่เจอ
+    buffer = buffer.replace(/\r\n/g, '\n');
 
     let sep;
     while ((sep = buffer.indexOf('\n\n')) !== -1) {
@@ -2754,11 +2756,24 @@ async function callGenerateContentAPI(model, apiKey, userText, onDelta) {
   return text;
 }
 
+/* คืน URL ของ proxy แบบเติม https:// ให้อัตโนมัติ
+   ถ้าลืมใส่ https:// เบราว์เซอร์จะมองว่าเป็น path ในเว็บเราเอง แล้วยิง POST ไปที่ GitHub Pages
+   ซึ่งรับแต่ GET จึงตอบกลับเป็น 405 Method Not Allowed */
+function getProxyUrl() {
+  let url = String(GEMINI_CONFIG.proxyUrl || '').trim();
+  if (!url || url.indexOf('<') !== -1) return '';
+  if (!/^https?:\/\//i.test(url)) {
+    url = 'https://' + url.replace(/^\/+/, '');
+    console.warn('[AI] proxyUrl ไม่มี https:// นำหน้า เติมให้อัตโนมัติเป็น', url);
+  }
+  return url.replace(/\/+$/, '');
+}
+
 /* ---------- Transport 3: proxy ของเราเอง (ปลอดภัยที่สุด — ไม่มีคีย์ในหน้าเว็บ) ---------- */
 async function callProxyAPI(userText, onDelta) {
   const useStream = GEMINI_CONFIG.stream && typeof TextDecoder !== 'undefined';
 
-  const res = await fetch(GEMINI_CONFIG.proxyUrl, {
+  const res = await fetch(getProxyUrl(), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -2792,7 +2807,7 @@ async function callProxyAPI(userText, onDelta) {
 /* ---------- ตัวเรียกหลัก ---------- */
 async function askGemini(userText, onDelta) {
   // มี proxy = ใช้ proxy เสมอ (คีย์อยู่ฝั่งเซิร์ฟเวอร์ ปลอดภัยกว่า)
-  if (GEMINI_CONFIG.proxyUrl && GEMINI_CONFIG.proxyUrl.indexOf('<') === -1) {
+  if (getProxyUrl()) {
     return await callProxyAPI(userText, onDelta);
   }
 
@@ -3002,7 +3017,7 @@ function clearChatHistory() {
 function updateAIStatusBadge() {
   const el = document.getElementById('ai-status-text');
   if (!el) return;
-  const usingProxy = GEMINI_CONFIG.proxyUrl && GEMINI_CONFIG.proxyUrl.indexOf('<') === -1;
+  const usingProxy = !!getProxyUrl();
   if (usingProxy && geminiOnline !== false) {
     el.textContent = 'เชื่อมต่อผ่านเซิร์ฟเวอร์ของเว็บ พร้อมให้คำปรึกษา';
   } else if (!usingProxy && !getGeminiKey()) {
