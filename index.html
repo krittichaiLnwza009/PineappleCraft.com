@@ -2087,7 +2087,48 @@ function toggleExpand(stepId) {
     function escapeHtml(text) {
       return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
-// ================= 7. SMART AI ASSISTANT (HUMAN-LIKE & WITTY) =================
+// ================= 7. SMART AI ASSISTANT (HUMAN-LIKE & WITTY WITH VOICE) =================
+
+// ฟังก์ชันพากย์เสียงผู้หญิงน่ารัก (Text-to-Speech)
+function speakCuteFemaleVoice(text) {
+  if (!('speechSynthesis' in window)) return;
+
+  // กรองข้อความและสัญลักษณ์ที่ไม่ต้องการให้อ่านออกเสียง
+  let cleanText = text
+    .replace(/<[^>]*>/g, '')                 // ลบ HTML tags
+    .replace(/\*\*(.*?)\*\*/g, '$1')         // ลบ Markdown ตัวหนา
+    .replace(/https?:\/\/\S+/g, 'ตามลิงก์นี้เลยค่ะ') // เปลี่ยน URL ให้พูดสั้นๆ
+    .replace(/[•\-\*]/g, '')                 // ลบหัวข้อสัญลักษณ์
+    .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '') // ลบ อีโมจิ
+    .trim();
+
+  window.speechSynthesis.cancel(); // ยกเลิกเสียงพูดเดิมก่อนหน้า
+
+  const utterance = new SpeechSynthesisUtterance(cleanText);
+  utterance.lang = 'th-TH';
+  utterance.pitch = 1.35; // ปรับความสูงเสียงให้น่ารักสดใส (1.3 - 1.4)
+  utterance.rate = 1.05;  // ปรับความเร็วเสียงเล็กน้อย
+
+  // ดึงเสียงผู้หญิงภาษาไทย
+  const voices = window.speechSynthesis.getVoices();
+  const thaiFemaleVoice = voices.find(v => 
+    (v.lang.includes('th') || v.lang.includes('TH')) && 
+    (v.name.includes('Kanya') || v.name.includes('Narisa') || v.name.includes('Premwadee') || v.name.includes('Google') || v.name.includes('Female'))
+  ) || voices.find(v => v.lang.includes('th') || v.lang.includes('TH'));
+
+  if (thaiFemaleVoice) {
+    utterance.voice = thaiFemaleVoice;
+  }
+
+  window.speechSynthesis.speak(utterance);
+}
+
+// โหลดข้อมูลเสียงล่วงหน้าสำหรับ Chrome
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.onvoiceschanged = () => {
+    window.speechSynthesis.getVoices();
+  };
+}
 
 // ตัวช่วยสุ่มข้อความเพื่อให้คำตอบไม่ซ้ำซาก
 function getRandomReply(arr) {
@@ -2117,7 +2158,7 @@ function getSmartKnowledgeBaseReply(msg) {
     ]);
   }
   
-if (lowerMsg.includes('143')) {
+  if (lowerMsg.includes('143')) {
     return getRandomReply([
       "I'm sorry mari...",
       "I Love You...",
@@ -2134,7 +2175,7 @@ if (lowerMsg.includes('143')) {
   }
 
   // 2. หมวดตบมุก / หยอกล้อ / คุยเล่นทั่วไป
-  if (lowerMsg.includes('น่ารัก') || lowerMsg.includes('หล่อ') || lowerMsg.includes('จีบ') || lowerMsg.includes('น่ารัก')) {
+  if (lowerMsg.includes('น่ารัก') || lowerMsg.includes('หล่อ') || lowerMsg.includes('จีบ')) {
     return getRandomReply([
       "เขิน... แต่หนูเป็นแค่อัลกอริทึมนะ คุณจะตกหลุมรักหุ่นยนต์จริงๆ เหรอ? 😳",
       "อย่ามาหยอดน่ะ เดี๋ยวหนูยอมเขียวช้ำเหมือนสับปะรดโดนกระแทกนะ!",
@@ -2151,125 +2192,124 @@ if (lowerMsg.includes('143')) {
   }
 
   if (lowerMsg.includes('มิสเตอบีส') || lowerMsg.includes('mrbeast') || lowerMsg.includes('mr.beast')) {
-  return 'MrBeast เอาชีวิตรอดบนเกาะ 7 วัน\nhttps://www.youtube.com/watch?v=erLbbextvlY';
-}
+    return 'MrBeast เอาชีวิตรอดบนเกาะ 7 วัน\nhttps://www.youtube.com/watch?v=erLbbextvlY';
+  }
 
   if (lowerMsg.includes('ชื่ออะไร') || lowerMsg.includes('คือใคร') || lowerMsg.includes('ใครคือ') || lowerMsg.includes('name')) {
     return getRandomReply([
       "หนูคือ AI ผู้ช่วยประจำ PineappleCraft.com ครับ",
       "หนูคืออะไรนะหรอ? จะเรียกคนสวยก็ได้นะ!"
-      ]);
+    ]);
   }
-if (lowerMsg.includes('พันธ์แนะนำ') || lowerMsg.includes('พันแนะนำ') || lowerMsg.includes('พันธ์สับปะรส') || lowerMsg.includes('พันสับปะรส') || lowerMsg.includes('พันธ์สัปรส') || lowerMsg.includes('พันสัปรส') || lowerMsg.includes('แนนำ') || lowerMsg.includes('แนะนำ')) {
+
+  if (lowerMsg.includes('พันธ์แนะนำ') || lowerMsg.includes('พันแนะนำ') || lowerMsg.includes('พันธ์สับปะรส') || lowerMsg.includes('พันสับปะรส') || lowerMsg.includes('พันธ์สัปรส') || lowerMsg.includes('พันสัปรส') || lowerMsg.includes('แนนำ') || lowerMsg.includes('แนะนำ')) {
     return 'ถ้าให้แนะนำ ก็คงจะเป็นพันธ์ปัตตาเวีย หรือไม่ก็พันธ์ภุเก็ตนะค่ะ\nสามารถดูพันธ์ที่สนใจได้ที่หน้าแรกเลยค่ะ';
-}
-  // 3. หมวดความรู้สับปะรด (วิชาการตามเดิม)
-  // ฟังก์ชันสุ่มเลือกคำตอบ
-const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  }
 
-// คลังข้อมูลความรู้เกษตรสับปะรดแม่นยำ (Advanced Dynamic Pineapple KB)
-const pineappleKB = {
-  soil: [
-    `🧪 **ปฐพีวิทยาและเคมีดินสำหรับสับปะรด (Detailed Soil Chemistry)**:\n\n` +
-    `• **ค่า pH เป้าหมาย**: 4.5 - 5.5 (ชอบดินร่วนปนทราย ร่าซุย ถ่ายเทอากาศดี)\n` +
-    `• **การแก้ไขดินกรดจัด (pH < 4.0)**: หว่านโดโลไมต์ (Dolomite) 100-200 กก./ไร่ หว่านกลบก่อนปลูก 3-4 สัปดาห์ เพื่อเติม Mg และ Ca ในดิน\n` +
-    `• **การจัดการดินด่าง (pH > 6.0)**: พืชจะเกิดภาวะตรึงธาตุอาหาร (Fe/Zn Lockup) ทำให้ใบยอดเหลืองซีด แก้ไขโดยฉีดพ่น Fe-EDTA (เหล็กคีเลต) 0.2% ทางใบ\n` +
-    `• **การวิศวกรรมแปลง**: ยกร่องสูง 30-40 ซม. กว้าง 80-100 ซม. วางระบบระบายน้ำรอบแปลง ป้องกันภาวะรากขาดออกซิเจน (Hypoxia)`,
+  // 3. หมวดความรู้สับปะรด (วิชาการ)
+  const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-    `🌱 **การบริหารจัดการสภาพดินและการระบายน้ำระดับแปลง**:\n\n` +
-    `• **สภาพกรด-ด่างที่เหมาะสม**: pH 4.8 - 5.2 และค่าความนำไฟฟ้า (EC) ไม่ควรเกิน 1.2 dS/m\n` +
-    `• **การปรับสภาพด้วยปูน**: หาก pH < 4.2 ให้ใช้โดโลไมต์เพื่อเพิ่มค่า CEC (Cation Exchange Capacity) ให้พืชแลกเปลี่ยนธาตุอาหารได้ดีขึ้น\n` +
-    `• **การป้องกันโรครากเน่า**: สับปะรดทนแล้งแต่ไวต่อการขังน้ำ การยกร่องแปลงสูง 35-40 ซม. ร่วมกับการคลุมพลาสติกปูดิน จะช่วยลดการสะสมเชื้อราสปอร์ในดินได้ถึง 70%`,
+  const pineappleKB = {
+    soil: [
+      `🧪 **ปฐพีวิทยาและเคมีดินสำหรับสับปะรด (Detailed Soil Chemistry)**:\n\n` +
+      `• **ค่า pH เป้าหมาย**: 4.5 - 5.5 (ชอบดินร่วนปนทราย ร่าซุย ถ่ายเทอากาศดี)\n` +
+      `• **การแก้ไขดินกรดจัด (pH < 4.0)**: หว่านโดโลไมต์ (Dolomite) 100-200 กก./ไร่ หว่านกลบก่อนปลูก 3-4 สัปดาห์ เพื่อเติม Mg และ Ca ในดิน\n` +
+      `• **การจัดการดินด่าง (pH > 6.0)**: พืชจะเกิดภาวะตรึงธาตุอาหาร (Fe/Zn Lockup) ทำให้ใบยอดเหลืองซีด แก้ไขโดยฉีดพ่น Fe-EDTA (เหล็กคีเลต) 0.2% ทางใบ\n` +
+      `• **การวิศวกรรมแปลง**: ยกร่องสูง 30-40 ซม. กว้าง 80-100 ซม. วางระบบระบายน้ำรอบแปลง ป้องกันภาวะรากขาดออกซิเจน (Hypoxia)`,
 
-    `📐 **โภชนาการดินและการเตรียมพื้นที่ปลูกเชิงลึก**:\n\n` +
-    `• **สมดุลธาตุอาหารในดิน**: ดินที่มี pH < 4.0 จะมีพิษจากอะลูมิเนียมและแมงกานีสสูง ต้องใช้โดโลไมต์ปรับสภาพ\n` +
-    `• **อินทรียวัตถุ (OM)**: ควรมีในดิน 1.5 - 2.0% ขึ้นไป การใส่ปุ๋ยหมักย่อยสลายสมบูรณ์ช่วยเพิ่มจุลินทรีย์ส่งเสริมการเติบโต (PGPR)\n` +
-    `• **การจัดการพื้นที่**: ควรทำระบบยกร่องคู่ (Double Row) ระยะปลูก 30x50x90 ซม. ช่วยเพิ่มความหนาแน่นและระบายน้ำได้ดีที่สุด`
-  ],
+      `🌱 **การบริหารจัดการสภาพดินและการระบายน้ำระดับแปลง**:\n\n` +
+      `• **สภาพกรด-ด่างที่เหมาะสม**: pH 4.8 - 5.2 และค่าความนำไฟฟ้า (EC) ไม่ควรเกิน 1.2 dS/m\n` +
+      `• **การปรับสภาพด้วยปูน**: หาก pH < 4.2 ให้ใช้โดโลไมต์เพื่อเพิ่มค่า CEC (Cation Exchange Capacity) ให้พืชแลกเปลี่ยนธาตุอาหารได้ดีขึ้น\n` +
+      `• **การป้องกันโรครากเน่า**: สับปะรดทนแล้งแต่ไวต่อการขังน้ำ การยกร่องแปลงสูง 35-40 ซม. ร่วมกับการคลุมพลาสติกปูดิน จะช่วยลดการสะสมเชื้อราสปอร์ในดินได้ถึง 70%`,
 
-  forcing: [
-    `🍍 **การบังคับออกดอกด้วยสารเอทธิฟอน (Physiological Forcing)**:\n\n` +
-    `• **ดัชนีความพร้อม**: ต้นต้องมีอายุ 8-10 เดือน น้ำหนักสด > 2.5 กก. มีใบสมบูรณ์ (D-leaf) ไม่ต่ำกว่า 35-40 ใบ\n` +
-    `• **อัตราผสมมาตรฐาน (น้ำ 20 ลิตร)**:\n` +
-    `  - เอทธิฟอน (Ethrel 48%) 10-20 ซีซี\n` +
-    `  - ปุ๋ยยูเรีย (46-0-0) 300-500 กรัม (ยูเรียช่วยกระตุ้นการเปิดปากใบและการดูดซึมสาร)\n` +
-    `• **เทคนิคการใช้น้ำ**: หยอดลงใจกลางยอด 60 ซีซี/ต้น ในช่วงเวลา 18.00 - 22.00 น. (อุณหภูมิต่ำช่วยให้เอทิลีนไม่ระเหยเร็วกว่าการดูดซึม)\n` +
-    `• **ข้อควรระวัง**: งดปุ๋ยไนโตรเจนสูงก่อนหยอดสาร 30 วัน หากฝนตกภายใน 4 ชม. หลังหยอด ต้องทำซ้ำในอีก 3-5 วัน`,
+      `📐 **โภชนาการดินและการเตรียมพื้นที่ปลูกเชิงลึก**:\n\n` +
+      `• **สมดุลธาตุอาหารในดิน**: ดินที่มี pH < 4.0 จะมีพิษจากอะลูมิเนียมและแมงกานีสสูง ต้องใช้โดโลไมต์ปรับสภาพ\n` +
+      `• **อินทรียวัตถุ (OM)**: ควรมีในดิน 1.5 - 2.0% ขึ้นไป การใส่ปุ๋ยหมักย่อยสลายสมบูรณ์ช่วยเพิ่มจุลินทรีย์ส่งเสริมการเติบโต (PGPR)\n` +
+      `• **การจัดการพื้นที่**: ควรทำระบบยกร่องคู่ (Double Row) ระยะปลูก 30x50x90 ซม. ช่วยเพิ่มความหนาแน่นและระบายน้ำได้ดีที่สุด`
+    ],
 
-    `🌸 **ขั้นตอนการชักนำการออกดอกนอกฤดูอย่างแม่นยำ**:\n\n` +
-    `1. **สูตรสารละลาย**: เอทธิฟอน 15 ซีซี + ยูเรีย 400 กรัม + น้ำ 20 ลิตร\n` +
-    `2. **ตารางการหยอด**: หยอด 2 ครั้ง ห่างกัน 7 วัน (ครั้งแรกเปิดปากใบ ครั้งที่สองย้ำการชักนำ) หยอดต้นละ 50-60 ซีซี\n` +
-    `3. **สภาพอากาศ**: ทำงานช่วงค่ำหรือมืดสนิท เลี่ยงช่วงแดดจัด ป้องกันสารสลายตัวด้วยแสง (Photodecomposition)\n` +
-    `4. **ประเมินผล**: หลังหยอด 21-25 วัน จะเริ่มเห็นจุดกำเนิดดอก (Flower Primordia) สีแดงอมชมพูที่ใจกลางยอด`,
+    forcing: [
+      `🍍 **การบังคับออกดอกด้วยสารเอทธิฟอน (Physiological Forcing)**:\n\n` +
+      `• **ดัชนีความพร้อม**: ต้นต้องมีอายุ 8-10 เดือน น้ำหนักสด > 2.5 กก. มีใบสมบูรณ์ (D-leaf) ไม่ต่ำกว่า 35-40 ใบ\n` +
+      `• **อัตราผสมมาตรฐาน (น้ำ 20 ลิตร)**:\n` +
+      `  - เอทธิฟอน (Ethrel 48%) 10-20 ซีซี\n` +
+      `  - ปุ๋ยยูเรีย (46-0-0) 300-500 กรัม (ยูเรียช่วยกระตุ้นการเปิดปากใบและการดูดซึมสาร)\n` +
+      `• **เทคนิคการใช้น้ำ**: หยอดลงใจกลางยอด 60 ซีซี/ต้น ในช่วงเวลา 18.00 - 22.00 น. (อุณหภูมิต่ำช่วยให้เอทิลีนไม่ระเหยเร็วกว่าการดูดซึม)\n` +
+      `• **ข้อควรระวัง**: งดปุ๋ยไนโตรเจนสูงก่อนหยอดสาร 30 วัน หากฝนตกภายใน 4 ชม. หลังหยอด ต้องทำซ้ำในอีก 3-5 วัน`,
 
-    `⚡ **ระบบเร่งดอกสับปะรดให้สม่ำเสมอทั้งแปลง**:\n\n` +
-    `• **เตรียมความพร้อม**: ลดระดับ C/N Ratio ในต้นโดยหยุดจ่ายปุ๋ย N ก่อนหยอดสารอย่างน้อย 1 เดือน\n` +
-    `• **สูตรเสริมประสิทธิภาพ**: เอทธิฟอน 20 ซีซี + ยูเรีย 300 กรัม + ซิงค์ซัลเฟต 20 กรัม (ช่วยเพิ่มฮอร์โมน auxins ธรรมชาติ) ต่อน้ำ 20 ลิตร\n` +
-    `• **การปฏิบัติงาน**: ฉีดพ่นเข้าทรงพุ่มหรือหยอดใจยอดอัตรา 60 ซีซี/ต้น ช่วงกลางคืน หากอุณหภูมิ夜間 ต่ำกว่า 25°C จะได้ผลดีที่สุด`
-  ],
+      `🌸 **ขั้นตอนการชักนำการออกดอกนอกฤดูอย่างแม่นยำ**:\n\n` +
+      `1. **สูตรสารละลาย**: เอทธิฟอน 15 ซีซี + ยูเรีย 400 กรัม + น้ำ 20 ลิตร\n` +
+      `2. **ตารางการหยอด**: หยอด 2 ครั้ง ห่างกัน 7 วัน (ครั้งแรกเปิดปากใบ ครั้งที่สองย้ำการชักนำ) หยอดต้นละ 50-60 ซีซี\n` +
+      `3. **สภาพอากาศ**: ทำงานช่วงค่ำหรือมืดสนิท เลี่ยงช่วงแดดจัด ป้องกันสารสลายตัวด้วยแสง (Photodecomposition)\n` +
+      `4. **ประเมินผล**: หลังหยอด 21-25 วัน จะเริ่มเห็นจุดกำเนิดดอก (Flower Primordia) สีแดงอมชมพูที่ใจกลางยอด`,
 
-  diseases: [
-    `🛡️ **การบริหารจัดการโรคและแมลงศัตรูพืชแบบบูรณาการ (IPM)**:\n\n` +
-    `• **โรคยอดเน่า/ต้นเน่า (*Phytophthora nicotianae*)**:\n` +
-    `  - *อาการ*: ใบตรงกลางเหี่ยวซีด ดึงหลุดง่าย โคนต้นเน่ามีกลิ่นเหม็นคาว\n` +
-    `  - *ป้องกัน*: จุ่มหน่อพันธุ์ก่อนปลูกด้วย เมทาแลกซิล (Metalaxyl 35% DS) 30 กรัม/น้ำ 20 ลิตร นาน 10 นาที\n` +
-    `  - *รักษา*: ฉีดพ่น ฟอสเอทิล-อลูมินัม (Fosetyl-Al) 50 กรัม/น้ำ 20 ลิตร\n` +
-    `• **เพลี้ยแป้ง (*Dysmicoccus neobrevipes*) & ไวรัสใบเหี่ยว (PMWV)**:\n` +
-    `  - *การควบคุม*: เพลี้ยแป้งมีมดเป็นพาหะ ให้ฉีดพ่น อิมิดาโคลพริด (Imidacloprid) หรือ ไทอะมีโทแซม (Thiamethoxam) บริเวณโคนต้นและกาบใบล่าง`,
+      `⚡ **ระบบเร่งดอกสับปะรดให้สม่ำเสมอทั้งแปลง**:\n\n` +
+      `• **เตรียมความพร้อม**: ลดระดับ C/N Ratio ในต้นโดยหยุดจ่ายปุ๋ย N ก่อนหยอดสารอย่างน้อย 1 เดือน\n` +
+      `• **สูตรเสริมประสิทธิภาพ**: เอทธิฟอน 20 ซีซี + ยูเรีย 300 กรัม + ซิงค์ซัลเฟต 20 กรัม (ช่วยเพิ่มฮอร์โมน auxins ธรรมชาติ) ต่อน้ำ 20 ลิตร\n` +
+      `• **การปฏิบัติงาน**: ฉีดพ่นเข้าทรงพุ่มหรือหยอดใจยอดอัตรา 60 ซีซี/ต้น ช่วงกลางคืน หากอุณหภูมิ夜間 ต่ำกว่า 25°C จะได้ผลดีที่สุด`
+    ],
 
-    `🦠 **คู่มือวินิจฉัยและปกป้องผลผลิตสับปะรด**:\n\n` +
-    `• **เพลี้ยแป้งสับปะรดและมดพาหะ**:\n` +
-    `  - ฉีดพ่นสารกำจัดแมลงประเภทดูดซึม เช่น สไปโรเทตราแมท (Spirotetramat) หรือ อิมิดาโคลพริด ร่วมกับสารจับใบประสิทธิภาพสูง\n` +
-    `  - กำจัดรังมดรอบแปลงด้วยสารฟิโพรนิล (Fipronil) ราดโคนต้น\n` +
-    `• **โรคตาเน่า / ยอดเน่า**:\n` +
-    `  - เกิดจากเชื้อราในดินช่วงฝนตกชุ่ม ให้ใช้ ฟอสฟอนิก แอซิด (Phosphonic acid) ฉีดพ่นทางใบเพื่อกระตุ้นภูมิคุ้มกันพืช (Systemic Acquired Resistance)`,
+    diseases: [
+      `🛡️ **การบริหารจัดการโรคและแมลงศัตรูพืชแบบบูรณาการ (IPM)**:\n\n` +
+      `• **โรคยอดเน่า/ต้นเน่า (*Phytophthora nicotianae*)**:\n` +
+      `  - *อาการ*: ใบตรงกลางเหี่ยวซีด ดึงหลุดง่าย โคนต้นเน่ามีกลิ่นเหม็นคาว\n` +
+      `  - *ป้องกัน*: จุ่มหน่อพันธุ์ก่อนปลูกด้วย เมทาแลกซิล (Metalaxyl 35% DS) 30 กรัม/น้ำ 20 ลิตร นาน 10 นาที\n` +
+      `  - *รักษา*: ฉีดพ่น ฟอสเอทิล-อลูมินัม (Fosetyl-Al) 50 กรัม/น้ำ 20 ลิตร\n` +
+      `• **เพลี้ยแป้ง (*Dysmicoccus neobrevipes*) & ไวรัสใบเหี่ยว (PMWV)**:\n` +
+      `  - *การควบคุม*: เพลี้ยแป้งมีมดเป็นพาหะ ให้ฉีดพ่น อิมิดาโคลพริด (Imidacloprid) หรือ ไทอะมีโทแซม (Thiamethoxam) บริเวณโคนต้นและกาบใบล่าง`,
 
-    `⚠️ **การเฝ้าระวังโรคระบาดสำคัญตามฤดูกาล**:\n\n` +
-    `• **หน้าฝน (ระวังโรคยอดเน่า)**: ฉีดพ่นป้องกันด้วย ฟอสเอทิล-อลูมินัม ทุก 15-30 วัน ยกร่องแปลงให้ระบายน้ำสะดวก งดการใช้ปุ๋ย N สูงเกินไป\n` +
-    `• **หน้าแล้ง (ระวังเพลี้ยแป้งระบาด)**: ตรวจสอบกาบใบล่างระดับดิน หากพบผงสีขาวคล้ายแป้ง ให้พ่น ไดโนทีฟูแรน (Dinotefuran) โดนตัวเพลี้ยโดยตรง\n` +
-    `• **โรคผลเน่าดำ (*Thielaviopsis paradoxa*)**: ป้องกันโดยไม่ให้ผลเกิดแผลระหว่างเก็บเกี่ยว และเก็บในอุณหภูมิที่เหมาะสม`
-  ],
+      `🦠 **คู่มือวินิจฉัยและปกป้องผลผลิตสับปะรด**:\n\n` +
+      `• **เพลี้ยแป้งสับปะรดและมดพาหะ**:\n` +
+      `  - ฉีดพ่นสารกำจัดแมลงประเภทดูดซึม เช่น สไปโรเทตราแมท (Spirotetramat) หรือ อิมิดาโคลพริด ร่วมกับสารจับใบประสิทธิภาพสูง\n` +
+      `  - กำจัดรังมดรอบแปลงด้วยสารฟิโพรนิล (Fipronil) ราดโคนต้น\n` +
+      `• **โรคตาเน่า / ยอดเน่า**:\n` +
+      `  - เกิดจากเชื้อราในดินช่วงฝนตกชุ่ม ให้ใช้ ฟอสฟอนิก แอซิด (Phosphonic acid) ฉีดพ่นทางใบเพื่อกระตุ้นภูมิคุ้มกันพืช (Systemic Acquired Resistance)`,
 
-  fertilizer: [
-    `🍌 **โปรแกรมการให้ปุ๋ยแม่นยำตามระยะการเจริญเติบโต**:\n\n` +
-    `1. **ระยะตั้งตัว (1-3 เดือน)**: เน้นรากและใบ ใส่สูตร 21-0-0 หรือ 16-16-16 อัตรา 10-15 กรัม/ต้น บริเวณกาบใบล่าง\n` +
-    `2. **ระยะสร้างสะสมอาหาร (4-7 เดือน)**: ใส่สูตร 15-15-15 + เสริมพ่นยูเรีย 2% ทางใบ เพื่อขยายขนาดใบและทรงพุ่มก่อนบังคับดอก\n` +
-    `3. **ระยะขยายผล (หลังบังคับดอก 2-4 เดือน)**: เน้น K สูง ใช้สูตร 13-0-46 หรือ 0-0-60 อัตรา 15 กรัม/ต้น เพื่อเพิ่มเนื้อ เพิ่มความหวาน (Brix > 14°) และลดอาการไส้ฟ่าม`,
+      `⚠️ **การเฝ้าระวังโรคระบาดสำคัญตามฤดูกาล**:\n\n` +
+      `• **หน้าฝน (ระวังโรคยอดเน่า)**: ฉีดพ่นป้องกันด้วย ฟอสเอทิล-อลูมินัม ทุก 15-30 วัน ยกร่องแปลงให้ระบายน้ำสะดวก งดการใช้ปุ๋ย N สูงเกินไป\n` +
+      `• **หน้าแล้ง (ระวังเพลี้ยแป้งระบาด)**: ตรวจสอบกาบใบล่างระดับดิน หากพบผงสีขาวคล้ายแป้ง ให้พ่น ไดโนทีฟูแรน (Dinotefuran) โดนตัวเพลี้ยโดยตรง\n` +
+      `• **โรคผลเน่าดำ (*Thielaviopsis paradoxa*)**: ป้องกันโดยไม่ให้ผลเกิดแผลระหว่างเก็บเกี่ยว และเก็บในอุณหภูมิที่เหมาะสม`
+    ],
 
-    `🌾 **ตารางธาตุอาหารสับปะรดระดับมืออาชีพ**:\n\n` +
-    `• **ช่วงเร่งการเติบโต (เดือนที่ 2 และ 4)**: รองโคนด้วย 16-16-16 ร่วมกับปุ๋ยอินทรีย์เคมี\n` +
-    `• **ช่วงก่อนหยอดสารเร่งดอก (เดือนที่ 6-7)**: ฉีดพ่นธาตุอาหารรอง-เสริม (Zn, Mg, B, Fe) ทางใบ เพื่อเตรียมความพร้อมของเนื้อเยื่อเจริญ\n` +
-    `• **ช่วงพัฒนาผลผลิต (หลังดอกบาน)**: ให้ปุ๋ยโพแทสเซียมซัลเฟต ($K_2SO_4$) หรือสูตร 0-0-60 ฉีดพ่นทางใบทุก 15 วัน ช่วยให้แกนเล็ก เนื้อแน่น หวานฉ่ำ`,
+    fertilizer: [
+      `🍌 **โปรแกรมการให้ปุ๋ยแม่นยำตามระยะการเจริญเติบโต**:\n\n` +
+      `1. **ระยะตั้งตัว (1-3 เดือน)**: เน้นรากและใบ ใส่สูตร 21-0-0 หรือ 16-16-16 อัตรา 10-15 กรัม/ต้น บริเวณกาบใบล่าง\n` +
+      `2. **ระยะสร้างสะสมอาหาร (4-7 เดือน)**: ใส่สูตร 15-15-15 + เสริมพ่นยูเรีย 2% ทางใบ เพื่อขยายขนาดใบและทรงพุ่มก่อนบังคับดอก\n` +
+      `3. **ระยะขยายผล (หลังบังคับดอก 2-4 เดือน)**: เน้น K สูง ใช้สูตร 13-0-46 หรือ 0-0-60 อัตรา 15 กรัม/ต้น เพื่อเพิ่มเนื้อ เพิ่มความหวาน (Brix > 14°) และลดอาการไส้ฟ่าม`,
 
-    `💎 **เทคนิคการใส่ปุ๋ยเพิ่มคุณภาพและรสชาติ (Brix Optimization)**:\n\n` +
-    `• **โภชนาการช่วงสร้างผล**: สับปะรดต้องการโพแทสเซียม (K) สูงที่สุดในบรรดาธาตุอาหารทั้งหมด\n` +
-    `• **การใส่ทางกาบใบ**: หยอดปุ๋ยละลายน้ำสูตร 13-0-46 ความเข้มข้น 3-5% ลงที่กาบใบล่างสุด เพื่อให้พืชดูดซึมไปใช้ได้ทันที\n` +
-    `• **คำแนะนำพิเศษ**: งดให้ปุ๋ย ไนโตรเจน (N) ก่อนเก็บเกี่ยว 1.5 เดือน เพื่อป้องกันผลนิ่ม เปลือกบาง และเก็บรักษาได้ไม่นาน`
-  ]
-};
+      `🌾 **ตารางธาตุอาหารสับปะรดระดับมืออาชีพ**:\n\n` +
+      `• **ช่วงเร่งการเติบโต (เดือนที่ 2 และ 4)**: รองโคนด้วย 16-16-16 ร่วมกับปุ๋ยอินทรีย์เคมี\n` +
+      `• **ช่วงก่อนหยอดสารเร่งดอก (เดือนที่ 6-7)**: ฉีดพ่นธาตุอาหารรอง-เสริม (Zn, Mg, B, Fe) ทางใบ เพื่อเตรียมความพร้อมของเนื้อเยื่อเจริญ\n` +
+      `• **ช่วงพัฒนาผลผลิต (หลังดอกบาน)**: ให้ปุ๋ยโพแทสเซียมซัลเฟต (K₂SO₂) หรือสูตร 0-0-60 ฉีดพ่นทางใบทุก 15 วัน ช่วยให้แกนเล็ก เนื้อแน่น หวานฉ่ำ`,
 
-// ตรรกะการคัดสรรและตอบกลับ
-if (lowerMsg.includes('ph') || lowerMsg.includes('กรด') || lowerMsg.includes('ดิน')) {
-  return getRandom(pineappleKB.soil);
-}
+      `💎 **เทคนิคการใส่ปุ๋ยเพิ่มคุณภาพและรสชาติ (Brix Optimization)**:\n\n` +
+      `• **โภชนาการช่วงสร้างผล**: สับปะรดต้องการโพแทสเซียม (K) สูงที่สุดในบรรดาธาตุอาหารทั้งหมด\n` +
+      `• **การใส่ทางกาบใบ**: หยอดปุ๋ยละลายน้ำสูตร 13-0-46 ความเข้มข้น 3-5% ลงที่กาบใบล่างสุด เพื่อให้พืชดูดซึมไปใช้ได้ทันที\n` +
+      `• **คำแนะนำพิเศษ**: งดให้ปุ๋ย ไนโตรเจน (N) ก่อนเก็บเกี่ยว 1.5 เดือน เพื่อป้องกันผลนิ่ม เปลือกบาง และเก็บรักษาได้ไม่นาน`
+    ]
+  };
 
-if (lowerMsg.includes('เอทธิฟอน') || lowerMsg.includes('บังคับดอก') || lowerMsg.includes('ออกดอก')) {
-  return getRandom(pineappleKB.forcing);
-}
+  if (lowerMsg.includes('ph') || lowerMsg.includes('กรด') || lowerMsg.includes('ดิน')) {
+    return getRandom(pineappleKB.soil);
+  }
 
-if (lowerMsg.includes('โรค') || lowerMsg.includes('เน่า') || lowerMsg.includes('เพลี้ย')) {
-  return getRandom(pineappleKB.diseases);
-}
+  if (lowerMsg.includes('เอทธิฟอน') || lowerMsg.includes('บังคับดอก') || lowerMsg.includes('ออกดอก')) {
+    return getRandom(pineappleKB.forcing);
+  }
 
-if (lowerMsg.includes('ปุ๋ย') || lowerMsg.includes('สูตร')) {
-  return getRandom(pineappleKB.fertilizer);
-}
+  if (lowerMsg.includes('โรค') || lowerMsg.includes('เน่า') || lowerMsg.includes('เพลี้ย')) {
+    return getRandom(pineappleKB.diseases);
+  }
+
+  if (lowerMsg.includes('ปุ๋ย') || lowerMsg.includes('สูตร')) {
+    return getRandom(pineappleKB.fertilizer);
+  }
 
   if (lowerMsg.includes('ผู้ก่อตั้ง') || lowerMsg.includes('ทีม')) {
     return "ทีมงานผู้ก่อตั้ง PineappleCraft.com:\n1. นาย บรรณรต ศรีปลัด\n2. นาย คณาพงษ์ กระดุมพรรค\n3. นาย ศุภกร ศิริวงค์\n4. นาย กฤติชัย สุโพธิ์\n5. นาย ปกรณ์ ธัญญารักษ์ ครับ";
   }
 
-  // 4. Fallback ตอบโต้เรื่องอื่นๆ ที่ไม่ตรงคีย์เวิร์ด (ไม่ให้คำตอบดูเป็นหุ่นยนต์แข็งๆ)
+  // 4. Fallback ตอบโต้เรื่องอื่นๆ
   return getRandomReply([
     "หัวข้อนี้ลึกซึ้งมาก! หนูอาจจะยังไม่เชี่ยวชาญเท่าเรื่องสับปะรด แต่เล่าต่อได้นะ รอฟังอยู่คะ 🍍",
     "เอ๊ะ... อันนี้ไม่มีในตำราเกษตรซะด้วยสิ! เอาเป็นว่าคุยเรื่องนี้แป๊บนึง แล้วค่อยไปต่อเรื่องสูตรปุ๋ยไหมค่ะ?",
@@ -2292,13 +2332,84 @@ async function handleChatSubmit(e) {
   appendUserMessage(message);
   const typingId = appendTypingIndicator();
 
-  // สุ่มเวลาพิมพ์ตอบกลับ (600ms - 1200ms) ให้ดูเหมือนมนุษย์กำลังคิดและพิมพ์จริงๆ
   const randomDelay = Math.floor(Math.random() * 600) + 600;
   await new Promise(resolve => setTimeout(resolve, randomDelay));
 
   removeMessage(typingId);
   appendBotMessage(getSmartKnowledgeBaseReply(message));
 }
+
+function askPreset(question) {
+  document.getElementById('chat-input').value = question;
+  document.getElementById('chat-form').dispatchEvent(new Event('submit'));
+}
+
+function clearChatHistory() {
+  document.getElementById('chat-messages').innerHTML = `
+    <div class="flex gap-3 items-start">
+      <div class="w-8 h-8 rounded-full bg-pa-primary text-white flex items-center justify-center text-xs flex-shrink-0">🍍</div>
+      <div class="bg-pa-bg p-4 rounded-2xl border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">
+        ล้างแชทเรียบร้อยครับ! มีข้อสงสัยเกี่ยวกับการปลูกสับปะรด ถามเพิ่มเติมได้เลยครับ!
+      </div>
+    </div>
+  `;
+}
+
+function appendUserMessage(text) {
+  const chatBox = document.getElementById('chat-messages');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = 'flex justify-end';
+  msgDiv.innerHTML = `<div class="bg-pa-primary text-white p-3.5 rounded-2xl rounded-tr-none text-xs sm:text-sm max-w-[80%] shadow-sm">${escapeHtml(text)}</div>`;
+  chatBox.appendChild(msgDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function appendBotMessage(text) {
+  const chatBox = document.getElementById('chat-messages');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = 'flex gap-3 items-start';
+  let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+  msgDiv.innerHTML = `
+    <div class="w-8 h-8 rounded-full bg-pa-primary/10 border border-pa-primary/30 overflow-hidden shrink-0 p-0.5">
+     <img src="https://cdn.discordapp.com/attachments/1417094894467420214/1549328515889889320/IMG_8698.png?ex=6aaa4c1f&is=6aa8fa9f&hm=8c77581c75af5feb8d975a92fff5647c0160dc71b6c9c999eff19070d19ea10a" class="w-full h-full object-contain" alt="Guru Avatar">
+    </div>
+    <div class="bg-pa-bg p-4 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs sm:text-sm text-pa-darkbrown leading-relaxed max-w-[85%] shadow-sm">${formattedText}</div>
+  `;
+  chatBox.appendChild(msgDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  // สั่งให้ส่งเสียงพากย์น่ารัก
+  speakCuteFemaleVoice(text);
+}
+
+function appendTypingIndicator() {
+  const chatBox = document.getElementById('chat-messages');
+  const id = 'typing-' + Date.now();
+  const msgDiv = document.createElement('div');
+  msgDiv.id = id;
+  msgDiv.className = 'flex gap-3 items-start';
+  msgDiv.innerHTML = `
+    <div class="w-8 h-8 rounded-full bg-pa-primary/10 border border-pa-primary/30 overflow-hidden shrink-0 p-0.5">
+     <img src="https://cdn.discordapp.com/attachments/1417094894467420214/1549328515889889320/IMG_8698.png?ex=6aaa4c1f&is=6aa8fa9f&hm=8c77581c75af5feb8d975a92fff5647c0160dc71b6c9c999eff19070d19ea10a" class="w-full h-full object-contain" alt="Guru Avatar">
+    </div>
+    <div class="bg-pa-bg px-4 py-3 rounded-2xl rounded-tl-none border border-pa-lightbrown/50 text-xs text-pa-brown flex items-center gap-1.5 shadow-sm">
+      <span>กำลังประมวลผล</span><span class="animate-bounce">.</span><span class="animate-bounce" style="animation-delay: 0.2s">.</span><span class="animate-bounce" style="animation-delay: 0.4s">.</span>
+    </div>
+  `;
+  chatBox.appendChild(msgDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return id;
+}
+
+function removeMessage(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
     
     // ================= 8. RETRO MINI GAMES ENGINE =================
     let activeGameType = null;
