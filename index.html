@@ -2055,7 +2055,9 @@ const MASCOT_VOICE = {
   volume: 1.0,
   th: { pitch: 1.45, rate: 1.02 },
   en: { pitch: 1.40, rate: 1.00 },
-  maxChars: 420            // ข้อความยาวเกินนี้จะพูดแค่ช่วงต้น (กันพูดยาวจนน่ารำคาญ)
+  maxChars: 420,           // ข้อความยาวเกินนี้จะพูดแค่ช่วงต้น (กันพูดยาวจนน่ารำคาญ)
+  useProxyTTS: true        // true = ขอเสียงไทยจาก Worker (ทุกเครื่องได้ยินเหมือนกัน)
+                           // false = ใช้เสียงที่ติดตั้งในเครื่องผู้ใช้เท่านั้น
 };
 
 const VOICE_STORAGE = 'pineapple_voice_on';
@@ -2148,6 +2150,7 @@ let voicePrimed = false;
 function primeMascotVoice() {
   if (voicePrimed || !('speechSynthesis' in window)) return;
   try {
+    ensureAudioContext();                // ปลุกระบบเสียงในจังหวะที่ผู้ใช้กด
     window.speechSynthesis.resume();     // ปลดล็อกกรณีค้างในสถานะ paused
     refreshVoiceList();
     // ปลุกเครื่องเสียงด้วยข้อความสั้นจริง ๆ (ข้อความว่างทำให้คิวค้างในบาง Chrome)
@@ -2186,13 +2189,61 @@ function buildMascotUtterance(sentence) {
   return utterance;
 }
 
-function speakCuteFemaleVoice(text) {
-  if (!('speechSynthesis' in window)) return;
-  if (!MASCOT_VOICE.enabled) return;
+/* ───────── เสียงจากเซิร์ฟเวอร์ (Gemini TTS) ─────────
+   เครื่องผู้ใช้ส่วนใหญ่ไม่มีเสียงภาษาไทยติดตั้งไว้ ทำให้ speechSynthesis อ่านไทยไม่ได้
+   จึงขอไฟล์เสียงจาก Worker แทน → ทุกคนได้ยินเสียงไทยเหมือนกันหมดไม่ว่าใช้เครื่องอะไร */
+let mascotAudioCtx = null;
+let mascotAudioSource = null;
 
-  window.speechSynthesis.cancel();
-  stopVoiceKeepAlive();
+function ensureAudioContext() {
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    if (!mascotAudioCtx) mascotAudioCtx = new Ctx();
+    if (mascotAudioCtx.state === 'suspended') mascotAudioCtx.resume();
+    return mascotAudioCtx;
+  } catch (err) { return null; }
+}
 
+function stopMascotAudio() {
+  if (mascotAudioSource) {
+    try { mascotAudioSource.stop(); } catch (err) { }
+    mascotAudioSource = null;
+  }
+}
+
+async function speakViaProxy(cleanText) {
+  const url = getProxyUrl();
+  if (!url) return false;
+
+  const ctx = ensureAudioContext();
+  if (!ctx) return false;
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: cleanText.slice(0, 400), tts: true })
+  });
+
+  if (!res.ok) return false;
+  if ((res.headers.get('content-type') || '').indexOf('audio') === -1) return false;
+
+  const buf = await res.arrayBuffer();
+  if (!buf || buf.byteLength < 100) return false;
+
+  const decoded = await ctx.decodeAudioData(buf);
+  stopMascotAudio();
+
+  const src = ctx.createBufferSource();
+  src.buffer = decoded;
+  src.connect(ctx.destination);
+  src.start();
+  mascotAudioSource = src;
+  return true;
+}
+
+/* ทำความสะอาดข้อความก่อนอ่านออกเสียง */
+function cleanForSpeech(text) {
   let cleanText = String(text || '')
     .replace(/<[^>]*>/g, '')
     .replace(/[\*\_\~`#]/g, '')
@@ -2212,14 +2263,18 @@ function speakCuteFemaleVoice(text) {
     .replace(/\n+/g, '. ')
     .trim();
 
-  if (!cleanText) return;
   if (cleanText.length > MASCOT_VOICE.maxChars) {
     cleanText = cleanText.slice(0, MASCOT_VOICE.maxChars) + ' ค่ะ';
   }
+  return cleanText;
+}
+
+/* อ่านด้วยเสียงของเครื่องผู้ใช้ (แผนสำรองเมื่อขอเสียงจากเซิร์ฟเวอร์ไม่ได้) */
+function speakWithBrowserVoice(cleanText) {
+  if (!('speechSynthesis' in window) || !cleanText) return;
 
   refreshVoiceList();
   const sentences = splitForSpeech(cleanText);
-
   let started = false;
 
   sentences.forEach((sentence, idx) => {
@@ -2249,6 +2304,30 @@ function speakCuteFemaleVoice(text) {
   }, 500);
 }
 
+function speakCuteFemaleVoice(text) {
+  if (!MASCOT_VOICE.enabled) return;
+
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  stopVoiceKeepAlive();
+  stopMascotAudio();
+
+  const cleanText = cleanForSpeech(text);
+  if (!cleanText) return;
+
+  // ลองขอเสียงไทยจากเซิร์ฟเวอร์ก่อน ถ้าไม่ได้ค่อยใช้เสียงของเครื่อง
+  if (MASCOT_VOICE.useProxyTTS && getProxyUrl()) {
+    speakViaProxy(cleanText)
+      .then(ok => { if (!ok) speakWithBrowserVoice(cleanText); })
+      .catch(err => {
+        console.warn('[เสียง] ขอเสียงจากเซิร์ฟเวอร์ไม่สำเร็จ ใช้เสียงเครื่องแทน:', err);
+        speakWithBrowserVoice(cleanText);
+      });
+    return;
+  }
+
+  speakWithBrowserVoice(cleanText);
+}
+
 /* ตัวตรวจสอบเสียง — บอกว่าเครื่องนี้มีเสียงอะไรบ้าง และพูดออกมาจริงไหม */
 function testMascotVoice() {
   const box = document.getElementById('voice-report');
@@ -2262,6 +2341,12 @@ function testMascotVoice() {
     'เสียงที่จะถูกใช้: <b>' + (picked ? picked.name + ' (' + picked.lang + ')' : 'ยังหาไม่เจอ') + '</b>'
   ];
 
+  if (MASCOT_VOICE.useProxyTTS && getProxyUrl()) {
+    lines.unshift('<span class="text-green-700"><b>โหมด:</b> ขอเสียงไทยจากเซิร์ฟเวอร์ (ไม่ต้องพึ่งเสียงในเครื่อง)</span>');
+  } else {
+    lines.unshift('<b>โหมด:</b> ใช้เสียงที่ติดตั้งในเครื่องนี้');
+  }
+
   if (cachedVoices.length === 0) {
     lines.push('<span class="text-red-600">⚠️ เครื่องนี้ยังไม่มีเสียงพูดติดตั้งไว้เลยค่ะ ต้องเพิ่มเสียงในการตั้งค่าของระบบปฏิบัติการก่อน</span>');
   } else if (thaiVoices.length === 0) {
@@ -2274,6 +2359,24 @@ function testMascotVoice() {
     const el = document.getElementById('voice-test-status');
     if (el) el.innerHTML = msg;
   };
+
+  // ถ้าตั้งค่าให้ใช้เสียงจากเซิร์ฟเวอร์ ให้ทดสอบเส้นทางนั้นก่อน
+  if (MASCOT_VOICE.useProxyTTS && getProxyUrl()) {
+    setStatus('⏳ กำลังขอเสียงไทยจากเซิร์ฟเวอร์...');
+    speakViaProxy('สวัสดีค่ะ หนูคือสับปะรดกูรูน้าา')
+      .then(ok => {
+        if (ok) setStatus('<span class="text-green-700">🔊 เสียงไทยจากเซิร์ฟเวอร์ กำลังเล่นอยู่ค่ะ!</span>');
+        else {
+          setStatus('<span class="text-amber-700">⚠️ เซิร์ฟเวอร์ไม่ส่งเสียงมา ลองใช้เสียงของเครื่องแทน...</span>');
+          speakWithBrowserVoice('สวัสดีค่ะ หนูคือสับปะรดกูรูน้าา');
+        }
+      })
+      .catch(err => {
+        setStatus('<span class="text-amber-700">⚠️ ขอเสียงจากเซิร์ฟเวอร์ไม่ได้ (' + err.message + ') ใช้เสียงเครื่องแทน</span>');
+        speakWithBrowserVoice('สวัสดีค่ะ หนูคือสับปะรดกูรูน้าา');
+      });
+    return;
+  }
 
   try {
     window.speechSynthesis.cancel();
@@ -2298,7 +2401,7 @@ function testMascotVoice() {
 function toggleMascotVoice() {
   MASCOT_VOICE.enabled = !MASCOT_VOICE.enabled;
   try { localStorage.setItem(VOICE_STORAGE, MASCOT_VOICE.enabled ? '1' : '0'); } catch (err) {}
-  if (!MASCOT_VOICE.enabled) { window.speechSynthesis.cancel(); stopVoiceKeepAlive(); }
+  if (!MASCOT_VOICE.enabled) { window.speechSynthesis.cancel(); stopVoiceKeepAlive(); stopMascotAudio(); }
   updateVoiceButton();
   updateMascotSpeech(MASCOT_VOICE.enabled ? 'เปิดเสียงพากย์แล้วค่าา~ 🔊' : 'ปิดเสียงแล้วน้าา เงียบ ๆ กันค่ะ 🤫');
 }
