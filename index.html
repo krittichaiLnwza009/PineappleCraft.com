@@ -2524,7 +2524,7 @@ function getSmartKnowledgeBaseReply(msg) {
 const GEMINI_CONFIG = {
   // ✅ ทางที่ปลอดภัย: ยิงผ่าน proxy ของเราเอง คีย์เก็บไว้ฝั่งเซิร์ฟเวอร์ ไม่โผล่ในหน้าเว็บ
   //    ใส่ URL ของ Cloudflare Worker ที่ deploy แล้วตรงนี้ (ดูวิธีในไฟล์ DEPLOY-worker.md)
-  proxyUrl: 'lively-wave-6aec.tinnapat-tha6765.workers.dev',
+  proxyUrl: 'https://lively-wave-6aec.tinnapat-tha6765.workers.dev',
 
   // 🔑 ใช้เฉพาะตอนทดสอบในเครื่องตัวเองเท่านั้น — ห้าม commit คีย์ขึ้น GitHub เด็ดขาด
   //    ปล่อยว่างไว้ แล้วกดปุ่ม "ตั้งค่า AI" บนหัวแชทเพื่อใส่คีย์ชั่วคราวแทน
