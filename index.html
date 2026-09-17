@@ -2089,60 +2089,84 @@ function toggleExpand(stepId) {
     }
 // ================= 7. SMART AI ASSISTANT (HUMAN-LIKE & WITTY WITH VOICE) =================
 
-// ฟังก์ชันพากย์เสียงผู้หญิงน่ารักและ Smooth (Text-to-Speech)
+// ฟังก์ชันพากย์เสียงผู้หญิงน่ารัก Kawaii สไตล์ Anime (รองรับ ไทย-อังกฤษ + พูดลื่นไหล)
 function speakCuteFemaleVoice(text) {
   if (!('speechSynthesis' in window)) return;
 
-  // 1. แปลงคำและกรองข้อความให้เข้ากับการออกเสียงภาษาไทยที่ลื่นไหล
+  // 1. ยกเลิกเสียงพูดเดิมก่อนหน้า
+  window.speechSynthesis.cancel();
+
+  // 2. แปลงคำและกรองข้อความให้เข้ากับการออกเสียงที่ลื่นไหล
   let cleanText = text
     .replace(/<[^>]*>/g, '')                        // ลบ HTML tags
-    .replace(/\*\*(.*?)\*\*/g, '$1')                // ลบ ตัวหนา
-    .replace(/https?:\/\/\S+/g, 'ตามลิงก์นี้เลยค่ะ') // แทนที่ URL
-    .replace(/[•\-\*]/g, ' ')                       // เปลี่ยนสัญลักษณ์หัวข้อเป็นช่องว่างเพื่อเว้นจังหวะ
+    .replace(/[\*\_\~`#]/g, '')                     // ลบ Markdown formatting
+    .replace(/https?:\/\/\S+/gi, 'ตามลิงก์นี้เลยค่ะ') // แทนที่ URL
+    .replace(/[•\-\*\t]/g, ' ')                      // เปลี่ยนสัญลักษณ์หัวข้อเป็นช่องว่างเพื่อเว้นจังหวะ
     .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '') // ลบ อีโมจิ
     
     // แปลงสัญลักษณ์/คำย่อยทางเทคนิคให้เป็นคำอ่านนุ่มนวล
     .replace(/pH/gi, 'ค่าพีเอช')
     .replace(/%/g, ' เปอร์เซ็นต์ ')
-    .replace(/กก\./g, ' กิโลกรัม ')
-    .replace(/ซม\./g, ' เซนติเมตร ')
+    .replace(/กก\./gi, ' กิโลกรัม ')
+    .replace(/ซม\./gi, ' เซนติเมตร ')
+    .replace(/ม\./gi, ' เมตร ')
     .replace(/ไร่/g, ' ไร่ ')
     .replace(/(\d+)\s*-\s*(\d+)/g, '$1 ถึง $2')     // เปลี่ยน 4.5 - 5.5 เป็น 4.5 ถึง 5.5
     .replace(/\//g, ' ต่อ ')                        // เปลี่ยน / เป็น ต่อ
-    .replace(/\n+/g, '  ')                         // เปลี่ยนการขึ้นบรรทัดใหม่เป็นเว้นจังหวะหายใจ
+    .replace(/\n+/g, '. ')                          // เปลี่ยนขึ้นบรรทัดใหม่เป็นจุดเพื่อแบ่งวรรคประโยค
     .trim();
 
-  window.speechSynthesis.cancel(); // ยกเลิกเสียงพูดเดิมก่อนหน้า
+  if (!cleanText) return;
 
-  const utterance = new SpeechSynthesisUtterance(cleanText);
-  utterance.lang = 'th-TH';
-
-  // 2. ปรับแต่งโทนเสียงให้น่ารักสดใส (ไม่แหลมหลอนจนเกินไป)
-  utterance.pitch = 1.25;  // คีย์เสียงสูงน่ารักกำลังดี (1.2 - 1.3)
-  utterance.rate = 0.98;   // ความเร็วผ่อนลงเล็กน้อย เพื่อความ Smooth และฟังง่าย
-  utterance.volume = 1.0;  // ความดังระดับสูงสุด
-
-  // 3. คัดเลือกเสียงผู้หญิงคุณภาพสูง (Prioritize Premium / Natural Voices)
+  // 3. หั่นข้อความออกเป็นประโยคย่อย ช่วยให้จังหวะพูดลื่นไหล + แก้ปัญหา TTS ค้างใน Chrome
+  const sentences = cleanText.split(/(?<=[,!?.\n])\s+|(?<=\s{2,})/g).filter(s => s.trim().length > 0);
   const voices = window.speechSynthesis.getVoices();
-  const thaiVoices = voices.filter(v => v.lang.includes('th') || v.lang.includes('TH'));
 
-  const preferredVoice = thaiVoices.find(v => 
-    v.name.includes('Google') || 
-    v.name.includes('Natural') || 
-    v.name.includes('Premwadee') || 
-    v.name.includes('Kanya') || 
-    v.name.includes('Siri') ||
-    v.name.includes('Online')
-  ) || thaiVoices[0];
+  sentences.forEach((sentence) => {
+    const trimmed = sentence.trim();
+    if (!trimmed) return;
 
-  if (preferredVoice) {
-    utterance.voice = preferredVoice;
-  }
+    const utterance = new SpeechSynthesisUtterance(trimmed);
 
-  window.speechSynthesis.speak(utterance);
+    // ตรวจสอบภาษาในประโยค (มีอักษรไทยหรือไม่)
+    const hasThai = /[\u0E00-\u0E7F]/.test(trimmed);
+
+    if (hasThai) {
+      // --- โหมดภาษาไทย (สดใสน่ารัก Kawaii) ---
+      utterance.lang = 'th-TH';
+      utterance.pitch = 1.35;  // คีย์เสียงสูงสดใส สไตล์ Anime (1.3 - 1.4)
+      utterance.rate = 1.02;   // ความเร็วสดใส มีชีวิตชีวา
+      utterance.volume = 1.0;
+
+      // คัดเลือกเสียงผู้หญิงไทยคุณภาพสูง
+      const thaiVoice = voices.find(v => 
+        (v.lang.includes('th') || v.lang.includes('TH')) && 
+        (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Premwadee') || v.name.includes('Kanya') || v.name.includes('Siri') || v.name.includes('Online'))
+      ) || voices.find(v => v.lang.includes('th') || v.lang.includes('TH'));
+
+      if (thaiVoice) utterance.voice = thaiVoice;
+
+    } else {
+      // --- โหมดภาษาอังกฤษ (Cute Anime Girl Voice) ---
+      utterance.lang = 'en-US';
+      utterance.pitch = 1.38;  // Pitch สูงสดใสแบบสาวน้อยอนิเมะ
+      utterance.rate = 1.05;   // จังหวะการพูดกระฉับกระเฉง
+      utterance.volume = 1.0;
+
+      // คัดเลือกเสียงผู้หญิงอังกฤษน่ารักคุณภาพสูง
+      const engVoice = voices.find(v => 
+        (v.lang.startsWith('en')) && 
+        (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Zira') || v.name.includes('Jenny') || v.name.includes('Victoria') || v.name.includes('Siri'))
+      ) || voices.find(v => v.lang.startsWith('en'));
+
+      if (engVoice) utterance.voice = engVoice;
+    }
+
+    window.speechSynthesis.speak(utterance);
+  });
 }
 
-// โหลดข้อมูลเสียงล่วงหน้าสำหรับ Chrome
+// โหลดข้อมูลเสียงล่วงหน้าสำหรับ Chrome / Edge / Safari
 if ('speechSynthesis' in window) {
   window.speechSynthesis.onvoiceschanged = () => {
     window.speechSynthesis.getVoices();
@@ -2206,7 +2230,7 @@ function getSmartKnowledgeBaseReply(msg) {
     return getRandomReply([
       "ไม่ได้กวนน่ะ เขาเรียกว่ามีอารมณ์ขันระดับพืชสวน! 🍍",
       "หยอกวันละนิดจิตแจ่มใสค่ะ คุยเรื่องวิชาการมาเยอะ มาคุยสบายๆ บ้าง",
-      "บ้าแล้วรักปะล่ะ? หมายถึงรักสับปะรดนะUWU!"
+      "บ้าแล้วรักปะล่ะ? หมายถึงรักสับปะรดนะ UWU!"
     ]);
   }
 
@@ -2397,7 +2421,7 @@ function appendBotMessage(text) {
   chatBox.appendChild(msgDiv);
   chatBox.scrollTop = chatBox.scrollHeight;
 
-  // สั่งให้ส่งเสียงพากย์น่ารัก
+  // สั่งให้ส่งเสียงพากย์น่ารัก Anime (TH/EN)
   speakCuteFemaleVoice(text);
 }
 
@@ -2427,9 +2451,7 @@ function removeMessage(id) {
 
 function escapeHtml(text) {
   return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-
-    
+}    
     // ================= 8. RETRO MINI GAMES ENGINE =================
     let activeGameType = null;
     let flappyAnimationId;
