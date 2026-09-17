@@ -2089,35 +2089,54 @@ function toggleExpand(stepId) {
     }
 // ================= 7. SMART AI ASSISTANT (HUMAN-LIKE & WITTY WITH VOICE) =================
 
-// ฟังก์ชันพากย์เสียงผู้หญิงน่ารัก (Text-to-Speech)
+// ฟังก์ชันพากย์เสียงผู้หญิงน่ารักและ Smooth (Text-to-Speech)
 function speakCuteFemaleVoice(text) {
   if (!('speechSynthesis' in window)) return;
 
-  // กรองข้อความและสัญลักษณ์ที่ไม่ต้องการให้อ่านออกเสียง
+  // 1. แปลงคำและกรองข้อความให้เข้ากับการออกเสียงภาษาไทยที่ลื่นไหล
   let cleanText = text
-    .replace(/<[^>]*>/g, '')                 // ลบ HTML tags
-    .replace(/\*\*(.*?)\*\*/g, '$1')         // ลบ Markdown ตัวหนา
-    .replace(/https?:\/\/\S+/g, 'ตามลิงก์นี้เลยค่ะ') // เปลี่ยน URL ให้พูดสั้นๆ
-    .replace(/[•\-\*]/g, '')                 // ลบหัวข้อสัญลักษณ์
+    .replace(/<[^>]*>/g, '')                        // ลบ HTML tags
+    .replace(/\*\*(.*?)\*\*/g, '$1')                // ลบ ตัวหนา
+    .replace(/https?:\/\/\S+/g, 'ตามลิงก์นี้เลยค่ะ') // แทนที่ URL
+    .replace(/[•\-\*]/g, ' ')                       // เปลี่ยนสัญลักษณ์หัวข้อเป็นช่องว่างเพื่อเว้นจังหวะ
     .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '') // ลบ อีโมจิ
+    
+    // แปลงสัญลักษณ์/คำย่อยทางเทคนิคให้เป็นคำอ่านนุ่มนวล
+    .replace(/pH/gi, 'ค่าพีเอช')
+    .replace(/%/g, ' เปอร์เซ็นต์ ')
+    .replace(/กก\./g, ' กิโลกรัม ')
+    .replace(/ซม\./g, ' เซนติเมตร ')
+    .replace(/ไร่/g, ' ไร่ ')
+    .replace(/(\d+)\s*-\s*(\d+)/g, '$1 ถึง $2')     // เปลี่ยน 4.5 - 5.5 เป็น 4.5 ถึง 5.5
+    .replace(/\//g, ' ต่อ ')                        // เปลี่ยน / เป็น ต่อ
+    .replace(/\n+/g, '  ')                         // เปลี่ยนการขึ้นบรรทัดใหม่เป็นเว้นจังหวะหายใจ
     .trim();
 
   window.speechSynthesis.cancel(); // ยกเลิกเสียงพูดเดิมก่อนหน้า
 
   const utterance = new SpeechSynthesisUtterance(cleanText);
   utterance.lang = 'th-TH';
-  utterance.pitch = 1.35; // ปรับความสูงเสียงให้น่ารักสดใส (1.3 - 1.4)
-  utterance.rate = 1.05;  // ปรับความเร็วเสียงเล็กน้อย
 
-  // ดึงเสียงผู้หญิงภาษาไทย
+  // 2. ปรับแต่งโทนเสียงให้น่ารักสดใส (ไม่แหลมหลอนจนเกินไป)
+  utterance.pitch = 1.25;  // คีย์เสียงสูงน่ารักกำลังดี (1.2 - 1.3)
+  utterance.rate = 0.98;   // ความเร็วผ่อนลงเล็กน้อย เพื่อความ Smooth และฟังง่าย
+  utterance.volume = 1.0;  // ความดังระดับสูงสุด
+
+  // 3. คัดเลือกเสียงผู้หญิงคุณภาพสูง (Prioritize Premium / Natural Voices)
   const voices = window.speechSynthesis.getVoices();
-  const thaiFemaleVoice = voices.find(v => 
-    (v.lang.includes('th') || v.lang.includes('TH')) && 
-    (v.name.includes('Kanya') || v.name.includes('Narisa') || v.name.includes('Premwadee') || v.name.includes('Google') || v.name.includes('Female'))
-  ) || voices.find(v => v.lang.includes('th') || v.lang.includes('TH'));
+  const thaiVoices = voices.filter(v => v.lang.includes('th') || v.lang.includes('TH'));
 
-  if (thaiFemaleVoice) {
-    utterance.voice = thaiFemaleVoice;
+  const preferredVoice = thaiVoices.find(v => 
+    v.name.includes('Google') || 
+    v.name.includes('Natural') || 
+    v.name.includes('Premwadee') || 
+    v.name.includes('Kanya') || 
+    v.name.includes('Siri') ||
+    v.name.includes('Online')
+  ) || thaiVoices[0];
+
+  if (preferredVoice) {
+    utterance.voice = preferredVoice;
   }
 
   window.speechSynthesis.speak(utterance);
